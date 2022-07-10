@@ -4,7 +4,7 @@
 #include <memory>
 #include "relationalbroker.h"
 #include <vector>
-
+#include <mutex>
 class Netizen;
 
 class NetizenBroker : public RelationalBroker
@@ -12,6 +12,7 @@ class NetizenBroker : public RelationalBroker
 public:
     ~NetizenBroker();
     static NetizenBroker* getInstance();
+    static void flush();
 
     //根据用户ID检验用户是否存在
     //id：用户输入id
@@ -44,6 +45,19 @@ public:
 private:
     NetizenBroker();
     static NetizenBroker* m_netizenBroker;
+    static std::mutex m_mutex;
+    static std::unordered_map<long, Netizen> _newClean;  //新的净缓存
+    static std::unordered_map<long, Netizen> _newDirty;  //新的脏缓存
+    static std::unordered_map<long, Netizen> _newDelete; //新的删除缓存
+    static std::unordered_map<long, Netizen> _oldClean;  //旧的净缓存
+    static std::unordered_map<long, Netizen> _oldDirty;  //旧的脏缓存
+    static std::unordered_map<long, Netizen> _oldDelete; //旧的删除缓存
+
+    static void cacheFlush();   //将数据写入数据库
+    static void cacheDel();  //删除数据库中的数据
+    static void cacheUpdate();   //修改数据库中的数据
+    static Netizen* inCache(std::string id);   //判断是否在缓存中
+
 };
 
 #endif // NETIZENBROKER_H

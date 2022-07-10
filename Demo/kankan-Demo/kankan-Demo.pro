@@ -1,9 +1,11 @@
 TEMPLATE = app
-CONFIG += console c++17
+CONFIG += console c++20
 CONFIG -= app_bundle
 CONFIG -= qt
 
 LIBS += -lmariadbcpp
+unix|win32: LIBS += -lpthread
+
 
 SOURCES += \
         cache.cpp \
@@ -11,6 +13,7 @@ SOURCES += \
         commentbroker.cpp \
         commentproxy.cpp \
         main.cpp \
+        mytimer.cpp \
         netizen.cpp \
         netizenbroker.cpp \
         netizenproxy.cpp \
@@ -29,6 +32,7 @@ HEADERS += \
     commentbroker.h \
     commentinterface.h \
     commentproxy.h \
+    mytimer.h \
     netizen.h \
     netizenbroker.h \
     netizeninterface.h \

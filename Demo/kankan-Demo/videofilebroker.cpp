@@ -2,6 +2,13 @@
 #include <iostream>
 
 VideoFileBroker* VideoFileBroker::m_videoFileBroker = nullptr;
+std::mutex VideoFileBroker::m_mutex = {};
+std::unordered_map<std::string, VideoFile> VideoFileBroker::_newClean = {};
+std::unordered_map<std::string, VideoFile> VideoFileBroker::_newDirty = {};
+std::unordered_map<std::string, VideoFile> VideoFileBroker::_newDelete = {};
+std::unordered_map<std::string, VideoFile> VideoFileBroker::_oldClean = {};
+std::unordered_map<std::string, VideoFile> VideoFileBroker::_oldDirty = {};
+std::unordered_map<std::string, VideoFile> VideoFileBroker::_oldDelete = {};
 
 VideoFileBroker::~VideoFileBroker()
 {
@@ -39,4 +46,72 @@ std::shared_ptr<VideoFile> VideoFileBroker::getVideoFile(std::string &id)
 VideoFileBroker::VideoFileBroker()
 {
 
+}
+
+void VideoFileBroker::cacheFlush()
+{
+    std::string sql = "insert into comment values ";
+    for(auto iter = _newClean.begin(); iter != _newClean.end();){
+
+        //应该保证当进行插入时，数据是不可以被其他线程所更改的
+        std::lock_guard<std::mutex> lk(m_mutex);
+
+        sql += "('" + iter->first+ "','" + iter->second.address() + "','" + iter->second.videoId() + "'),";
+
+        //从对应缓存中删除相关数据
+        //erase的返回值是一个迭代器，指向删除元素下一个元素。
+        _newClean.erase(iter++);
+    }
+
+    for(auto it = _newDirty.begin(); it != _newDirty.end();){
+
+        //应该保证当进行插入时，数据是不可以被其他线程所更改的
+        std::lock_guard<std::mutex> lk(m_mutex);
+
+        sql += "('" + it->first+ "','" + it->second.address() + "','" + it->second.videoId() + "'),";
+
+        //从对应缓存中删除相关数据
+        //erase的返回值是一个迭代器，指向删除元素下一个元素。
+        _newClean.erase(it++);
+    }
+
+    if (!sql.empty()) sql.pop_back(); //去掉最后一个逗号
+    insert(sql);   //执行批量插入，插入新的净缓存和新的脏缓存中的数据
+}
+
+void VideoFileBroker::cacheUpdate()
+{
+
+}
+
+void VideoFileBroker::cacheDel()
+{
+    for(auto iter = _newDelete.begin(); iter != _newDelete.end();){
+
+        //应该保证当进行插入时，数据是不可以被其他线程所更改的
+        std::lock_guard<std::mutex> lk(m_mutex);
+
+        //从对应缓存中删除相关数据
+        //erase的返回值是一个迭代器，指向删除元素下一个元素。
+        _newDelete.erase(iter++);  //删除新的 删除缓存
+    }
+
+    for(auto it = _oldDelete.begin(); it != _oldDelete.end();){
+
+        //应该保证当进行插入时，数据是不可以被其他线程所更改的
+        std::lock_guard<std::mutex> lk(m_mutex);
+
+        std::string sql = "delete from videofile where id=" + it->first;
+        del(sql);
+        //从对应缓存中删除相关数据
+        //erase的返回值是一个迭代器，指向删除元素下一个元素。
+        _oldDelete.erase(it++);    //删除旧的 删除缓存
+    }
+}
+
+void VideoFileBroker::flush()
+{
+    cacheFlush();
+    cacheDel();
+//    cacheUpdate();
 }

@@ -69,3 +69,13 @@ std::vector<std::string> Netizen::getInfo()
 
     return results;
 }
+
+const std::string &Netizen::key() const
+{
+    return m_key;
+}
+
+const std::string &Netizen::nickname() const
+{
+    return m_nickname;
+}
