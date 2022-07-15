@@ -26,14 +26,16 @@ public:
     void getSomeVideos(std::vector<std::string> ids);
 
     //加载稿件的完整信息
-    void loadVidoe(std::string id);
+    void loadVideo(std::string id);
 
     //合并视频
     std::string mergeVideoFiles(std::vector<std::string> videoFiles);
 
     //生成稿件
-    void createVideo(std::string description, std::string title, std::string label,
-                     std::string subarea, bool isOriginal, std::string cover, std::string date, std::vector<std::string> commentIds, std::string videoFileId);
+    void createVideo(std::string description, std::string title, std::string label, std::string subarea, bool isOriginal, std::string cover, std::string date, long user_id, std::string videoFileId);
+
+    //发表评论
+    void commentVideo(std::string& content,long netizenId, const std::string videoId);
 
 private:
     static void flush();

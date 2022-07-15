@@ -12,6 +12,7 @@ public:
     static void flush();
     std::shared_ptr<VideoFile> getVideoFile(const std::string& id);
     std::shared_ptr<VideoFile> retrieveVideoFile(const std::string& id);
+    void addVideoFile(const std::string& id, const VideoFile& videoFile);
 private:
     VideoFileBroker();
     static VideoFileBroker* m_videoFileBroker;

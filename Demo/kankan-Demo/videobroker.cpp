@@ -80,6 +80,11 @@ std::shared_ptr<Video> VideoBroker::retrieveVideo(const std::string &id)
     return std::make_shared<Video>(_oldClean.at(id));
 }
 
+void VideoBroker::addVideo(const std::string &id, const Video &video)
+{
+    _newClean.insert({id, video});
+}
+
 std::shared_ptr<Video> VideoBroker::inCache(std::string id)
 {
     //判断是否在缓存中

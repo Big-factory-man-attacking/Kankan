@@ -1,8 +1,8 @@
 #include "video.h"
-#include "videofileproxy.h"
 #include <utility>
 #include <iostream>
-
+#include "videofileproxy.h"
+#include "commentproxy.h"
 Video::Video(std::string id, std::string description, std::string title, std::string label,
              std::string subarea, bool isOriginal, std::string cover, std::string date, long user_id, std::vector<std::string> commentIds, std::string videoFileId) :
     m_id{id}, m_description{description}, m_title{title},
@@ -33,6 +33,13 @@ std::vector<std::string> Video::getVideoInfo()
     std::cout << "\n";
 
     return results;
+}
+
+
+
+void Video::addNewComment(std::string &id)
+{
+    _comments.insert({id, CommentProxy(id)});
 }
 
 void Video::init()

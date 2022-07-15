@@ -12,7 +12,7 @@ public:
     static void flush();
     std::shared_ptr<Video> getVideo(const std::string& id);
     std::shared_ptr<Video> retrieveVideo(const std::string& id);
-
+    void addVideo(const std::string& id, const Video& video);
     //检索缓存以及数据库，返回video对象
     //id：稿件id
 

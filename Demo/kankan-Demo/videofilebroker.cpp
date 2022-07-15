@@ -51,6 +51,11 @@ std::shared_ptr<VideoFile> VideoFileBroker::retrieveVideoFile(const std::string 
     return std::make_shared<VideoFile>(_oldClean.at(id));
 }
 
+void VideoFileBroker::addVideoFile(const std::string &id, const VideoFile &videoFile)
+{
+    _newClean.insert({id, videoFile});
+}
+
 
 std::shared_ptr<VideoFile> VideoFileBroker::inCache(std::string id)
 {

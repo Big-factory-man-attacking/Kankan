@@ -29,14 +29,16 @@ public:
     Netizen(long id, std::string nickname, std::string headPortrait, std::vector<std::string> videosId,
             std::vector<long> fansId, std::vector<long> followersId);
 
-
-    void init();
     //登录后进行信息初始化
-
+    void init();
 
     //返回网民的昵称和头像
     std::vector<std::string> getInfo();
 
+    //评论
+    void comment(const std::string& content, const std::string& videoId);
+    //添加新的稿件给网民
+    void addNewVideo(std::string& id);
 
     const std::string &key() const;
     const std::string &nickname() const;

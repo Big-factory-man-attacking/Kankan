@@ -16,13 +16,15 @@ class Video : public VideoInterface
 {
 public:
     Video() = delete;
-    Video(std::string id, std::string description, std::string title, std::string label,
-          std::string subarea, bool isOriginal, std::string cover, std::string date, long user_id, std::vector<std::string> commentIds, std::string videoFileId);
+    Video(std::string id, std::string description, std::string title, std::string label, std::string subarea, bool isOriginal, std::string cover, std::string date, long user_id, std::vector<std::string> commentIds, std::string videoFileId);
     ~Video();
 
     std::vector<std::string> getVideoInfo();
     //获取稿件的数据（标题、发布时间、稿件时长[通过m_videoFile对象去获取时长]、封面）
     //后续可考虑替换为json传输
+
+    //将新生成的评论添加到稿件中
+    void addNewComment(std::string& id);
 
     void init();
     //通过代理实例化videofile对象

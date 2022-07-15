@@ -40,6 +40,7 @@ public:
 
     //通过用户id查找所有关注者id
     std::vector<long> findNetizenFollowers(const long id);
+    void addNetizen(long id, const Netizen& netizen);
 
 private:
     NetizenBroker();

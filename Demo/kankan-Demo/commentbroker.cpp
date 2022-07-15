@@ -59,7 +59,12 @@ std::shared_ptr<Comment> CommentBroker::retrieveComment(const std::string &id)
     std::cout << "Comment对象实例化成功" << std::endl;
      _oldClean.insert({id, com});
 
-    return std::make_shared<Comment>(_oldClean.at(id));
+     return std::make_shared<Comment>(_oldClean.at(id));
+}
+
+void CommentBroker::addComment(const std::string& id,const Comment &comment)
+{
+    _newClean.insert({id,comment});
 }
 
 void CommentBroker::cacheFlush()

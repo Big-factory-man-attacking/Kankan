@@ -184,7 +184,7 @@ std::shared_ptr<Netizen> NetizenBroker::retrieveNetizen(const long id)
     std::cout << "用户名：" << nickname << std::endl;
 
     //调用Netizen(id, nickname, videosId, fansId, followersId);
-    Netizen net(id, "www.cv",nickname, findNetizenVideos(id), findNetizenFans(id), findNetizenFollowers(id));
+    Netizen net(id,nickname, "www.cv", findNetizenVideos(id), findNetizenFans(id), findNetizenFollowers(id));
     std::cout << "Netizen对象实例化成功" << std::endl;
 
      _oldClean.insert({id,  net});   //将从数据库中获取的对象添加到缓存
@@ -225,6 +225,11 @@ std::vector<long> NetizenBroker::findNetizenFollowers(const long id)
     }
 
     return followerIds;
+}
+
+void NetizenBroker::addNetizen(long id, const Netizen &netizen)
+{
+    _newClean.insert({id, netizen});
 }
 
 

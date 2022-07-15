@@ -1,8 +1,9 @@
-#include "netizen.h"
 #include <string>
 #include <iostream>
-
-
+#include "netizen.h"
+#include "comment.h"
+#include "commentbroker.h"
+#include "videobroker.h"
 Netizen::Netizen(long id, std::string key) :
     m_id{id}, m_key{key}
 {
@@ -73,6 +74,28 @@ std::vector<std::string> Netizen::getInfo()
     std::cout << "\n";
 
     return results;
+}
+
+void Netizen::comment(const std::string &content, const std::string &videoId)
+{
+    //1. 生成comment id
+    std::string id = "";
+
+    //2. 生成Comment对象
+    Comment comment(id, content,videoId, m_id);
+
+    //3. 将Comment对象存入缓存
+    CommentBroker::getInstance()->addComment(id, comment);
+
+    //4. 建立comment和video的联系
+    auto video = VideoBroker::getInstance()->getVideo(videoId);
+    video->addNewComment(id);
+
+}
+
+void Netizen::addNewVideo(std::string &id)
+{
+    _videos.insert({id, VideoProxy(id)});
 }
 
 const std::string &Netizen::key() const

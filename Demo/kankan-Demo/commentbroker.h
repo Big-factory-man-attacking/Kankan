@@ -4,7 +4,7 @@
 #include "relationalbroker.h"
 #include "comment.h"
 #include <mutex>
-
+#include <string>
 class CommentBroker : public RelationalBroker
 {
 public:
@@ -13,6 +13,7 @@ public:
     static void flush();
     std::shared_ptr<Comment> getComment(const std::string& id);
     std::shared_ptr<Comment> retrieveComment(const std::string& id);
+    void addComment(const std::string& id, const Comment& comment);
 private:
     CommentBroker();
     static CommentBroker* m_commentBroker;
