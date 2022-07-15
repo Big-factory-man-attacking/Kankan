@@ -37,9 +37,14 @@ public:
     //发表评论
     void commentVideo(std::string& content,long netizenId, const std::string videoId);
 
+    //关注
+    void follow(long netizenId, long followerId);
+
 private:
     static void flush();
+    static void notificationFlush();
     MyTimer m_timer;
+    MyTimer m_notiifyTimer;
 };
 
 #endif // VIDEOSOCIALCONTROL_H

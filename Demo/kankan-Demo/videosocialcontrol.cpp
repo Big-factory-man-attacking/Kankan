@@ -7,15 +7,17 @@
 #include "commentbroker.h"
 #include "videobroker.h"
 #include "videofilebroker.h"
-
+#include "messagesequence.h"
 
 VideoSocialControl::VideoSocialControl()
 {
     m_timer.start(2000, flush);
+    m_notiifyTimer.start(10000, notificationFlush);
 }
 
 VideoSocialControl::~VideoSocialControl()
 {
+
 
 }
 
@@ -94,32 +96,22 @@ std::string VideoSocialControl::mergeVideoFiles(std::vector<std::string> videoFi
 
 void VideoSocialControl::createVideo(std::string description, std::string title, std::string label, std::string subarea, bool isOriginal, std::string cover, std::string date, long user_id, std::string videoFileId)
 {
-    //1. 生成Video的id
-    std::string id ="1";
-    //新创建的稿件没有评论
-    std::vector<std::string> comments;
-    //2. 构造Video对象
-    Video video(id, description, title, label, subarea, isOriginal, cover,
-                date, user_id, comments, videoFileId);
-
-    //3. 将video存入缓存
-    VideoBroker::getInstance()->addVideo(id, video);
-
-    //4. 将videoFile对象存入缓存
-    //在这之前，还是需要一个VideoFile对象
-   // VideoFileBroker::getInstance()->addVideoFile(videoFileId, )
-
-    //5. 建立稿件和网民的联系,首先找到对应的网民，然后将稿件交给网民
-    auto netizen = NetizenBroker::getInstance()->findNetizenById(user_id);
-    netizen->addNewVideo(id);
-
-
+    //如果确认发布稿件
+     auto netizen=NetizenBroker::getInstance()->findNetizenById(user_id);
+     netizen->publishVideo(description, title, label, subarea, isOriginal,
+                           cover, date, videoFileId);
 }
 
 void VideoSocialControl::commentVideo(std::string &content, long netizenId, const std::string videoId)
 {
     auto netizen=NetizenBroker::getInstance()->findNetizenById(netizenId);
     netizen->comment(content, videoId);
+}
+
+void VideoSocialControl::follow(long netizenId, long followerId)
+{
+    auto netizen=NetizenBroker::getInstance()->findNetizenById(netizenId);
+    netizen->follow(followerId);
 }
 
 void VideoSocialControl::flush()
@@ -129,6 +121,12 @@ void VideoSocialControl::flush()
     VideoFileBroker::getInstance()->flush();
     CommentBroker::getInstance()->flush();
     std::cout << "执行了一次刷新" << std::endl;
+}
+
+void VideoSocialControl::notificationFlush()
+{
+    std::cout << "发布稿件的消息推送：\n";
+    MessageSequence::getInstance()->updateMessageQueue();
 }
 
 

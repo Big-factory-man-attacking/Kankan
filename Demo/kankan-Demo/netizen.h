@@ -8,7 +8,7 @@
 #include "netizenproxy.h"
 #include "netizeninterface.h"
 #include <vector>
-
+#include <set>
 class Netizen
 {
 public:
@@ -37,13 +37,27 @@ public:
 
     //评论
     void comment(const std::string& content, const std::string& videoId);
+    //发布稿件
+    void publishVideo(std::string description, std::string title, std::string label, std::string subarea, bool isOriginal, std::string cover, std::string date, std::string videoFileId);
+    //关注
+    void follow(long followerId);
+
     //添加新的稿件给网民
     void addNewVideo(std::string& id);
 
     const std::string &key() const;
     const std::string &nickname() const;
 
+    bool online() {return m_online;}
+    void setOnline(bool online) {m_online = online;}
+    //添加一条未查看消息
+    void updateMessage(const std::string& messageId);
+    //选择查看某条消息
+    void checkOneMessage(const std::string& messageId);
+
 private:
+
+    void checkOneVideo(const std::string& videoId);
     long m_id;                                                      //用户id
     std::string m_headPortrait;                                     //用户头像
     std::string m_key;                                              //用户密码
@@ -51,6 +65,9 @@ private:
     std::unordered_map<std::string, VideoProxy> _videos;            //稿件(稿件id，代理)
     std::unordered_map<long, NetizenProxy> _fans;                   //粉丝(粉丝id，代理)
     std::unordered_map<long, NetizenProxy> _followers;              //关注者(关注者id, 代理)
+
+    bool m_online;
+    std::set<std::string> _message;
 };
 
 #endif // NETIZEN_H
