@@ -11,6 +11,8 @@ public:
     static VideoBroker* getInstance();
     static void flush();
     std::shared_ptr<Video> getVideo(const std::string& id);
+    std::shared_ptr<Video> retrieveVideo(const std::string& id);
+
     //检索缓存以及数据库，返回video对象
     //id：稿件id
 
@@ -28,7 +30,7 @@ private:
     static void cacheFlush();   //将数据写入数据库
     static void cacheDel();  //删除数据库中的数据
     static void cacheUpdate();   //修改数据库中的数据
-    static Video* inCache(std::string id);   //判断是否在缓存中
+    static std::shared_ptr<Video> inCache(std::string id);   //判断是否在缓存中
 };
 
 #endif // VIDEOBROKER_H

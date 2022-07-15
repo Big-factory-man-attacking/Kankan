@@ -8,9 +8,6 @@
 #include "videobroker.h"
 #include "videofilebroker.h"
 
-void A() {
-    std::cout << "刷新了一次" << std::endl;
-}
 
 VideoSocialControl::VideoSocialControl()
 {

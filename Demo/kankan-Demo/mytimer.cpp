@@ -10,22 +10,20 @@ MyTimer::MyTimer(const MyTimer &timer)
 
 void MyTimer::start(int interval, std::function<void ()> task)
 {
-    // is started, do not start again
     if (_expired == false)
         return;
 
-    // start async timer, launch thread and wait in that thread
+   //开启一个异步的定时器
     _expired = false;
     std::thread([this, interval, task]() {
         while (!_try_to_expire)
         {
-            // sleep every interval and do the task again and again until times up
             std::this_thread::sleep_for(std::chrono::milliseconds(interval));
             task();
         }
 
         {
-            // timer be stopped, update the condition variable expired and wake main thread
+           //停止定时器，唤醒主线程
             std::lock_guard<std::mutex> locker(_mutex);
             _expired = true;
             _expired_cond.notify_one();
@@ -35,15 +33,13 @@ void MyTimer::start(int interval, std::function<void ()> task)
 
 void MyTimer::stop()
 {
-    // do not stop again
     if (_expired)
         return;
 
     if (_try_to_expire)
         return;
 
-    // wait until timer
-    _try_to_expire = true; // change this bool value to make timer while loop stop
+    _try_to_expire = true;
     {
         std::unique_lock<std::mutex> locker(_mutex);
         _expired_cond.wait(locker, [this] {return _expired == true; });

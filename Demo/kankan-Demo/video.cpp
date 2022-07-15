@@ -39,7 +39,7 @@ void Video::init()
 {
     std::cout << "视频时长" << m_videoFile.second.getVideoFileInfo(m_videoFile.first) << std::endl;
 
-    for (auto comment : _comments)
+    for (auto& comment : _comments)
         std::cout << "评论正文： " << comment.second.getCommentInfo(comment.first) << std::endl;
 }
 

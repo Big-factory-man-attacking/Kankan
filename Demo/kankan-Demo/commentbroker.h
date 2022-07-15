@@ -11,7 +11,8 @@ public:
     ~CommentBroker();
     static CommentBroker* getInstance();
     static void flush();
-    std::shared_ptr<Comment> getComment(std::string& id);
+    std::shared_ptr<Comment> getComment(const std::string& id);
+    std::shared_ptr<Comment> retrieveComment(const std::string& id);
 private:
     CommentBroker();
     static CommentBroker* m_commentBroker;
@@ -26,7 +27,7 @@ private:
     static void cacheFlush();   //将数据写入数据库
     static void cacheDel();  //删除数据库中的数据
     static void cacheUpdate();   //修改数据库中的数据
-    static Comment *inCache(std::string id);   //判断是否在缓存中
+    static std::shared_ptr<Comment> inCache(std::string id);   //判断是否在缓存中
 };
 
 #endif // COMMENTBROKER_H

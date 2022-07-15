@@ -10,7 +10,8 @@ public:
     virtual ~VideoFileBroker();
     static VideoFileBroker* getInstance();
     static void flush();
-    std::shared_ptr<VideoFile> getVideoFile(std::string& id);
+    std::shared_ptr<VideoFile> getVideoFile(const std::string& id);
+    std::shared_ptr<VideoFile> retrieveVideoFile(const std::string& id);
 private:
     VideoFileBroker();
     static VideoFileBroker* m_videoFileBroker;
@@ -25,7 +26,7 @@ private:
     static void cacheFlush();    //将数据写入数据库
     static void cacheDel();      //删除数据库中的数据
     static void cacheUpdate();   //修改数据库中的数据
-    static VideoFile* inCache(std::string id);   //判断是否在缓存中
+    static std::shared_ptr<VideoFile> inCache(std::string id);   //判断是否在缓存中
 };
 
 #endif // VIDEOFILEBROKER_H
