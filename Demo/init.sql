@@ -9,6 +9,7 @@ insert into video values("0001_video", "lovelove", "loveDiaraay", "love", "love"
 
 insert into videoFile values("0628_", "www.Youchengzhu.com", "0628_video");
 insert into videoFile values("0522_", "www.YouchengZhu.com", "0522_video");
+insert into videoFile values("0001_", "www.YouchengZhu.com", "0001_video");
 
 insert into fan values(20220628, "zhuyoucheng", 20220522, "huchenxing");
 insert into fan values(20220628, "zhuyoucheng", 20220501, "quhu");
