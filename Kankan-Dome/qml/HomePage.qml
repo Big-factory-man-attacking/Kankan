@@ -8,12 +8,12 @@ Item {
     id: home
     width: parent.width
     height: parent.height
-    RowLayout{
+    RowLayout {
         id: header
         height: 50
         width: parent.width
         spacing: 10
-        Rectangle{
+        Rectangle {
             id: headPortrait
             Layout.preferredHeight: 40
             Layout.preferredWidth: 40
@@ -47,14 +47,14 @@ Item {
                 antialiasing: true
             }
         }
-        Rectangle{
+        Rectangle {
             id: rectangle
             Layout.preferredHeight: 35
             Layout.preferredWidth: parent.width-headPortrait.width-messageImg.width-40
             radius: 50
             border.width: 1
             border.color: "#707070"
-            RowLayout{
+            RowLayout {
                 width: parent.width-20
                 height: parent.height
                 anchors.centerIn: parent
@@ -66,7 +66,7 @@ Item {
                     fillMode: Image.PreserveAspectFit
                     source: "qrc:search.png"
                 }
-                TextField{
+                TextField {
                     id: editText
                     Layout.preferredHeight: parent.height-10
                     Layout.preferredWidth: parent.width-searchImg.width-clearButton.width-20
@@ -74,7 +74,7 @@ Item {
                         color: "white"
                     }
                 }
-                Button{
+                Button {
                     id: clearButton
                     visible: editText.length === 0 ? false : true
                     Layout.preferredHeight: 30
@@ -82,7 +82,7 @@ Item {
                     icon.source: "qrc:clear.png"
                     icon.height: 22
                     icon.width: 22
-                    background: Rectangle{
+                    background: Rectangle {
                         color: "white"
                     }
                     onClicked: {
@@ -91,21 +91,21 @@ Item {
                 }
             }
         }
-        Image{
+        Image {
             id: messageImg
             Layout.preferredHeight: 40
             Layout.preferredWidth: 40
             fillMode: Image.PreserveAspectFit
             source: "qrc:message.png"
-            Layout.rightMargin: 10
+            Layout.rightMargin: 12
         }
     }
-    Rectangle{
+    Rectangle {
         height: parent.height-header.height
         width: parent.width
         color: "#f2f2f2"
         anchors.top: header.bottom
-        ColumnLayout{
+        ColumnLayout {
             width: parent.width
             height: parent.height
             Video{
@@ -128,19 +128,19 @@ Item {
                 Keys.onLeftPressed: video.seek(video.position - 5000)
                 Keys.onRightPressed: video.seek(video.position + 5000)
             }
-            GridView{
+            GridView {
                 Layout.preferredWidth: parent.width-10
                 Layout.preferredHeight: parent.height-video.height
                 model: videoModel
                 delegate: contactDelegate
 
             }
-            ListModel{
+            ListModel {
                 id: videoModel
             }
-            Component{
+            Component {
                 id: contactDelegate
-                Item{
+                Item {
 
                 }
             }

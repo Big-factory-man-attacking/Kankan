@@ -7,7 +7,7 @@ Item {
     id: personal
     width: parent.width
     height: parent.height
-    RowLayout{
+    RowLayout {
         id: personalMessage
         height: 70
         spacing: 20
@@ -24,7 +24,7 @@ Item {
                 smooth: true
                 visible: false
                 anchors.fill: parent
-                source: "file:///root/1.png"
+                source: "qrc:head_portrait.png"
                 sourceSize: Qt.size(70, 70)
                 antialiasing: true
             }
@@ -51,28 +51,28 @@ Item {
             font.pointSize: 16
         }
     }
-    ToolBar{
+    ToolBar {
         id: toolBar
         width: parent.width
         height: 60
         anchors.top: personalMessage.bottom
-        background: Rectangle{
+        background: Rectangle {
             color: "white"
         }
 
-        RowLayout{
+        RowLayout {
             width: parent.width
             height: parent.height
             spacing: 0
-            ToolButton{
+            ToolButton {
                 id: manuscript
                 Layout.preferredHeight: parent.height
                 Layout.preferredWidth: (parent.width-6)/3
-                background: Rectangle{
+                background: Rectangle {
                     color: "white"
                 }
 
-                ColumnLayout{
+                ColumnLayout {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 1
@@ -92,7 +92,7 @@ Item {
                     }
                 }
             }
-            ToolSeparator{
+            ToolSeparator {
                 Layout.preferredHeight: toolBar.height-32
                 Layout.preferredWidth: 3
                 contentItem: Rectangle{
@@ -100,14 +100,14 @@ Item {
                     color: "#88def9"
                 }
             }
-            ToolButton{
+            ToolButton {
                 id: fanButton
                 Layout.preferredHeight: parent.height
                 Layout.preferredWidth: (parent.width-6)/3
-                background: Rectangle{
+                background: Rectangle {
                     color: "white"
                 }
-                ColumnLayout{
+                ColumnLayout {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 1
@@ -126,43 +126,57 @@ Item {
                         color: "#707070"
                     }
                 }
+                onClicked: {
+                    bar.visible = false
+                    myFriend.friendBar.currentIndex = 1
+                    myFriend.visible = true
+                }
             }
-            ToolSeparator{
+            ToolSeparator {
                 Layout.preferredHeight: toolBar.height-32
                 Layout.preferredWidth: 3
-                contentItem: Rectangle{
+                contentItem: Rectangle {
                     anchors.fill: parent
                     color: "#88def9"
                 }
             }
-            ToolButton{
-                id: follwerButton
+            ToolButton {
+                id: followerButton
                 Layout.preferredHeight: parent.height
                 Layout.preferredWidth: (parent.width-6)/3
-                background: Rectangle{
+                background: Rectangle {
                     color: "white"
                 }
-                ColumnLayout{
+                ColumnLayout {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: 1
                     Text {
-                        id: follwerText
+                        id: followerText
                         text: qsTr("关注")
                         Layout.alignment: Qt.AlignHCenter
                         font.pointSize: 12
                         color: "#707070"
                     }
                     Text {
-                        id: follwerNumText
+                        id: followerNumText
                         text: qsTr("10")
                         Layout.alignment: Qt.AlignHCenter
                         font.pointSize: 10
                         color: "#707070"
                     }
                 }
+                onClicked: {
+                    bar.visible = false
+                    myFriend.friendBar.currentIndex = 0
+                    myFriend.visible = true
+                }
             }
         }
     }
-
+    MyFriend {
+        id: myFriend
+        anchors.fill: parent
+        visible: false
+    }
 }

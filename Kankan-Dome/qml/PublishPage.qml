@@ -7,23 +7,23 @@ import Qt5Compat.GraphicalEffects
 
 Item {
     id: publishPage
-    width: 400
-    height: 1000
-    ColumnLayout{
+    anchors.fill: parent
+    visible: true
+    ColumnLayout {
         anchors.fill: parent
         spacing: 0
-        Rectangle{
+        Rectangle {
             id: title
             Layout.preferredWidth: parent.width
             Layout.preferredHeight: 40
             color: "white"
-            Button{
+            Button {
                 width: 45
                 height: 40
                 icon.source: "qrc:to_left.png"
                 icon.width: 45
                 icon.height: 40
-                background: Rectangle{
+                background: Rectangle {
                     color: "white"
                 }
                 onClicked: {
@@ -40,33 +40,33 @@ Item {
             clip: true
             ScrollBar.horizontal: ScrollBar{ visible: true }
 
-            Rectangle{
+            Rectangle {
                 id: manuscriptContext
                 width: parent.width
                 height: parent.height
                 color: "#f2f2f2"
-                ColumnLayout{
+                ColumnLayout {
                     anchors.top: parent.top
                     anchors.topMargin: 10
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width-20
                     spacing: 10
-                    Rectangle{
+                    Rectangle {
                         id: videoPart
                         Layout.preferredHeight: width/16*9
                         Layout.preferredWidth: parent.width
-                        Button{
+                        Button {
                             anchors.fill: parent
                             text: qsTr("点击选择视频")
                         }
 
-                        Image{
+                        Image {
                             id: videoCover
                             visible: false
                             anchors.fill: parent
                             source: "qrc:cover.png"
                         }
-                        Video{
+                        Video {
                             id: video
                             visible: false
                             anchors.fill: parent
@@ -85,12 +85,12 @@ Item {
                             }
                         }
                     }
-                    Rectangle{
+                    Rectangle {
                         id: titlePart
                         Layout.preferredWidth: parent.width
                         Layout.preferredHeight: 100
                         radius: 10
-                        ColumnLayout{
+                        ColumnLayout {
                             anchors.fill: parent
                             spacing: 1
                             ScrollView {
@@ -100,7 +100,7 @@ Item {
                                 Layout.alignment: Qt.AlignHCenter
                                 clip: true
                                 ScrollBar.horizontal: ScrollBar{ visible: true }
-                                TextArea{
+                                TextArea {
                                     id: titleText
                                     width: textAreaView.width-30
                                     height: 76
@@ -109,37 +109,37 @@ Item {
                                     font.pointSize: 12
                                 }
                             }
-                            RowLayout{
+                            RowLayout {
                                 spacing: 1
                                 Layout.rightMargin: 20
                                 Layout.alignment: Qt.AlignRight
-                                Text{
+                                Text {
                                     Layout.preferredWidth: 30
                                     text: titleText.length
                                     color: titleText.length > 80 ? "red" : "black"
                                     horizontalAlignment: Text.AlignRight
                                 }
-                                Text{
+                                Text {
                                     text: qsTr("/80")
                                 }
 
                             }
                         }
                     }
-                    Rectangle{
+                    Rectangle {
                         id: partitionPart
                         Layout.preferredWidth: parent.width
                         Layout.preferredHeight: 110
                         radius: 10
-                        ColumnLayout{
+                        ColumnLayout {
                             anchors.fill: parent
                             anchors.margins: 15
                             spacing:10
-                            RowLayout{
+                            RowLayout {
                                 Layout.preferredWidth: parent.width
                                 Layout.preferredHeight: 20
                                 spacing: 0
-                                Label{
+                                Label {
                                     text: qsTr("分区：")
                                 }
                                 ComboBox {
@@ -163,14 +163,14 @@ Item {
                                             model.append({text: editText})
                                     }
                                 }
-                                Label{
+                                Label {
                                     text: qsTr("标签：")
                                 }
-                                TextField{
+                                TextField {
                                     Layout.preferredWidth: 120
                                 }
                             }
-                            ToolSeparator{
+                            ToolSeparator {
                                 Layout.preferredHeight: 1
                                 Layout.preferredWidth: parent.width-30
                                 Layout.alignment: Qt.AlignHCenter
@@ -179,22 +179,22 @@ Item {
                                     color: "#cccccc"
                                 }
                             }
-                            Rectangle{
+                            Rectangle {
                                 Layout.preferredWidth: parent.width
                                 Layout.preferredHeight: 20
-                                Text{
+                                Text {
                                     text: qsTr("类型（必填）")
                                     anchors.left: parent.left
                                 }
-                                RowLayout{
+                                RowLayout {
                                     anchors.right: parent.right
                                     width: 130
                                     spacing: 10
-                                    Rectangle{
+                                    Rectangle {
                                         width: 100
                                         Layout.preferredHeight: 20
                                         Layout.preferredWidth: 60
-                                        RadioButton{
+                                        RadioButton {
                                             id: self_restraintButton
                                             width: 20
                                             height: 20
@@ -208,18 +208,18 @@ Item {
                                                 }
                                             }
                                         }
-                                        Text{
+                                        Text {
                                             id: self_restraintText
                                             text: qsTr("自制")
                                             anchors.left: self_restraintButton.right
                                             anchors.leftMargin: 5
                                         }
                                     }
-                                    Rectangle{
+                                    Rectangle {
                                         id: reprintRec
                                         Layout.preferredHeight: 20
                                         Layout.preferredWidth: 60
-                                        RadioButton{
+                                        RadioButton {
                                             id: reprintButton
                                             width: 20
                                             height: 20
@@ -233,7 +233,7 @@ Item {
                                                 }
                                             }
                                         }
-                                        Text{
+                                        Text {
                                             id: reprintText
                                             text: qsTr("转载")
                                             anchors.left: reprintButton.right
@@ -244,12 +244,12 @@ Item {
                             }
                         }
                     }
-                    Rectangle{
+                    Rectangle {
                         id: inforPart
                         Layout.preferredWidth: parent.width
                         Layout.preferredHeight: 300
                         radius: 10
-                        ColumnLayout{
+                        ColumnLayout {
                             anchors.fill: parent
                             anchors.margins: 10
                             spacing: 10
@@ -257,13 +257,13 @@ Item {
                                 id: inforText
                                 text: qsTr("简介")
                             }
-                            Rectangle{
+                            Rectangle {
                                 id: inforFrame
                                 Layout.preferredWidth: parent.width
                                 Layout.preferredHeight: 100
                                 radius: 10
                                 color: "#f2f2f2"
-                                ColumnLayout{
+                                ColumnLayout {
                                     anchors.fill: parent
                                     spacing: 1
                                     ScrollView {
@@ -273,7 +273,7 @@ Item {
                                         Layout.alignment: Qt.AlignHCenter
                                         clip: true
                                         ScrollBar.horizontal: ScrollBar{ visible: true }
-                                        TextArea{
+                                        TextArea {
                                             id: inforTextA
                                             width: textAreaView.width-30
                                             height: 76
@@ -282,23 +282,23 @@ Item {
                                             font.pointSize: 12
                                         }
                                     }
-                                    RowLayout{
+                                    RowLayout {
                                         spacing: 1
                                         Layout.rightMargin: 20
                                         Layout.alignment: Qt.AlignRight
-                                        Text{
+                                        Text {
                                             Layout.preferredWidth: 30
-                                            text: titleText.length
-                                            color: titleText.length > 80 ? "red" : "black"
+                                            text: inforTextA.length
+                                            color: inforTextA.length > 250 ? "red" : "black"
                                             horizontalAlignment: Text.AlignRight
                                         }
-                                        Text{
-                                            text: qsTr("/80")
+                                        Text {
+                                            text: qsTr("/250")
                                         }
                                     }
                                 }
                             }
-                            ToolSeparator{
+                            ToolSeparator {
                                 Layout.preferredHeight: 1
                                 Layout.preferredWidth: parent.width-30
                                 Layout.alignment: Qt.AlignHCenter
@@ -307,15 +307,15 @@ Item {
                                     color: "#cccccc"
                                 }
                             }
-                            RowLayout{
+                            RowLayout {
                                 Layout.preferredWidth: parent.width
                                 Text {
                                     text: qsTr("定时发布")
                                     Layout.alignment: Qt.AlignLeft
                                 }
-                                Button{
+                                Button {
                                     id: timing_off
-                                    background: Rectangle{
+                                    background: Rectangle {
                                         color: "white"
                                     }
                                     icon.height: 30
@@ -326,12 +326,13 @@ Item {
                                     onClicked: {
                                         timing_off.visible = false
                                         timing_on.visible = true
+                                        timeRec.visible = true
                                     }
                                 }
-                                Button{
+                                Button {
                                     id: timing_on
                                     visible: false
-                                    background: Rectangle{
+                                    background: Rectangle {
                                         color: "white"
                                     }
                                     icon.height: 30
@@ -342,6 +343,7 @@ Item {
                                     onClicked: {
                                         timing_off.visible = true
                                         timing_on.visible = false
+                                        timeRec.visible = false
                                     }
                                 }
                             }
@@ -351,11 +353,11 @@ Item {
             }
         }
 
-        Rectangle{
+        Rectangle {
             id: publishRec
             Layout.preferredWidth: parent.width
             Layout.preferredHeight: 60
-            Button{
+            Button {
                 id: publishButton
                 width: 100
                 height: 50
@@ -367,11 +369,23 @@ Item {
                     color: "white"
                     anchors.centerIn: parent
                 }
-                background: Rectangle{
+                background: Rectangle {
                     color: "#24c3f5"
                     radius: 10
                 }
             }
+        }
+    }
+
+    Rectangle {
+        id: timeRec
+        width: parent.width
+        height: 290
+        anchors.bottom: parent.bottom
+        visible: false
+        z: 2
+        TimeDialog {
+
         }
     }
 }

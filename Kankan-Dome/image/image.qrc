@@ -14,5 +14,6 @@
         <file>cover.png</file>
         <file>switch-off.png</file>
         <file>switch-on.png</file>
+        <file>unfollow.png</file>
     </qresource>
 </RCC>

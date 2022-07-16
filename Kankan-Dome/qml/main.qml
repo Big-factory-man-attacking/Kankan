@@ -6,7 +6,7 @@ import QtQuick.Layouts
 ApplicationWindow {
     id: main
     width: 400
-    height: 1000
+    height: 700
     visible: true
     color: "white"
     footer:  TabBar {
@@ -70,6 +70,8 @@ ApplicationWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 fillMode: Image.PreserveAspectFit
                 source: "qrc:add.png"
+                width: 50
+                height: 50
             }
             onClicked: {
                 publishPage.visible = true
@@ -125,22 +127,22 @@ ApplicationWindow {
     StackLayout {
         anchors.fill: parent
         currentIndex: bar.currentIndex
-        HomePage{
+        HomePage {
             id: homePage
             width: parent.width
             height: parent.height
         }
-        Item{
+        Item {
 
         }
-        PersonalPage{
+        PersonalPage {
             id: personalPage
             width: parent.width
             height: parent.height
         }
 
     }
-    PublishPage{
+    PublishPage {
         id: publishPage
         visible: false
         anchors.fill: parent

@@ -6,7 +6,9 @@ SOURCES += \
 resources.files = qml/main.qml\
     qml/HomePage.qml\
     qml/PersonalPage.qml\
-    qml/PublishPage.qml
+    qml/PublishPage.qml\
+    qml/TimeDialog.qml\
+    qml/MyFriend.qml
 
 resources.prefix = /$${TARGET}
 RESOURCES += resources \
@@ -25,6 +27,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     qml/HomePage.qml \
+    qml/ManuscriptPage.qml \
     qml/MyFriend.qml \
     qml/PersonalPage.qml \
-    qml/PublishPage.qml
+    qml/PublishPage.qml \
+    qml/TimeDialog.qml
