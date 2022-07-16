@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>add.png</file>
+        <file>home.png</file>
+        <file>home_fill.png</file>
+        <file>my.png</file>
+        <file>my_fill.png</file>
+        <file>set_fill.png</file>
+        <file>message.png</file>
+        <file>search.png</file>
+        <file>clear.png</file>
+        <file>to_left.png</file>
+        <file>head_portrait.png</file>
+        <file>cover.png</file>
+        <file>switch-off.png</file>
+        <file>switch-on.png</file>
+    </qresource>
+</RCC>
