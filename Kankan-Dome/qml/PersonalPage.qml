@@ -91,6 +91,10 @@ Item {
                         color: "#707070"
                     }
                 }
+                onClicked: {
+                    bar.visible = false
+                    manuscriptPage.visible = true
+                }
             }
             ToolSeparator {
                 Layout.preferredHeight: toolBar.height-32
@@ -176,6 +180,11 @@ Item {
     }
     MyFriend {
         id: myFriend
+        anchors.fill: parent
+        visible: false
+    }
+    ManuscriptPage {
+        id: manuscriptPage
         anchors.fill: parent
         visible: false
     }

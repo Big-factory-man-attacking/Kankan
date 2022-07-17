@@ -122,7 +122,6 @@ Item {
                                 Text {
                                     text: qsTr("/80")
                                 }
-
                             }
                         }
                     }
@@ -137,7 +136,7 @@ Item {
                             spacing:10
                             RowLayout {
                                 Layout.preferredWidth: parent.width
-                                Layout.preferredHeight: 20
+                                Layout.preferredHeight: 30
                                 spacing: 0
                                 Label {
                                     text: qsTr("分区：")
@@ -146,6 +145,9 @@ Item {
                                     Layout.preferredHeight: 30
                                     Layout.preferredWidth: 120
                                     editable: true
+                                    background: Rectangle {
+                                        color: "white"
+                                    }
                                     model: ListModel {
                                         id: model
                                         ListElement { text: "生活" }
@@ -201,7 +203,7 @@ Item {
                                             onCheckedChanged: {
                                                 if (checked === true) {
                                                     checkable = false
-                                                    self_restraintText.color = "#88def9"
+                                                    self_restraintText.color = "#3ccaf6"
                                                     reprintText.color = "black"
                                                     reprintButton.checkable = true
                                                     reprintButton.checked = false
@@ -226,7 +228,7 @@ Item {
                                             onCheckedChanged: {
                                                 if (checked === true) {
                                                     checkable = false
-                                                    reprintText.color = "#88def9"
+                                                    reprintText.color = "#3ccaf6"
                                                     self_restraintText.color = "black"
                                                     self_restraintButton.checkable = true
                                                     self_restraintButton.checked = false

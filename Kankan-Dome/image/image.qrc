@@ -15,5 +15,9 @@
         <file>switch-off.png</file>
         <file>switch-on.png</file>
         <file>unfollow.png</file>
+        <file>collection.png</file>
+        <file>comment.png</file>
+        <file>like.png</file>
+        <file>video.png</file>
     </qresource>
 </RCC>

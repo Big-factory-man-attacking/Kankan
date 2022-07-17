@@ -27,6 +27,7 @@ ApplicationWindow {
                 Image {
                     id: homeImg
                     fillMode: Image.PreserveAspectFit
+                    sourceSize: Qt.size(30, 30)
                 }
                 Text {
                     id: homeText
@@ -91,6 +92,7 @@ ApplicationWindow {
                 Image {
                     id: personalImg
                     fillMode: Image.PreserveAspectFit
+                    sourceSize: Qt.size(30, 30)
                 }
                 Text {
                     id: personalText
