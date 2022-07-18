@@ -3,10 +3,10 @@
 #include <iostream>
 
 
-Netizen::Netizen(long id, std::string key) :
-    m_id{id}, m_key{key}
+Netizen::Netizen(std::string id, std::string password) :
+    m_id{id}, m_password{password}
 {
-        m_nickname = "kk_" + std::to_string(id);     //生成默认用户名
+        m_nickname = "kk_" + id;     //生成默认用户名
 }
 
 Netizen::~Netizen()
@@ -16,12 +16,12 @@ Netizen::~Netizen()
 
 std::string Netizen::insertSql()
 {
-    return "insert into user values( " + std::to_string(m_id) + ", '" + m_key + "', '" + m_nickname + "');";
+    return "insert into user values( " + m_id + ", '" + m_password + "', '" + m_nickname + "');";
 }
 
-Netizen::Netizen(long id, std::string nickname, std::string headPortrait, std::vector<std::string> videosId,
-                 std::vector<long> fansId, std::vector<long> followersId) :
-    m_id{id}, m_headPortrait{headPortrait}, m_key{" "}, m_nickname{nickname}
+Netizen::Netizen(std::string id, std::string nickname, std::string headPortrait, std::vector<std::string> videosId,
+                 std::vector<std::string> fansId, std::vector<std::string> followersId) :
+    m_id{id}, m_headPortrait{headPortrait}, m_password{" "}, m_nickname{nickname}
 {
     for (auto vId : videosId) {
         _videos.insert(std::make_pair(vId, VideoProxy(vId)));
@@ -44,6 +44,7 @@ Netizen::Netizen(long id, std::string nickname, std::string headPortrait, std::v
 
 void Netizen::init()
 {
+    //粉丝及关注者数据读取简化处理
     //getVideoInfo如何存储返回的数据
     for (auto video : _videos){
         video.second.getVideoInfo(video.first);

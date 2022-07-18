@@ -10,12 +10,12 @@ class Netizen;
 class NetizenProxy : public NetizenInterface
 {
 public:
-    NetizenProxy(long id);
+    NetizenProxy(std::string id);
     ~NetizenProxy();
 
-    std::vector<std::string> getInfo(long id);
+    std::vector<std::string> getInfo(std::string id);
 private:
-    long m_id;
+    std::string m_id;
     std::shared_ptr<Netizen> m_netizen;
 };
 

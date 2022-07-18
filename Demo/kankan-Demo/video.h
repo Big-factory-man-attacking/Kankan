@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include "videofileproxy.h"
 #include "commentproxy.h"
+#include "json.hpp"
 
 class VideoFile;
 class Image;
@@ -21,7 +22,7 @@ public:
           std::vector<std::string> commentIds, std::string videoFileId);
     ~Video();
 
-    std::vector<std::string> getVideoInfo();
+    nlohmann::json getVideoInfo();
     //获取稿件的数据（标题、发布时间、稿件时长[通过m_videoFile对象去获取时长]、封面）
     //后续可考虑替换为json传输
 

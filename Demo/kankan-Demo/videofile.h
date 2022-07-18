@@ -15,8 +15,8 @@ public:
 
 private:
     std::string m_id;           //
-    std::string m_duration;     //视频时长
-    std::string m_address;
+    std::string m_duration = "20ms";     //视频时长
+    std::string m_address;      //
 };
 
 #endif // VIDEOFILE_H

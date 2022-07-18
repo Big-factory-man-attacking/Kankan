@@ -12,7 +12,7 @@
 class Netizen
 {
 public:
-    Netizen(long id, std::string key);
+    Netizen(std::string id, std::string password);
     ~Netizen();
 
     //创造insert的sql语句
@@ -24,8 +24,8 @@ public:
     //videosId:稿件的id
     //fansId:粉丝的id
     //followersId:关注者的id
-    Netizen(long id, std::string nickname, std::string headPortrait, std::vector<std::string> videosId,
-            std::vector<long> fansId, std::vector<long> followersId);
+    Netizen(std::string id, std::string nickname, std::string headPortrait, std::vector<std::string> videosId,
+            std::vector<std::string> fansId, std::vector<std::string> followersId);
 
 
     void init();
@@ -37,13 +37,13 @@ public:
 
 
 private:
-    long m_id;                                                      //用户id
+    std::string m_id;                                               //用户id
     std::string m_headPortrait;                                     //用户头像
-    std::string m_key;                                              //用户密码
+    std::string m_password;                                         //用户密码
     std::string m_nickname;                                         //用户昵称
     std::unordered_map<std::string, VideoProxy> _videos;            //稿件(稿件id，代理)
-    std::unordered_map<long, NetizenProxy> _fans;                   //粉丝(粉丝id，代理)
-    std::unordered_map<long, NetizenProxy> _followers;              //关注者(关注者id, 代理)
+    std::unordered_map<std::string, NetizenProxy> _fans;                   //粉丝(粉丝id，代理)
+    std::unordered_map<std::string, NetizenProxy> _followers;              //关注者(关注者id, 代理)
 };
 
 #endif // NETIZEN_H

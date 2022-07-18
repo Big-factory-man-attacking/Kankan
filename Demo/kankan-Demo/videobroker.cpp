@@ -35,12 +35,12 @@ std::shared_ptr<Video> VideoBroker::getVideo(const std::string& id)
         isOriginal = res->getBoolean(6);                    //是否为原创
         parameters.push_back(res->getString(7).c_str());    //封面
         parameters.push_back(res->getString(8).c_str());    //发布日期
-        long i = res->getLong(9);
+        std::string i = res->getString(9).c_str();
     }
 
 
     std::vector<std::string> commentIds;
-    sql = "select id from comment where videoId = '" + id + "'";
+    sql = "select id from comment where video_id = '" + id + "'";
 
     res = query(sql);
     while (res->next())
@@ -52,7 +52,7 @@ std::shared_ptr<Video> VideoBroker::getVideo(const std::string& id)
     std::cout << "Video对象实例化成功" << std::endl;
 
     //返回对象之前实例化videofile对象，实例化评论对象
-    sql = "select id from videoFile where videoId = '" + id + "'";
+    sql = "select id from videoFile where video_id = '" + id + "'";
 
     res = query(sql);
     std::string result;
