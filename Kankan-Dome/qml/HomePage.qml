@@ -27,7 +27,6 @@ Item {
                 visible: false
                 anchors.fill: parent
                 source: "qrc:head_portrait.png"
-                sourceSize: Qt.size(70, 70)
                 antialiasing: true
             }
             Rectangle {
@@ -73,6 +72,12 @@ Item {
                     background: Rectangle{
                         color: "white"
                     }
+                    Shortcut {
+                        sequence: "Return"
+                        onActivated: {
+                            console.log("确认")
+                        }
+                    }
                 }
                 Button {
                     id: clearButton
@@ -98,6 +103,11 @@ Item {
             fillMode: Image.PreserveAspectFit
             source: "qrc:message.png"
             Layout.rightMargin: 12
+            /*TapHandler {
+                onTapped: {
+                    commentManger.visible = true
+                }
+            }*/
         }
     }
     Rectangle {

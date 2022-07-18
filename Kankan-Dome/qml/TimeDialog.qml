@@ -119,7 +119,9 @@ Rectangle {
                     }
                     onClicked: {
                         timeRec.visible = false
-                        timing_on.clicked()
+                        if (timing_on.visible === false) {
+                            timing_on.clicked()
+                        }
                     }
                 }
                 Button {
@@ -135,15 +137,18 @@ Rectangle {
                         publishDate.setDate(dayTumbler.currentIndex+1)
                         publishDate.setHours(hoursTumbler.currentIndex)
                         publishDate.setMinutes(minutesTumbler.currentIndex)
-                        if (Math.abs(publishDate-date) < 7200000) {
+                        date = new Date()
+                        if ((publishDate-date) < 7200000) {
                             timingHint.visible = true
                             hintTimer.running = true
                         } else {
-
+                            date = publishDate
                             timeRec.visible = false
+                            timing_off.visible = false
+                            timing_on.visible = true
+                            toolS_2.visible = true
+                            showTimeButton.visible = true
                         }
-
-                        console.log(Math.abs(publishDate-date))
                     }
                 }
             }

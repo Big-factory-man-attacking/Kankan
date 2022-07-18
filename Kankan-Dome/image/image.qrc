@@ -19,5 +19,14 @@
         <file>comment.png</file>
         <file>like.png</file>
         <file>video.png</file>
+        <file>right.png</file>
+        <file>catalog.png</file>
+        <file>delete.png</file>
+        <file>QQ.png</file>
+        <file>WeChat.png</file>
+        <file>download.png</file>
+        <file>history.png</file>
+        <file>watchLater.png</file>
+        <file>myCollect.png</file>
     </qresource>
 </RCC>

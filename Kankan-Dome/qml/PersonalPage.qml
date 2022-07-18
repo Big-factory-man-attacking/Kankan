@@ -3,13 +3,13 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 
-Item {
+Rectangle {
     id: personal
     width: parent.width
     height: parent.height
     RowLayout {
         id: personalMessage
-        height: 70
+        height: 60
         spacing: 20
         Rectangle {
             id: img
@@ -174,6 +174,106 @@ Item {
                     bar.visible = false
                     myFriend.friendBar.currentIndex = 0
                     myFriend.visible = true
+                }
+            }
+        }
+    }
+    ToolSeparator {
+        id: toolS
+        height: 2
+        width: parent.width
+        anchors.top: toolBar.bottom
+        contentItem: Rectangle{
+            anchors.fill: parent
+            color: "#cccccc"
+        }
+    }
+    ScrollView {
+        width: parent.width-20
+        height: parent.height-personalMessage.height-toolBar.height-2
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: toolS.bottom
+        clip: true
+        ScrollBar.horizontal: ScrollBar{ visible: true }
+        ColumnLayout {
+            width: personal.width-20
+            RowLayout {
+                Layout.preferredWidth: parent.width
+                Button {
+                    Layout.preferredWidth: parent.width/4
+                    Layout.preferredHeight: 60
+                    background: Rectangle {
+                        color: "white"
+                    }
+                    ColumnLayout {
+                        spacing: 5
+                        anchors.centerIn: parent
+                        Image {
+                            source: "qrc:download.png"
+                            sourceSize: Qt.size(25, 25)
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Text {
+                            text: qsTr("离线缓存")
+                        }
+                    }
+                }
+                Button {
+                    Layout.preferredWidth: parent.width/4
+                    Layout.preferredHeight: 60
+                    background: Rectangle {
+                        color: "white"
+                    }
+                    ColumnLayout {
+                        spacing: 5
+                        anchors.centerIn: parent
+                        Image {
+                            source: "qrc:history.png"
+                            sourceSize: Qt.size(26, 26)
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Text {
+                            text: qsTr("历史记录")
+                        }
+                    }
+                }
+                Button {
+                    Layout.preferredWidth: parent.width/4
+                    Layout.preferredHeight: 60
+                    background: Rectangle {
+                        color: "white"
+                    }
+                    ColumnLayout {
+                        spacing: 5
+                        anchors.centerIn: parent
+                        Image {
+                            source: "qrc:myCollect.png"
+                            sourceSize: Qt.size(28, 28)
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Text {
+                            text: qsTr("我的收藏")
+                        }
+                    }
+                }
+                Button {
+                    Layout.preferredWidth: parent.width/4
+                    Layout.preferredHeight: 60
+                    background: Rectangle {
+                        color: "white"
+                    }
+                    ColumnLayout {
+                        spacing: 5
+                        anchors.centerIn: parent
+                        Image {
+                            source: "qrc:watchLater.png"
+                            sourceSize: Qt.size(28, 28)
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Text {
+                            text: qsTr("稍后再看")
+                        }
+                    }
                 }
             }
         }

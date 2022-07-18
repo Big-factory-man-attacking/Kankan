@@ -106,12 +106,18 @@ Rectangle {
             Layout.preferredWidth: parent.width
             Layout.preferredHeight: parent.height-titleRow.height-searchPart.height-25
             color: "#f2f2f2"
-            ListView {
-                id: manuscriptListView
+            ScrollView {
+                id: inforTextAreaView
                 anchors.fill: parent
-                spacing: 10
-                model: manuscriptListModel
-                delegate: manuscriptDelegate
+                clip: true
+                ScrollBar.horizontal: ScrollBar{ visible: true }
+                ListView {
+                    id: manuscriptListView
+                    anchors.fill: parent
+                    spacing: 10
+                    model: manuscriptListModel
+                    delegate: manuscriptDelegate
+                }
             }
         }
     }
@@ -119,11 +125,13 @@ Rectangle {
         id: manuscriptDelegate
         Rectangle {
             width: manuscriptListView.width
-            height: 220
+            height: toolColumn.height+30
             color: "white"
             ColumnLayout {
-                anchors.fill: parent
-                spacing: 5
+                id: toolColumn
+                width: parent.width
+                anchors.centerIn: parent
+                spacing: 10
                 Rectangle {
                     Layout.preferredWidth: parent.width
                     Layout.preferredHeight: 90
@@ -167,7 +175,7 @@ Rectangle {
                         }
                         Text {
                             id: publishTimeText
-                            text: publishTime
+                            text: Qt.formatDateTime(publishDate, "yyyy-MM-dd hh:mm")
                         }
                     }
                 }
@@ -260,6 +268,9 @@ Rectangle {
                         Layout.preferredWidth: 55
                         text: qsTr("分享")
                         radius: 5
+                        onClicked: {
+                            shareRec.visible = true
+                        }
                     }
                     RoundButton {
                         Layout.preferredWidth: 55
@@ -275,6 +286,9 @@ Rectangle {
                         Layout.preferredWidth: 55
                         text: qsTr("互动")
                         radius: 5
+                        onClicked: {
+                            commentManger.visible = true
+                        }
                     }
                     RoundButton {
                         Layout.preferredWidth: 55
@@ -292,22 +306,76 @@ Rectangle {
     }
     ListModel {
         id: manuscriptListModel
-        ListElement {
-            manuscriptCover: "file:///root/cover.png"
-            manuscriptTitle: "歌乐山"
-            publishTime: "2022.07.17 9:54"
-            duration: "1:30"
-        }
-        ListElement {
-            manuscriptCover: "file:///root/cover.png"
-            manuscriptTitle: "歌乐山"
-            publishTime: "2022.07.17 9:54"
-            duration: "0:30"
+        Component.onCompleted: {
+            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30"});
+            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "0:30"});
+            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30"});
+            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30"});
         }
     }
     EditManuscript {
         id: editManuscript
         visible: false
         anchors.fill: parent
+    }
+    CommentManger {
+        id: commentManger
+        visible: false
+        anchors.fill: parent
+    }
+    Rectangle {
+        id: shareRec
+        visible: false
+        width: parent.width
+        height: shareColumn.height
+        anchors.bottom: parent.bottom
+        color: "#f2f2f2"
+        ColumnLayout {
+            id: shareColumn
+            width: parent.width
+            spacing: 10
+            Rectangle {
+                Layout.preferredWidth: parent.width
+                Layout.preferredHeight: qqButton.height+20
+                Button {
+                    id: qqButton
+                    icon.source: "qrc:QQ.png"
+                    icon.width: 35
+                    icon.height: 35
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    background: Rectangle {
+                        color: "white"
+                    }
+                }
+                Button {
+                    icon.source: "qrc:WeChat.png"
+                    icon.width: 30
+                    icon.height: 30
+                    anchors.left: qqButton.right
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    background: Rectangle {
+                        color: "white"
+                    }
+                }
+            }
+            Button {
+                Layout.preferredWidth: parent.width
+                Layout.preferredHeight: 40
+                Text {
+                    text: qsTr("取消")
+                    font.pixelSize: 16
+                    anchors.centerIn: parent
+                }
+                background: Rectangle {
+                    color: "white"
+                }
+                onClicked: {
+                    shareRec.visible = false
+                }
+            }
+        }
     }
 }

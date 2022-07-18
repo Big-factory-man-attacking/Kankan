@@ -65,7 +65,7 @@ Rectangle {
                 id: coverImg
                 width: parent.width
                 height: parent.height
-                source: "file:///root/cover.png"
+                source: "qrc:cover.png"
                 fillMode: Image.PreserveAspectFit
             }
             Button {
@@ -180,9 +180,6 @@ Rectangle {
                 Layout.preferredHeight: 30
                 Layout.preferredWidth: 120
                 editable: true
-                background: Rectangle {
-                    color: "white"
-                }
                 model: ListModel {
                     id: model
                     ListElement { text: "生活" }

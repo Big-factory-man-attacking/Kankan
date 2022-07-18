@@ -120,14 +120,59 @@ Rectangle {
             Item {
                 width: parent.width
                 height: parent.height
-                ListView {
-                    id: followerListView
+                ScrollView {
                     anchors.fill: parent
-                    model: followerListModel
-                    delegate: followerDelegate
+                    clip: true
+                    ScrollBar.horizontal: ScrollBar{ visible: true }
+                    ListView {
+                        id: followerListView
+                        anchors.fill: parent
+                        model: followerListModel
+                        delegate: followerDelegate
+                    }
                 }
                 ListModel {
                     id: followerListModel
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "巴拉巴拉能亮"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "。。。"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "巴拉巴拉能亮"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "。。。"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "巴拉巴拉能亮"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "。。。"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "巴拉巴拉能亮"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "。。。"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "巴拉巴拉能亮"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "。。。"
+                    }
                     ListElement {
                         headSource: "qrc:head_portrait.png"
                         nickname: "巴拉巴拉能亮"
@@ -141,14 +186,59 @@ Rectangle {
             Item {
                 width: parent.width
                 height: parent.height
-                ListView {
-                    id: fansListView
+                ScrollView {
                     anchors.fill: parent
-                    model: fansListModel
-                    delegate: fansDelegate
+                    clip: true
+                    ScrollBar.horizontal: ScrollBar{ visible: true }
+                    ListView {
+                        id: fansListView
+                        anchors.fill: parent
+                        model: fansListModel
+                        delegate: fansDelegate
+                    }
                 }
                 ListModel {
                     id: fansListModel
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "吃瓜的快乐"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "awsl"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "吃瓜的快乐"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "awsl"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "吃瓜的快乐"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "awsl"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "吃瓜的快乐"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "awsl"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "吃瓜的快乐"
+                    }
+                    ListElement {
+                        headSource: "qrc:head_portrait.png"
+                        nickname: "awsl"
+                    }
                     ListElement {
                         headSource: "qrc:head_portrait.png"
                         nickname: "吃瓜的快乐"
@@ -170,7 +260,7 @@ Rectangle {
                     id: img
                     height: 40
                     width: 40
-                    anchors.leftMargin: 10
+                    anchors.leftMargin: 15
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     radius: width/2
@@ -237,7 +327,7 @@ Rectangle {
                     id: img
                     height: 40
                     width: 40
-                    anchors.leftMargin: 10
+                    anchors.leftMargin: 15
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     radius: width/2
@@ -249,7 +339,6 @@ Rectangle {
                         visible: false
                         anchors.fill: parent
                         source: headSource
-                        sourceSize: Qt.size(70, 70)
                         antialiasing: true
                     }
                     Rectangle {
