@@ -8,6 +8,7 @@
 #include "netizenproxy.h"
 #include "netizeninterface.h"
 #include <vector>
+#include "json.hpp"
 
 class Netizen
 {
@@ -33,7 +34,7 @@ public:
 
 
     //返回网民的昵称和头像
-    std::vector<std::string> getInfo();
+    nlohmann::json getInfo();
 
 
 private:

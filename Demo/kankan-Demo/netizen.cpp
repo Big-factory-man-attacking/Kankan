@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 
+using json = nlohmann::json;
 
 Netizen::Netizen(std::string id, std::string password) :
     m_id{id}, m_password{password}
@@ -16,7 +17,7 @@ Netizen::~Netizen()
 
 std::string Netizen::insertSql()
 {
-    return "insert into user values( " + m_id + ", '" + m_password + "', '" + m_nickname + "');";
+    return "insert into user values( '" + m_id + "', '" + m_password + "', '" + m_nickname + "');";
 }
 
 Netizen::Netizen(std::string id, std::string nickname, std::string headPortrait, std::vector<std::string> videosId,
@@ -46,27 +47,29 @@ void Netizen::init()
 {
     //粉丝及关注者数据读取简化处理
     //getVideoInfo如何存储返回的数据
-    for (auto video : _videos){
-        video.second.getVideoInfo(video.first);
-    }
-    for (auto fan : _fans)
-        fan.second.getInfo(fan.first);
+    json videoInfo;
+    json fanInfo;
+    json followerInfo;
 
-    for (auto follower : _followers)
-        follower.second.getInfo(follower.first);
+    for (auto &video : _videos){
+        videoInfo = video.second.getVideoInfo(video.first);
+    }
+    for (auto &fan : _fans)
+        fanInfo = fan.second.getInfo(fan.first);
+
+    for (auto &follower : _followers)
+        followerInfo = follower.second.getInfo(follower.first);
 }
 
-std::vector<std::string> Netizen::getInfo()
+nlohmann::json Netizen::getInfo()
 {
-    std::vector<std::string> results;
-    results.push_back(m_headPortrait);
-    results.push_back(m_nickname);
+    json results;
+    results["headPortrait"] = m_headPortrait;
+    results["nickname"] = m_nickname;
 
     //测试
     std::cout << "NetizenInfo: " ;
-    for (auto g : results)
-        std::cout << g << "   ";
-    std::cout << "\n";
+    std::cout << results.dump(4) << std::endl;
 
     return results;
 }

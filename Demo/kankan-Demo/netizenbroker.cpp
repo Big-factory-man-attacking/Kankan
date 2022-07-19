@@ -54,7 +54,7 @@ void NetizenBroker::insertNewNetizen(std::shared_ptr<Netizen> netizen)
     insert(sql);
 }
 
-std::shared_ptr<Netizen> NetizenBroker::findNetizenById(std::string id)
+std::shared_ptr<Netizen> NetizenBroker::findNetizenById(const std::string& id)
 {
     //检查用户是否在缓存中
 
@@ -76,7 +76,7 @@ std::shared_ptr<Netizen> NetizenBroker::findNetizenById(std::string id)
     return netizen;
 }
 
-std::vector<std::string> NetizenBroker::findNetizenVideos(const std::string id)
+std::vector<std::string> NetizenBroker::findNetizenVideos(const std::string& id)
 {
     std::string sql = "select id from video where user_id = '" + id + "'";
     std::shared_ptr<sql::ResultSet> res = query(sql);
@@ -88,7 +88,7 @@ std::vector<std::string> NetizenBroker::findNetizenVideos(const std::string id)
     return videoIds;
 }
 
-std::vector<std::string> NetizenBroker::findNetizenFans(const std::string id)
+std::vector<std::string> NetizenBroker::findNetizenFans(const std::string& id)
 {
     std::string sql = "select fan_id from fan where user_id = '" + id + "'";
     std::shared_ptr<sql::ResultSet> res = query(sql);
@@ -100,7 +100,7 @@ std::vector<std::string> NetizenBroker::findNetizenFans(const std::string id)
     return fanIds;
 }
 
-std::vector<std::string> NetizenBroker::findNetizenFollowers(const std::string id)
+std::vector<std::string> NetizenBroker::findNetizenFollowers(const std::string& id)
 {
     std::string sql = "select follower_id from follower where user_id = '" + id + "'";
     std::shared_ptr<sql::ResultSet> res = query(sql);

@@ -3,7 +3,17 @@ CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
 
-LIBS += -lmariadbcpp
+LIBS += -lmariadbcpp \
+        -lavcodec \
+        -lavdevice \
+        -lavfilter \
+        -lavformat \
+        -lavutil \
+        -lpostproc \
+        -lswresample \
+        -lswscale \
+        -lSDL2 \
+        -lSDL2main \
 
 SOURCES += \
         cache.cpp \

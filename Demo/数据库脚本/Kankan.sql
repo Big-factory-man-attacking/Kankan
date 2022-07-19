@@ -6,7 +6,7 @@ use Kankan;
 create table user( 
 	id VARCHAR(132) UNIQUE NOT NULL PRIMARY KEY, 
 	password VARCHAR(20) NOT NULL, 
-	nickname VARCHAR(20) UNIQUE
+	nickname VARCHAR(140) UNIQUE
 ) DEFAULT CHARSET=utf8mb4 COMMENT="用户信息表";
 
 create table video( 

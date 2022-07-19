@@ -4,6 +4,7 @@
 #include <memory>
 #include "netizeninterface.h"
 #include <vector>
+#include "json.hpp"
 
 class Netizen;
 
@@ -13,7 +14,7 @@ public:
     NetizenProxy(std::string id);
     ~NetizenProxy();
 
-    std::vector<std::string> getInfo(std::string id);
+    nlohmann::json getInfo(const std::string& id);
 private:
     std::string m_id;
     std::shared_ptr<Netizen> m_netizen;
