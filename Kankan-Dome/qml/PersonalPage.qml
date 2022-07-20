@@ -190,7 +190,7 @@ Rectangle {
     }
     Rectangle {
         width: parent.width-20
-        height: parent.height-personalMessage.height-toolBar.height-toolS.height
+        height: parent.height-personalMessage.height-toolBar.height-toolS.height-10
         anchors.top: toolS.bottom
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
@@ -329,8 +329,8 @@ Rectangle {
                         }
                         TapHandler {
                             onTapped: {
-                                bar.visible = false
                                 settingPage.visible = true
+                                mainPage.visible = false
                             }
                         }
                     }
@@ -434,11 +434,6 @@ Rectangle {
     }
     ManuscriptPage {
         id: manuscriptPage
-        anchors.fill: parent
-        visible: false
-    }
-    SettingPage {
-        id: settingPage
         anchors.fill: parent
         visible: false
     }

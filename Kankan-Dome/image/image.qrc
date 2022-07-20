@@ -42,5 +42,8 @@
         <file>set.png</file>
         <file>bud.png</file>
         <file>service.png</file>
+        <file>to_right.png</file>
+        <file>eye_hide.png</file>
+        <file>eye_visible.png</file>
     </qresource>
 </RCC>

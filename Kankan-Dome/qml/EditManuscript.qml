@@ -18,6 +18,7 @@ Rectangle {
                 icon.source: "qrc:to_left.png"
                 icon.width: 35
                 icon.height: 30
+                Layout.alignment: Qt.AlignBottom
                 background: Rectangle {
                     color: "white"
                 }
@@ -34,7 +35,7 @@ Rectangle {
                 id: publishButton
                 Layout.preferredWidth: 50
                 Layout.preferredHeight: 30
-                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                Layout.alignment: Qt.AlignBottom | Qt.AlignRight
                 Layout.rightMargin: 10
                 Text {
                     text: qsTr("发布")

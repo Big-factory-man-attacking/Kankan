@@ -119,7 +119,7 @@ Rectangle {
                     }
                     onClicked: {
                         timeRec.visible = false
-                        if (timing_on.visible === false) {
+                        if ((timing_on.visible === false)) {
                             timing_on.clicked()
                         }
                     }

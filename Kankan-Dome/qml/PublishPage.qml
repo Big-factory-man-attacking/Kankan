@@ -7,9 +7,7 @@ import Qt5Compat.GraphicalEffects
 
 Item {
     id: publishPage
-    //anchors.fill: parent
-    width: 400
-    height: 700
+    anchors.fill: parent
     ColumnLayout {
         id: publishColumn
         anchors.fill: parent
@@ -29,8 +27,8 @@ Item {
                     color: "white"
                 }
                 onClicked: {
-                    bar.visible = true
-                    bar.currentIndex = 0
+                    mainPage.bar.currentIndex = 0
+                    mainPage.visible = true
                     publishPage.visible = false
                 }
             }

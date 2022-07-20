@@ -4,6 +4,7 @@ SOURCES += \
         main.cpp
 
 resources.files = qml/main.qml\
+    qml/MainPage.qml\
     qml/HomePage.qml\
     qml/PersonalPage.qml\
     qml/PublishPage.qml\
@@ -12,7 +13,10 @@ resources.files = qml/main.qml\
     qml/ManuscriptPage.qml\
     qml/EditManuscript.qml\
     qml/CommentManger.qml\
-    qml/SettingPage.qml
+    qml/SettingPage.qml\
+    qml/AccountInformation.qml\
+    qml/LoginPage.qml\
+    qml/RegisterPage.qml
 
 resources.prefix = /$${TARGET}
 RESOURCES += resources \
@@ -30,12 +34,17 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    qml/AccountInformation.qml \
     qml/CommentManger.qml \
+    qml/Dialogs.qml \
     qml/EditManuscript.qml \
     qml/HomePage.qml \
+    qml/LoginPage.qml \
+    qml/MainPage.qml \
     qml/ManuscriptPage.qml \
     qml/MyFriend.qml \
     qml/PersonalPage.qml \
     qml/PublishPage.qml \
+    qml/RegisterPage.qml \
     qml/SettingPage.qml \
     qml/TimeDialog.qml
