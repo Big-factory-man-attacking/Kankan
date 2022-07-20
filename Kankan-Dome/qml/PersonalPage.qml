@@ -188,96 +188,245 @@ Rectangle {
             color: "#cccccc"
         }
     }
-    ScrollView {
+    Rectangle {
         width: parent.width-20
-        height: parent.height-personalMessage.height-toolBar.height-2
-        anchors.horizontalCenter: parent.horizontalCenter
+        height: parent.height-personalMessage.height-toolBar.height-toolS.height
         anchors.top: toolS.bottom
-        clip: true
-        ScrollBar.horizontal: ScrollBar{ visible: true }
-        ColumnLayout {
-            width: personal.width-20
-            RowLayout {
-                Layout.preferredWidth: parent.width
-                Button {
-                    Layout.preferredWidth: parent.width/4
-                    Layout.preferredHeight: 60
-                    background: Rectangle {
-                        color: "white"
-                    }
-                    ColumnLayout {
-                        spacing: 5
-                        anchors.centerIn: parent
-                        Image {
-                            source: "qrc:download.png"
-                            sourceSize: Qt.size(25, 25)
-                            Layout.alignment: Qt.AlignHCenter
+        anchors.topMargin: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        ScrollView {
+            anchors.fill: parent
+            clip: true
+            ScrollBar.horizontal: ScrollBar{ visible: true }
+            ColumnLayout {
+                width: parent.width
+                spacing: 10
+                RowLayout {
+                    Layout.preferredWidth: parent.width
+                    spacing: 0
+                    Button {
+                        Layout.preferredHeight: 60
+                        Layout.preferredWidth: parent.width/4
+                        background: Rectangle {
+                            color: "white"
                         }
-                        Text {
-                            text: qsTr("离线缓存")
+                        ColumnLayout {
+                            spacing: 5
+                            anchors.centerIn: parent
+                            Image {
+                                source: "qrc:download.png"
+                                sourceSize: Qt.size(25, 25)
+                                Layout.alignment: Qt.AlignHCenter
+                            }
+                            Text {
+                                text: qsTr("离线缓存")
+                            }
+                        }
+                    }
+                    Button {
+                        Layout.preferredHeight: 60
+                        Layout.preferredWidth: parent.width/4
+                        background: Rectangle {
+                            color: "white"
+                        }
+                        ColumnLayout {
+                            spacing: 5
+                            anchors.centerIn: parent
+                            Image {
+                                source: "qrc:history.png"
+                                sourceSize: Qt.size(26, 26)
+                                Layout.alignment: Qt.AlignHCenter
+                            }
+                            Text {
+                                text: qsTr("历史记录")
+                            }
+                        }
+                    }
+                    Button {
+                        Layout.preferredHeight: 60
+                        Layout.preferredWidth: parent.width/4
+                        background: Rectangle {
+                            color: "white"
+                        }
+                        ColumnLayout {
+                            spacing: 5
+                            anchors.centerIn: parent
+                            Image {
+                                source: "qrc:myCollect.png"
+                                sourceSize: Qt.size(28, 28)
+                                Layout.alignment: Qt.AlignHCenter
+                            }
+                            Text {
+                                text: qsTr("我的收藏")
+                            }
+                        }
+                    }
+                    Button {
+                        Layout.preferredHeight: 60
+                        Layout.preferredWidth: parent.width/4
+                        background: Rectangle {
+                            color: "white"
+                        }
+                        ColumnLayout {
+                            spacing: 5
+                            anchors.centerIn: parent
+                            Image {
+                                source: "qrc:watchLater.png"
+                                sourceSize: Qt.size(28, 28)
+                                Layout.alignment: Qt.AlignHCenter
+                            }
+                            Text {
+                                text: qsTr("稍后再看")
+                            }
                         }
                     }
                 }
-                Button {
-                    Layout.preferredWidth: parent.width/4
-                    Layout.preferredHeight: 60
-                    background: Rectangle {
-                        color: "white"
+                ColumnLayout {
+                    Layout.preferredWidth: parent.width
+                    spacing: 10
+                    Text {
+                        text: qsTr("推荐服务")
                     }
-                    ColumnLayout {
-                        spacing: 5
-                        anchors.centerIn: parent
-                        Image {
-                            source: "qrc:history.png"
-                            sourceSize: Qt.size(26, 26)
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Text {
-                            text: qsTr("历史记录")
-                        }
+                    GridView {
+                        id: iconView
+                        Layout.preferredWidth: parent.width
+                        Layout.preferredHeight: 210
+                        cellHeight: 70
+                        cellWidth: width/4
+                        model: iconModel
+                        delegate: iconDelegate
                     }
                 }
-                Button {
-                    Layout.preferredWidth: parent.width/4
-                    Layout.preferredHeight: 60
-                    background: Rectangle {
-                        color: "white"
+                ColumnLayout{
+                    spacing: 5
+                    Layout.preferredWidth: parent.width
+                    Text {
+                        text: qsTr("更多服务")
                     }
-                    ColumnLayout {
-                        spacing: 5
-                        anchors.centerIn: parent
+                    Rectangle {
+                        Layout.preferredWidth: parent.width-20
+                        Layout.preferredHeight: 40
+                        Layout.alignment: Qt.AlignHCenter
                         Image {
-                            source: "qrc:myCollect.png"
+                            id: setImage
+                            source: "qrc:set.png"
+                            sourceSize: Qt.size(30, 30)
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Text {
+                            text: qsTr("设置")
+                            font.pixelSize: 14
+                            anchors.left: setImage.right
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Image {
+                            source: "qrc:right.png"
+                            sourceSize: Qt.size(30, 30)
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        TapHandler {
+                            onTapped: {
+                                bar.visible = false
+                                settingPage.visible = true
+                            }
+                        }
+                    }
+                    Rectangle {
+                        Layout.preferredWidth: parent.width-20
+                        Layout.preferredHeight: 40
+                        Layout.alignment: Qt.AlignHCenter
+                        Image {
+                            id: serviceImage
+                            source: "qrc:service.png"
                             sourceSize: Qt.size(28, 28)
-                            Layout.alignment: Qt.AlignHCenter
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
-                            text: qsTr("我的收藏")
+                            text: qsTr("联系客服")
+                            font.pixelSize: 14
+                            anchors.left: serviceImage.right
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
                         }
-                    }
-                }
-                Button {
-                    Layout.preferredWidth: parent.width/4
-                    Layout.preferredHeight: 60
-                    background: Rectangle {
-                        color: "white"
-                    }
-                    ColumnLayout {
-                        spacing: 5
-                        anchors.centerIn: parent
                         Image {
-                            source: "qrc:watchLater.png"
+                            source: "qrc:right.png"
+                            sourceSize: Qt.size(30, 30)
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                    Rectangle {
+                        Layout.preferredWidth: parent.width-20
+                        Layout.preferredHeight: 40
+                        Layout.alignment: Qt.AlignHCenter
+                        Image {
+                            id: adolescentModelImage
+                            source: "qrc:bud.png"
                             sourceSize: Qt.size(28, 28)
-                            Layout.alignment: Qt.AlignHCenter
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
-                            text: qsTr("稍后再看")
+                            text: qsTr("青少年守护")
+                            font.pixelSize: 14
+                            anchors.left: adolescentModelImage.right
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Image {
+                            source: "qrc:right.png"
+                            sourceSize: Qt.size(30, 30)
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
                         }
                     }
                 }
             }
         }
     }
+    ListModel {
+        id: iconModel
+        ListElement { iconSource: "qrc:myCourses.png"; iconText: qsTr("我的课程") }
+        ListElement { iconSource: "qrc:freeTraffic.png"; iconText: qsTr("免流量服务") }
+        ListElement { iconSource: "qrc:skin.png"; iconText: qsTr("个性装扮") }
+        ListElement { iconSource: "qrc:wallet.png"; iconText: qsTr("我的钱包") }
+        ListElement { iconSource: "qrc:game.png"; iconText: qsTr("游戏中心") }
+        ListElement { iconSource: "qrc:shopping.png"; iconText: qsTr("会员购中心") }
+        ListElement { iconSource: "qrc:live.png"; iconText: qsTr("直播中心") }
+        ListElement { iconSource: "qrc:recommend.png"; iconText: qsTr("推荐有奖") }
+        ListElement { iconSource: "qrc:community.png"; iconText: qsTr("社区中心") }
+        ListElement { iconSource: "qrc:publicBenefit.png"; iconText: qsTr("公益中心") }
+        ListElement { iconSource: "qrc:welfare.png"; iconText: qsTr("充能领福利") }
+        ListElement { iconSource: "qrc:cheerUp.png"; iconText: qsTr("能量加油站") }
+    }
+    Component {
+        id: iconDelegate
+        Button {
+            height: 70
+            width: iconView.width/4
+            background: Rectangle {
+                color: "white"
+            }
+            ColumnLayout {
+                spacing: 5
+                anchors.centerIn: parent
+                Image {
+                    source: iconSource
+                    sourceSize: Qt.size(30, 30)
+                    Layout.alignment: Qt.AlignHCenter
+                }
+                Text {
+                    text: iconText
+                    font.pixelSize: 14
+                }
+            }
+        }
+    }
+
     MyFriend {
         id: myFriend
         anchors.fill: parent
@@ -285,6 +434,11 @@ Rectangle {
     }
     ManuscriptPage {
         id: manuscriptPage
+        anchors.fill: parent
+        visible: false
+    }
+    SettingPage {
+        id: settingPage
         anchors.fill: parent
         visible: false
     }

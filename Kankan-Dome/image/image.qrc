@@ -5,7 +5,6 @@
         <file>home_fill.png</file>
         <file>my.png</file>
         <file>my_fill.png</file>
-        <file>set_fill.png</file>
         <file>message.png</file>
         <file>search.png</file>
         <file>clear.png</file>
@@ -28,5 +27,20 @@
         <file>history.png</file>
         <file>watchLater.png</file>
         <file>myCollect.png</file>
+        <file>cheerUp.png</file>
+        <file>community.png</file>
+        <file>freeTraffic.png</file>
+        <file>game.png</file>
+        <file>live.png</file>
+        <file>myCourses.png</file>
+        <file>publicBenefit.png</file>
+        <file>shopping.png</file>
+        <file>skin.png</file>
+        <file>wallet.png</file>
+        <file>welfare.png</file>
+        <file>recommend.png</file>
+        <file>set.png</file>
+        <file>bud.png</file>
+        <file>service.png</file>
     </qresource>
 </RCC>

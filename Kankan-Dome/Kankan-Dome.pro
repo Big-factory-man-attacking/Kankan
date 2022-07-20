@@ -11,7 +11,8 @@ resources.files = qml/main.qml\
     qml/MyFriend.qml\
     qml/ManuscriptPage.qml\
     qml/EditManuscript.qml\
-    qml/CommentManger.qml
+    qml/CommentManger.qml\
+    qml/SettingPage.qml
 
 resources.prefix = /$${TARGET}
 RESOURCES += resources \
@@ -36,4 +37,5 @@ DISTFILES += \
     qml/MyFriend.qml \
     qml/PersonalPage.qml \
     qml/PublishPage.qml \
+    qml/SettingPage.qml \
     qml/TimeDialog.qml
