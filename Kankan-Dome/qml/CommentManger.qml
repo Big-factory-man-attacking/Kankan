@@ -61,6 +61,7 @@ Rectangle {
             ListView {
                 id: commentListView
                 anchors.fill: parent
+                boundsBehavior: Flickable.StopAtBounds
                 model: commentListModel
                 delegate: commentDelegate
                 spacing: 10

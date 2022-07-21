@@ -25,7 +25,8 @@ Rectangle {
                     color: "white"
                 }
                 onClicked: {
-                    bar.visible = true
+                    mainPage.bar.currentIndex = 2
+                    mainPage.visible =  true
                     myFriend.visible = false
                 }
             }
@@ -127,6 +128,7 @@ Rectangle {
                     ListView {
                         id: followerListView
                         anchors.fill: parent
+                        boundsBehavior: Flickable.StopAtBounds
                         model: followerListModel
                         delegate: followerDelegate
                     }
@@ -193,6 +195,7 @@ Rectangle {
                     ListView {
                         id: fansListView
                         anchors.fill: parent
+                        boundsBehavior: Flickable.StopAtBounds
                         model: fansListModel
                         delegate: fansDelegate
                     }
@@ -253,7 +256,6 @@ Rectangle {
         Component {
             id: followerDelegate
             Rectangle {
-                id: personalMessage
                 height: 70
                 width: followerListView.width
                 Rectangle {
@@ -320,9 +322,8 @@ Rectangle {
         Component {
             id: fansDelegate
             Rectangle {
-                id: personalMessage
                 height: 70
-                width: followerListView.width
+                width: fansListView.width
                 Rectangle {
                     id: img
                     height: 40

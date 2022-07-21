@@ -22,7 +22,8 @@ Rectangle {
                     color: "white"
                 }
                 onClicked: {
-                    bar.visible = true
+                    mainPage.bar.currentIndex = 2
+                    mainPage.visible =  true
                     manuscriptPage.visible = false
                 }
             }
@@ -115,6 +116,7 @@ Rectangle {
                     id: manuscriptListView
                     anchors.fill: parent
                     spacing: 10
+                    boundsBehavior: Flickable.StopAtBounds
                     model: manuscriptListModel
                     delegate: manuscriptDelegate
                 }
@@ -198,7 +200,7 @@ Rectangle {
                             icon.width: 30
                             icon.height: 30
                             icon.source: "qrc:video.png"
-                            text: "234"
+                            text: playNum
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
                             background: Rectangle {
@@ -213,7 +215,7 @@ Rectangle {
                             icon.width: 30
                             icon.height: 30
                             icon.source: "qrc:comment.png"
-                            text: "1234"
+                            text: commentNum
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
                             background: Rectangle {
@@ -228,7 +230,7 @@ Rectangle {
                             icon.width: 30
                             icon.height: 30
                             icon.source: "qrc:like.png"
-                            text: "34"
+                            text: likeNum
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
                             background: Rectangle {
@@ -243,7 +245,7 @@ Rectangle {
                             icon.width: 30
                             icon.height: 30
                             icon.source: "qrc:collection.png"
-                            text: "2"
+                            text: collectNum
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
                             background: Rectangle {
@@ -307,10 +309,10 @@ Rectangle {
     ListModel {
         id: manuscriptListModel
         Component.onCompleted: {
-            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30"});
-            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "0:30"});
-            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30"});
-            manuscriptListModel.append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30"});
+            append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30", playNum: "132", commentNum: "654", likeNum: "32", collectNum: "6"});
+            append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30", playNum: "1328", commentNum: "654", likeNum: "32", collectNum: "6"});
+            append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30", playNum: "12", commentNum: "65", likeNum: "32", collectNum: "6"});
+            append({manuscriptCover: "qrc:cover.png", manuscriptTitle: "歌乐山", publishDate: new Date(), duration: "1:30", playNum: "32", commentNum: "54", likeNum: "32", collectNum: "6"});
         }
     }
     EditManuscript {

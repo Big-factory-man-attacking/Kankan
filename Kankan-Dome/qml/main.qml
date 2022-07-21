@@ -30,9 +30,25 @@ ApplicationWindow {
         visible: false
         anchors.fill: parent
     }
+    WatchVideo {
+        id: watchVideo
+        visible: false
+        anchors.fill: parent
+    }
+
     SettingPage {
         id: settingPage
         visible: false
         anchors.fill: parent
+    }
+    MyFriend {
+        id: myFriend
+        anchors.fill: parent
+        visible: false
+    }
+    ManuscriptPage {
+        id: manuscriptPage
+        anchors.fill: parent
+        visible: false
     }
 }

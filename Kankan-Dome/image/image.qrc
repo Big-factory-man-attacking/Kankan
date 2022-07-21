@@ -45,5 +45,7 @@
         <file>to_right.png</file>
         <file>eye_hide.png</file>
         <file>eye_visible.png</file>
+        <file>comment_white.png</file>
+        <file>video_white.png</file>
     </qresource>
 </RCC>

@@ -16,7 +16,8 @@ resources.files = qml/main.qml\
     qml/SettingPage.qml\
     qml/AccountInformation.qml\
     qml/LoginPage.qml\
-    qml/RegisterPage.qml
+    qml/RegisterPage.qml\
+    qml/WatchVideo.qml
 
 resources.prefix = /$${TARGET}
 RESOURCES += resources \
@@ -47,4 +48,5 @@ DISTFILES += \
     qml/PublishPage.qml \
     qml/RegisterPage.qml \
     qml/SettingPage.qml \
-    qml/TimeDialog.qml
+    qml/TimeDialog.qml \
+    qml/WatchVideo.qml

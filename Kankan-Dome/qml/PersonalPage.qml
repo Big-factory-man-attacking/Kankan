@@ -92,7 +92,7 @@ Rectangle {
                     }
                 }
                 onClicked: {
-                    bar.visible = false
+                    mainPage.visible = false
                     manuscriptPage.visible = true
                 }
             }
@@ -131,7 +131,7 @@ Rectangle {
                     }
                 }
                 onClicked: {
-                    bar.visible = false
+                    mainPage.visible = false
                     myFriend.friendBar.currentIndex = 1
                     myFriend.visible = true
                 }
@@ -171,7 +171,7 @@ Rectangle {
                     }
                 }
                 onClicked: {
-                    bar.visible = false
+                    mainPage.visible = false
                     myFriend.friendBar.currentIndex = 0
                     myFriend.visible = true
                 }
@@ -189,6 +189,7 @@ Rectangle {
         }
     }
     Rectangle {
+        id: contentRec
         width: parent.width-20
         height: parent.height-personalMessage.height-toolBar.height-toolS.height-10
         anchors.top: toolS.bottom
@@ -199,7 +200,7 @@ Rectangle {
             clip: true
             ScrollBar.horizontal: ScrollBar{ visible: true }
             ColumnLayout {
-                width: parent.width
+                width: contentRec.width
                 spacing: 10
                 RowLayout {
                     Layout.preferredWidth: parent.width
@@ -425,16 +426,5 @@ Rectangle {
                 }
             }
         }
-    }
-
-    MyFriend {
-        id: myFriend
-        anchors.fill: parent
-        visible: false
-    }
-    ManuscriptPage {
-        id: manuscriptPage
-        anchors.fill: parent
-        visible: false
     }
 }
