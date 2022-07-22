@@ -47,5 +47,12 @@
         <file>eye_visible.png</file>
         <file>comment_white.png</file>
         <file>video_white.png</file>
+        <file>full_screen.png</file>
+        <file>more.png</file>
+        <file>play.png</file>
+        <file>stop.png</file>
+        <file>to_left_white.png</file>
+        <file>add_white.png</file>
+        <file>affirm.png</file>
     </qresource>
 </RCC>

@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtMultimedia
 import Qt5Compat.GraphicalEffects
 
 Item {
@@ -182,6 +181,12 @@ Item {
                         Layout.alignment: Qt.AlignRight
                     }
                 }
+                TapHandler {
+                    onTapped: {
+                        watchVideo.video.source = bigVideoUrl
+                        toWatchVideo()
+                    }
+                }
             }
             Rectangle {
                 id: abstractRec
@@ -203,7 +208,7 @@ Item {
             GridView {
                 id: videoView
                 Layout.preferredWidth: parent.width-10
-                Layout.preferredHeight: 585
+                Layout.preferredHeight: cellHeight*count/2
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 10
                 cellWidth: width/2
@@ -264,6 +269,12 @@ Item {
                                 Layout.alignment: Qt.AlignRight
                             }
                         }
+                        TapHandler {
+                            onTapped: {
+                                watchVideo.video.source = videoUrl
+                                toWatchVideo()
+                            }
+                        }
                     }
                     Rectangle {
                         color: "white"
@@ -315,15 +326,15 @@ Item {
     ListModel {
         id: videoModel
         Component.onCompleted: {
-            append({bigVideoUrl: "file:///root/mv.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
-            append({bigVideoUrl: "file:///root/mv.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
-            append({bigVideoUrl: "file:///root/mv.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
+            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
+            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
+            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
         }
     }
     ListModel {
         id: videoUrlModel
         ListElement {
-            videoUrl: "file:///root/mv.mkv"
+            videoUrl: "file:///root/2.avi"
             videoCover: "qrc:cover.png"
             playNum: "435"
             commentNum: "5464"
@@ -332,7 +343,7 @@ Item {
             authorName: "grae"
         }
         ListElement {
-            videoUrl: "file:///root/mv.mkv"
+            videoUrl: "file:///root/1.mkv"
             videoCover: "file:///root/1.png"
             playNum: "435"
             commentNum: "5464"
@@ -341,7 +352,7 @@ Item {
             authorName: "grae"
         }
         ListElement {
-            videoUrl: "file:///root/mv.mkv"
+            videoUrl: "file:///root/1.mkv"
             videoCover: "file:///root/2.png"
             playNum: "435"
             commentNum: "5464"
@@ -350,7 +361,7 @@ Item {
             authorName: "grae"
         }
         ListElement {
-            videoUrl: "file:///root/mv.mkv"
+            videoUrl: "file:///root/1.mkv"
             videoCover: "file:///root/2.png"
             playNum: "435"
             commentNum: "5464"
@@ -359,7 +370,7 @@ Item {
             authorName: "grae"
         }
         ListElement {
-            videoUrl: "file:///root/mv.mkv"
+            videoUrl: "file:///root/1.mkv"
             videoCover: "qrc:cover.png"
             playNum: "435"
             commentNum: "5464"
@@ -368,7 +379,7 @@ Item {
             authorName: "grae"
         }
         ListElement {
-            videoUrl: "file:///root/mv.mkv"
+            videoUrl: "file:///root/1.mkv"
             videoCover: "qrc:cover.png"
             playNum: "435"
             commentNum: "5464"
@@ -377,24 +388,9 @@ Item {
             authorName: "grae"
         }
     }
-//    Video{
-//        id: video
-//        Layout.preferredHeight: width/16*9
-//        Layout.preferredWidth: parent.width-10
-//        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-//        source: "file:///root/mv.mkv"
 
-//        MouseArea {
-//            anchors.fill: parent
-//            onClicked: {
-//                video.play()
-//            }
-//        }
-
-//        focus: true
-//        Keys.onSpacePressed: video.playbackState === MediaPlayer.PlayingState ?
-//                                 video.pause() : video.play()
-//        Keys.onLeftPressed: video.seek(video.position - 5000)
-//        Keys.onRightPressed: video.seek(video.position + 5000)
-//    }
+    function toWatchVideo() {
+        watchVideo.visible = true
+        watchVideo.getVideoInfo()
+    }
 }

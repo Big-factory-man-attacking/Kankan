@@ -17,7 +17,8 @@ resources.files = qml/main.qml\
     qml/AccountInformation.qml\
     qml/LoginPage.qml\
     qml/RegisterPage.qml\
-    qml/WatchVideo.qml
+    qml/WatchVideo.qml\
+    qml/FullScreen.qml
 
 resources.prefix = /$${TARGET}
 RESOURCES += resources \
@@ -39,6 +40,7 @@ DISTFILES += \
     qml/CommentManger.qml \
     qml/Dialogs.qml \
     qml/EditManuscript.qml \
+    qml/FullScreen.qml \
     qml/HomePage.qml \
     qml/LoginPage.qml \
     qml/MainPage.qml \

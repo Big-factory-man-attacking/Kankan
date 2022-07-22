@@ -8,6 +8,7 @@ Rectangle {
     Column {
         id: contentColumn
         width: parent.width
+        height: parent.height
         spacing: 12
         RowLayout {
             id: titleRow
@@ -47,6 +48,9 @@ Rectangle {
                     color: "#24c3f5"
                     radius: 5
                 }
+                onClicked: {
+                    console.log(scroll.height)
+                }
             }
         }
         ToolSeparator {
@@ -58,6 +62,7 @@ Rectangle {
             }
         }
         ScrollView {
+            id: scroll
             width: parent.width
             height: parent.height-titleRow.height-25
             clip: true
