@@ -188,8 +188,9 @@ Item {
                 }
                 TapHandler {
                     onTapped: {
-                        watchVideo.video.source = bigVideoUrl
-                        toWatchVideo()
+                        stackView.push(watchVideo, {videoSource: bigVideoUrl})
+                        mainPage.visible = false
+                        stackView.visible = true
                     }
                 }
             }
@@ -276,8 +277,9 @@ Item {
                         }
                         TapHandler {
                             onTapped: {
-                                watchVideo.video.source = videoUrl
-                                toWatchVideo()
+                                stackView.push(watchVideo, {videoSource: videoUrl})
+                                mainPage.visible = false
+                                stackView.visible = true
                             }
                         }
                     }
@@ -392,10 +394,5 @@ Item {
             videoTitle: "grsrhtedst htrhtdgn cfghbvc"
             authorName: "grae"
         }
-    }
-
-    function toWatchVideo() {
-        watchVideo.visible = true
-        watchVideo.getVideoInfo()
     }
 }

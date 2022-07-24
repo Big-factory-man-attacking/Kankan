@@ -5,11 +5,13 @@ import QtMultimedia
 import Qt5Compat.GraphicalEffects
 
 Rectangle {
-    anchors.fill: parent
+    width: parent.width
+    height: parent.height
     color: "white"
     property string totalTime:"00:00:00";
     property string currentTime:"00:00:00";
-    property alias video: video
+    property alias videoSource: video.source
+    property alias homeButVisiable: homeBut.visible
 
     function getVideoInfo() {
 
@@ -84,18 +86,46 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: 5
-            Button {
-                icon.source: "qrc:to_left_white.png"
-                icon.width: 20
-                icon.height: 20
+            RowLayout {
+                spacing: 10
                 Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                background: Rectangle {
-                    opacity: 0
+                Button {
+                    icon.source: "qrc:to_left_white.png"
+                    icon.width: 20
+                    icon.height: 20
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                    background: Rectangle {
+                        opacity: 0
+                    }
+                    onClicked: {
+                        if (stackView.depth === 1) {
+                            console.log(stackView.depth)
+                            stackView.clear()
+                            mainPage.visible = true
+                            stackView.visible = false
+                        } else {
+                            console.log(stackView.depth)
+                            stackView.pop()
+                        }
+                    }
                 }
-                onClicked: {
-                    watchVideo.visible = false
+                Button {
+                    id: homeBut
+                    icon.source: "qrc:home_white.png"
+                    icon.width: 20
+                    icon.height: 20
+                    visible: false
+                    background: Rectangle {
+                        opacity: 0
+                    }
+                    onClicked: {
+                        stackView.visible = false
+                        mainPage.visible = true
+                        stackView.clear()
+                    }
                 }
             }
+
             Button {
                 icon.source: "qrc:more.png"
                 icon.width: 25
@@ -802,8 +832,8 @@ Rectangle {
             }
             TapHandler {
                 onTapped: {
-                    watchVideo.video.source = videoUrl
-                    watchVideo.visible = true
+                    console.log("123")
+                    stackView.push(watchVideo, {videoSource: videoUrl, homeButVisiable: true})
                 }
             }
         }
@@ -907,5 +937,6 @@ Rectangle {
         visible: false
         anchors.fill: parent
     }
+
 
 }

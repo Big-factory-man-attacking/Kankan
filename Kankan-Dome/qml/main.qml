@@ -30,11 +30,11 @@ ApplicationWindow {
         visible: false
         anchors.fill: parent
     }
-    WatchVideo {
-        id: watchVideo
-        visible: false
-        anchors.fill: parent
-    }
+//    WatchVideo {
+//        id: watchVideo
+//        visible: false
+//        anchors.fill: parent
+//    }
 
     SettingPage {
         id: settingPage
@@ -55,5 +55,17 @@ ApplicationWindow {
         id: commentManger
         anchors.fill: parent
         visible: false
+    }
+    StackView {
+        id: stackView
+        anchors.fill: parent
+        visible: false
+    }
+    Component {
+        id: watchVideo
+        WatchVideo {
+            width: stackView.width
+            height: stackView.height
+        }
     }
 }
