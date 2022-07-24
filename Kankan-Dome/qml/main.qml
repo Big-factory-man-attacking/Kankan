@@ -51,4 +51,9 @@ ApplicationWindow {
         anchors.fill: parent
         visible: false
     }
+    CommentManger {
+        id: commentManger
+        anchors.fill: parent
+        visible: false
+    }
 }

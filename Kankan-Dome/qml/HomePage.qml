@@ -105,6 +105,11 @@ Item {
                 fillMode: Image.PreserveAspectFit
                 source: "qrc:message.png"
                 Layout.rightMargin: 12
+                TapHandler {
+                    onTapped: {
+                        commentManger.visible = true
+                    }
+                }
             }
         }
         Rectangle {
@@ -189,18 +194,18 @@ Item {
                 }
             }
             Rectangle {
-                id: abstractRec
+                id: titleRec
                 color: "white"
                 Layout.preferredWidth: parent.width-20
-                Layout.preferredHeight: bigVideoAbstractT.height+10
+                Layout.preferredHeight: bigVideoTitleT.height+10
                 Layout.alignment: Qt.AlignHCenter
                 Text {
-                    id: bigVideoAbstractT
+                    id: bigVideoTitleT
                     width: parent.width-20
                     height: 40
                     anchors.centerIn: parent
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: videoAbstract
+                    text: videoTitle
                     wrapMode: Text.WordWrap
                     elide: Text.ElideRight
                 }
@@ -258,7 +263,7 @@ Item {
                                     }
                                 }
                                 Text {
-                                    text: playNum
+                                    text: commentNum
                                     color: "white"
                                     anchors.verticalCenter: parent.verticalCenter
                                 }
@@ -283,13 +288,13 @@ Item {
                         anchors.top: videoCoverI.bottom
                         anchors.horizontalCenter: parent.horizontalCenter
                         Text {
-                            id: videoAbstractT
+                            id: videoTitleT
                             width: parent.width-20
                             height: 40
                             anchors.top: parent.top
                             anchors.topMargin: 5
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: videoAbstract
+                            text: videoTitle
                             wrapMode: Text.WordWrap
                             elide: Text.ElideRight
                         }
@@ -297,7 +302,7 @@ Item {
                             id: authorLabel
                             width: authorText.width+4
                             height: authorText.height+4
-                            anchors.top: videoAbstractT.bottom
+                            anchors.top: videoTitleT.bottom
                             anchors.topMargin: 5
                             anchors.left: parent.left
                             anchors.leftMargin: 10
@@ -315,7 +320,7 @@ Item {
                             text: authorName
                             anchors.left: authorLabel.right
                             anchors.leftMargin: 5
-                            anchors.top: videoAbstractT.bottom
+                            anchors.top: videoTitleT.bottom
                             anchors.topMargin: 5
                         }
                     }
@@ -326,9 +331,9 @@ Item {
     ListModel {
         id: videoModel
         Component.onCompleted: {
-            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
-            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
-            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoAbstract: "谷胱甘肽风格灌灌灌灌灌灌"});
+            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoTitle: "谷胱甘肽风格灌灌灌灌灌灌"});
+            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoTitle: "谷胱甘肽风格灌灌灌灌灌灌"});
+            append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoTitle: "谷胱甘肽风格灌灌灌灌灌灌"});
         }
     }
     ListModel {
@@ -339,7 +344,7 @@ Item {
             playNum: "435"
             commentNum: "5464"
             duration: "1:30"
-            videoAbstract: "反对他那个人的突然间那个而地方突然方没有那个反检验时"
+            videoTitle: "反对他那个人的突然间那个而地方突然方没有那个反检验时"
             authorName: "grae"
         }
         ListElement {
@@ -348,7 +353,7 @@ Item {
             playNum: "435"
             commentNum: "5464"
             duration: "1:30"
-            videoAbstract: "grsrhtedst htrhtdgn cfghbvc"
+            videoTitle: "grsrhtedst htrhtdgn cfghbvc"
             authorName: "grae"
         }
         ListElement {
@@ -357,7 +362,7 @@ Item {
             playNum: "435"
             commentNum: "5464"
             duration: "1:30"
-            videoAbstract: "grsrhtedst htrhtdgn cfghbvc"
+            videoTitle: "grsrhtedst htrhtdgn cfghbvc"
             authorName: "grae"
         }
         ListElement {
@@ -366,7 +371,7 @@ Item {
             playNum: "435"
             commentNum: "5464"
             duration: "1:30"
-            videoAbstract: "grsrhtedst htrhtdgn cfghbvc"
+            videoTitle: "grsrhtedst htrhtdgn cfghbvc"
             authorName: "grae"
         }
         ListElement {
@@ -375,7 +380,7 @@ Item {
             playNum: "435"
             commentNum: "5464"
             duration: "1:30"
-            videoAbstract: "grsrhtedst htrhtdgn cfghbvc"
+            videoTitle: "grsrhtedst htrhtdgn cfghbvc"
             authorName: "grae"
         }
         ListElement {
@@ -384,7 +389,7 @@ Item {
             playNum: "435"
             commentNum: "5464"
             duration: "1:30"
-            videoAbstract: "grsrhtedst htrhtdgn cfghbvc"
+            videoTitle: "grsrhtedst htrhtdgn cfghbvc"
             authorName: "grae"
         }
     }

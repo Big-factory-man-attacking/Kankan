@@ -54,5 +54,7 @@
         <file>to_left_white.png</file>
         <file>add_white.png</file>
         <file>affirm.png</file>
+        <file>down.png</file>
+        <file>up.png</file>
     </qresource>
 </RCC>

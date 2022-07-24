@@ -302,85 +302,218 @@ Rectangle {
             id: abstractItem
             width: parent.width
             height: parent.height
-            ScrollView {
-                anchors.fill: parent
-                ColumnLayout {
-                    width: abstractItem.width
+            ColumnLayout {
+                id: personalInfoCol
+                width: parent.width
+                spacing: 10
+                Rectangle {
+                    Layout.preferredWidth: parent.width-30
+                    Layout.preferredHeight: 40
+                    Layout.topMargin: 8
+                    Layout.alignment: Qt.AlignHCenter
                     Rectangle {
-                        Layout.preferredWidth: parent.width-30
-                        Layout.preferredHeight: 40
-                        Layout.topMargin: 8
-                        Layout.alignment: Qt.AlignHCenter
-                        Rectangle {
-                            id: headPortrait
-                            height: 40
-                            width: 40
-                            radius: width/2
-                            border.width: 1
-                            border.color: "#707070"
-                            Image {
-                                id: image
-                                smooth: true
-                                visible: false
-                                anchors.fill: parent
-                                source: "qrc:head_portrait.png"
-                                antialiasing: true
-                            }
-                            Rectangle {
-                                id: mask
-                                anchors.fill: parent
-                                radius: width/2
-                                visible: false
-                                antialiasing: true
-                                smooth: true
-                            }
-                            OpacityMask {
-                                id:mask_image
-                                anchors.fill: image
-                                source: image
-                                maskSource: mask
-                                visible: true
-                                antialiasing: true
-                            }
-                        }
-                        Text {
-                            text: "nickname"
-                            font.pixelSize: 16
-                            anchors.left: headPortrait.right
-                            anchors.leftMargin: 10
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-                        Button {
-                            width: 70
-                            height: 30
-                            anchors.right: parent.right
-                            anchors.verticalCenter: parent.verticalCenter
-                            background: Rectangle {
-                                color: "#24c3f5"
-                            }
-                            Row {
-                                spacing: 2
-                                anchors.centerIn: parent
-                                Image {
-                                    source: "qrc:add_white.png"
-                                    sourceSize: Qt.size(18, 18)
-                                }
-                                Text {
-                                    text: qsTr("关注")
-                                    color: "white"
-                                    font.pixelSize: 14
-                                }
-                            }
-                        }
-                    }
-                    ToolSeparator {
-                        Layout.preferredHeight: 1
-                        Layout.preferredWidth: parent.width
-                        contentItem: Rectangle{
+                        id: headPortrait
+                        height: 40
+                        width: 40
+                        radius: width/2
+                        border.width: 1
+                        border.color: "#707070"
+                        Image {
+                            id: image
+                            smooth: true
+                            visible: false
                             anchors.fill: parent
-                            color: "#cccccc"
+                            source: "qrc:head_portrait.png"
+                            antialiasing: true
+                        }
+                        Rectangle {
+                            id: mask
+                            anchors.fill: parent
+                            radius: width/2
+                            visible: false
+                            antialiasing: true
+                            smooth: true
+                        }
+                        OpacityMask {
+                            id:mask_image
+                            anchors.fill: image
+                            source: image
+                            maskSource: mask
+                            visible: true
+                            antialiasing: true
                         }
                     }
+                    Text {
+                        text: "nickname"
+                        font.pixelSize: 16
+                        anchors.left: headPortrait.right
+                        anchors.leftMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    Button {
+                        id: concernBut
+                        width: 70
+                        height: 30
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        background: Rectangle {
+                            color: "#24c3f5"
+                        }
+                        Row {
+                            spacing: 2
+                            anchors.centerIn: parent
+                            Image {
+                                source: "qrc:add_white.png"
+                                sourceSize: Qt.size(18, 18)
+                            }
+                            Text {
+                                text: qsTr("关注")
+                                color: "white"
+                                font.pixelSize: 14
+                            }
+                        }
+                        onClicked: {
+                            //添加到关注列表
+
+                            concernBut.visible = false
+                            followedBut.visible = true
+                        }
+                    }
+                    Button {
+                        id: followedBut
+                        width: 70
+                        height: 30
+                        visible: false
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        background: Rectangle {
+                            color: "#24c3f5"
+                        }
+                        Row {
+                            spacing: 2
+                            anchors.centerIn: parent
+                            Image {
+                                source: "qrc:affirm.png"
+                                sourceSize: Qt.size(18, 18)
+                            }
+                            Text {
+                                text: qsTr("已关注")
+                                color: "white"
+                                font.pixelSize: 14
+                            }
+                        }
+                        onClicked: {
+                            //取消关注
+
+                            concernBut.visible = true
+                            followedBut.visible = false
+                        }
+                    }
+                }
+                Row {
+                    id: textRow
+                    Layout.preferredWidth: parent.width-30
+                    Layout.alignment: Qt.AlignHCenter
+                    spacing: 5
+                    Text {
+                        id: originalText
+                        text: qsTr("自制")
+                        font.pixelSize: 18
+                        color: "#24c3f5"
+                    }
+                    Text {
+                        id: titleText
+                        width: parent.width-originalText.width-downBut.width-10
+                        height: 20
+                        text: qsTr("在这里放入标题")
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: 16
+                        wrapMode: Text.WordWrap
+                        elide: Text.ElideRight
+                    }
+                    Button {
+                        id: downBut
+                        icon.source: "qrc:down.png"
+                        icon.width: 20
+                        icon.height: 20
+                        background: Rectangle {
+                            color: "white"
+                        }
+                        onClicked: {
+                            downBut.visible = false
+                            upBut.visible = true
+                            abstractT.visible = true
+                            labelRec.visible = true
+                            titleText.height = titleText.implicitHeight
+                            titleText.elide = Text.ElideNone
+                        }
+                    }
+                    Button {
+                        id: upBut
+                        visible: false
+                        icon.source: "qrc:up.png"
+                        icon.width: 20
+                        icon.height: 20
+                        background: Rectangle {
+                            color: "white"
+                        }
+                        onClicked: {
+                            downBut.visible = true
+                            upBut.visible = false
+                            abstractT.visible = false
+                            labelRec.visible = false
+                            titleText.height = 20
+                            titleText.elide = Text.ElideRight
+                        }
+                    }
+                }
+                Text {
+                    id: abstractT
+                    visible: false
+                    Layout.preferredWidth: parent.width-30
+                    Layout.alignment: Qt.AlignHCenter
+                    text: qsTr("《在这里放入简介》textytkti天涯假父羽花介v 如飞与法规i月速度加父母v和统一刊意 鬼当然也天赋与个体u以后iu红包")
+                    wrapMode: Text.WordWrap
+                    font.pixelSize: 14
+                    color: "#cccccc"
+                }
+                Rectangle {
+                    id: labelRec
+                    visible: false
+                    Layout.preferredWidth: labelText.width+20
+                    Layout.preferredHeight: labelText.height+10
+                    Layout.leftMargin: 15
+                    radius: height/2
+                    color: "#e6e6e6"
+                    Text {
+                        id: labelText
+                        text: qsTr("视频标签")
+                        anchors.centerIn: parent
+                    }
+                }
+                ToolSeparator {
+                    Layout.preferredHeight: 1
+                    Layout.preferredWidth: parent.width
+                    contentItem: Rectangle{
+                        anchors.fill: parent
+                        color: "#cccccc"
+                    }
+                }
+            }
+            ScrollView {
+                width: parent.width
+                height: abstractItem.height-personalInfoCol.height
+                anchors.top: personalInfoCol.bottom
+                clip: true
+                ListView {
+                    id: videoListView
+                    width: abstractItem.width
+                    height: abstractItem.height-personalInfoCol.height
+                    spacing: 10
+                    interactive: true
+                    model: videoModel
+                    delegate: videoDelegate
+                    boundsBehavior: Flickable.StopAtBounds
                 }
             }
         }
@@ -546,7 +679,228 @@ Rectangle {
             commentModel.append({headSource: "qrc:head_portrait.png", nickname: "吃瓜的快乐", comment: "而望各位高人给我那天回退人生观和他和她和回退恨不得否认我而给他人u一个i很快糊弄客户个", commentDate: new Date()});
         }
     }
-
+    Component {
+        id: videoDelegate
+        ColumnLayout {
+            width: videoListView.width
+            spacing: 10
+            RowLayout {
+                Layout.preferredWidth: parent.width-30
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 10
+                Image {
+                    id: videoCover
+                    source: coverUrl
+                    Layout.preferredWidth: 160
+                    Layout.preferredHeight: 90
+                    Layout.alignment: Qt.AlignVCenter
+                    fillMode: Image.PreserveAspectFit
+                    Button {
+                        width: timeT.width+6
+                        height: timeT.height+4
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.margins: 10
+                        Text {
+                            id: timeT
+                            text: duration
+                            color: "white"
+                            anchors.centerIn: parent
+                        }
+                        background: Rectangle {
+                            color: "black"
+                            opacity: 0.5
+                            radius: 5
+                        }
+                    }
+                }
+                ColumnLayout {
+                    id: column
+                    Layout.preferredWidth: parent.width-videoCover.width-10
+                    spacing: 10
+                    Text {
+                        text: videoTitle
+                        Layout.preferredWidth: parent.width
+                        Layout.preferredHeight: 44
+                        font.pixelSize: 16
+                        wrapMode: Text.WordWrap
+                        elide: Text.ElideRight
+                    }
+                    Row {
+                        spacing: 5
+                        Rectangle {
+                            id: authorLabel
+                            width: authorText.width+4
+                            height: authorText.height+4
+                            Layout.alignment: Qt.AlignVCenter
+                            border.color: "#cccccc"
+                            border.width: 1
+                            radius: 3
+                            Text {
+                                id: authorText
+                                text: qsTr("作者")
+                                color: "#cccccc"
+                                anchors.centerIn: parent
+                            }
+                        }
+                        Text {
+                            text: authorName
+                            color: "#cccccc"
+                            Layout.alignment: Qt.AlignVCenter
+                        }
+                    }
+                    Row {
+                        spacing: 10
+                        Button {
+                            width: videoBut.width
+                            height: videoBut.height
+                            Row {
+                                id: videoBut
+                                spacing: 5
+                                Image {
+                                    source: "qrc:video.png"
+                                    sourceSize: Qt.size(20, 20)
+                                }
+                                Text {
+                                    text: playNum
+                                    color: "#cccccc"
+                                }
+                            }
+                            background: Rectangle {
+                                color: "white"
+                            }
+                        }
+                        Button {
+                            width: commentBut.width
+                            Row {
+                                id: commentBut
+                                spacing: 5
+                                Image {
+                                    source: "qrc:comment.png"
+                                    sourceSize: Qt.size(20, 20)
+                                }
+                                Text {
+                                    text: commentNum
+                                    color: "#cccccc"
+                                }
+                            }
+                            background: Rectangle {
+                                color: "white"
+                            }
+                        }
+                    }
+                }
+            }
+            ToolSeparator {
+                Layout.preferredHeight: 1
+                Layout.preferredWidth: parent.width-15
+                Layout.alignment: Qt.AlignRight
+                contentItem: Rectangle{
+                    anchors.fill: parent
+                    color: "#cccccc"
+                }
+            }
+            TapHandler {
+                onTapped: {
+                    watchVideo.video.source = videoUrl
+                    watchVideo.visible = true
+                }
+            }
+        }
+    }
+    ListModel {
+        id: videoModel
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+        ListElement {
+            videoUrl: "file:///root/2.avi"
+            coverUrl: "qrc:cover.png"
+            duration: "04:36"
+            videoTitle: "而当然是我就热爱人各位虽然他"
+            authorName: "忽而今夏"
+            playNum: "123"
+            commentNum: "3345"
+        }
+    }
 
     FullScreen {
         id: fullScreen

@@ -44,7 +44,7 @@ Rectangle {
                 }
             }
         }
-        RowLayout {
+        ColumnLayout {
             id: topBar
             visible: false
             height: parent.height-20
@@ -55,7 +55,8 @@ Rectangle {
                 icon.source: "qrc:to_left_white.png"
                 icon.width: 20
                 icon.height: 20
-                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                rotation: 90
+                Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
                 background: Rectangle {
                     opacity: 0
                 }
@@ -67,13 +68,14 @@ Rectangle {
                 icon.source: "qrc:more.png"
                 icon.width: 25
                 icon.height: 25
-                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                rotation: 90
+                Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
                 background: Rectangle {
                     opacity: 0
                 }
             }
         }
-        RowLayout {
+        ColumnLayout {
             id: bottomBar
             visible: false
             height: parent.height-20
@@ -120,6 +122,8 @@ Rectangle {
                 value: video.position
                 Layout.preferredHeight: parent.height-playBut.height-playbackTime.height-fullScreenBut.width-9
                 snapMode: Slider.SnapOnRelease
+                rotation: 90
+                Layout.alignment: Qt.AlignLeft
                 onValueChanged: {
                     currentTime=setTime(value)
                 }
@@ -132,18 +136,20 @@ Rectangle {
                 text:currentTime+"/"+totalTime
                 color: "white"
                 font.pixelSize: 10
+                rotation: 90
+                Layout.alignment: Qt.AlignLeft
             }
             Button {
                 id: fullScreenBut
                 icon.source: "qrc:full_screen.png"
                 icon.width: 28
                 icon.height: 28
-                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                Layout.alignment: Qt.AlignButton | Qt.AlignVCenter
                 background: Rectangle {
                     opacity: 0
                 }
                 onClicked: {
-                    video.orientation = 90
+//                    video.orientation = 90
                 }
             }
             Timer {
