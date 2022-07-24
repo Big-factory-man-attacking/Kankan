@@ -7,6 +7,26 @@ Item {
     id: home
     width: parent.width
     height: parent.height
+    property int nPullHeight: 40    //拉动的高度
+
+    //启动下刷新...
+    function funDownRefresh(){
+        console.log(qsTr("启动下刷新..."))
+        console.log(videoListView.contentY)
+        busyDownRefresh.visible = true
+        timerDownRefresh.start()
+    }
+
+    //启动上刷新...
+    function funUpRefresh(){
+        console.log(qsTr("启动上刷新..."))
+        console.log(videoListView.contentHeight)
+
+        busyUpRefresh.visible = true
+        timerUpRefresh.start();
+    }
+
+
     Column {
         anchors.fill: parent
         spacing: 0
@@ -125,7 +145,25 @@ Item {
                     anchors.fill: parent
                     model: videoModel
                     delegate: contactDelegate
-                    boundsBehavior: Flickable.StopAtBounds
+                    states: [
+                        State {
+                            id: downRefresh
+                            name: "downRefresh";
+                            when: (videoListView.contentHeight > 0) && (videoListView.contentY > (videoListView.contentHeight - videoListView.height + nPullHeight))
+                            StateChangeScript {
+                                name: "funDownRefresh"
+                                script: funDownRefresh()
+                            }
+                        },
+                        State {
+                            id: upRefresh
+                            name: "upRefresh"; when: (videoListView.contentY < -nPullHeight)
+                            StateChangeScript {
+                                name: "funUpRefresh"
+                                script: funUpRefresh()
+                            }
+                        }
+                    ]
                 }
             }
         }
@@ -393,6 +431,57 @@ Item {
             duration: "1:30"
             videoTitle: "grsrhtedst htrhtdgn cfghbvc"
             authorName: "grae"
+        }
+    }
+
+
+
+    //busy指示器
+    BusyIndicator {
+        id: busyDownRefresh
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 56
+        anchors.horizontalCenter: parent.horizontalCenter
+        implicitWidth: 25
+        implicitHeight: 25
+        visible: false
+        contentItem: QmlBusyIndicator{}
+    }
+
+    Timer{
+        id: timerDownRefresh
+        interval: 1000
+        repeat: false
+        running: false
+        onTriggered: {
+            busyDownRefresh.visible = false
+
+            //下面增加数据
+            videoModel.append({bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoTitle: "新增加的数据啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"})
+        }
+    }
+
+    BusyIndicator {
+        id: busyUpRefresh
+        anchors.top: parent.top
+        anchors.topMargin: 70
+        anchors.horizontalCenter: parent.horizontalCenter
+        implicitWidth: 25
+        implicitHeight: 25
+        visible: false
+        contentItem: QmlBusyIndicator{}
+    }
+
+    Timer{
+        id: timerUpRefresh
+        interval: 1000
+        repeat: false
+        running: false
+        onTriggered: {
+            busyUpRefresh.visible = false
+
+            //上面增加数据
+            videoModel.insert(0, {bigVideoUrl: "file:///root/1.mkv", bigVideoCover: "qrc:cover.png", videoUrls: videoUrlModel, playNum: "435", commentNum: "5464", duration: "1:30", videoTitle: "新增加的数据啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"})
         }
     }
 }

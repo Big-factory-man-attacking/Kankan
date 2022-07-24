@@ -100,9 +100,9 @@ Rectangle {
                     onClicked: {
                         if (stackView.depth === 1) {
                             console.log(stackView.depth)
-                            stackView.clear()
                             mainPage.visible = true
                             stackView.visible = false
+                            stackView.clear()
                         } else {
                             console.log(stackView.depth)
                             stackView.pop()
@@ -332,220 +332,219 @@ Rectangle {
             id: abstractItem
             width: parent.width
             height: parent.height
-            ColumnLayout {
-                id: personalInfoCol
-                width: parent.width
-                spacing: 10
-                Rectangle {
-                    Layout.preferredWidth: parent.width-30
-                    Layout.preferredHeight: 40
-                    Layout.topMargin: 8
-                    Layout.alignment: Qt.AlignHCenter
+            ScrollView {
+                anchors.fill: parent
+                clip: true
+                ColumnLayout {
+                    width: abstractItem.width
+                    spacing: 10
                     Rectangle {
-                        id: headPortrait
-                        height: 40
-                        width: 40
-                        radius: width/2
-                        border.width: 1
-                        border.color: "#707070"
-                        Image {
-                            id: image
-                            smooth: true
-                            visible: false
-                            anchors.fill: parent
-                            source: "qrc:head_portrait.png"
-                            antialiasing: true
-                        }
+                        Layout.preferredWidth: parent.width-30
+                        Layout.preferredHeight: 40
+                        Layout.topMargin: 8
+                        Layout.alignment: Qt.AlignHCenter
                         Rectangle {
-                            id: mask
-                            anchors.fill: parent
+                            id: headPortrait
+                            height: 40
+                            width: 40
                             radius: width/2
+                            border.width: 1
+                            border.color: "#707070"
+                            Image {
+                                id: image
+                                smooth: true
+                                visible: false
+                                anchors.fill: parent
+                                source: "qrc:head_portrait.png"
+                                antialiasing: true
+                            }
+                            Rectangle {
+                                id: mask
+                                anchors.fill: parent
+                                radius: width/2
+                                visible: false
+                                antialiasing: true
+                                smooth: true
+                            }
+                            OpacityMask {
+                                id:mask_image
+                                anchors.fill: image
+                                source: image
+                                maskSource: mask
+                                visible: true
+                                antialiasing: true
+                            }
+                        }
+                        Text {
+                            text: "nickname"
+                            font.pixelSize: 16
+                            anchors.left: headPortrait.right
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Button {
+                            id: concernBut
+                            width: 70
+                            height: 30
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            background: Rectangle {
+                                color: "#24c3f5"
+                            }
+                            Row {
+                                spacing: 2
+                                anchors.centerIn: parent
+                                Image {
+                                    source: "qrc:add_white.png"
+                                    sourceSize: Qt.size(18, 18)
+                                }
+                                Text {
+                                    text: qsTr("关注")
+                                    color: "white"
+                                    font.pixelSize: 14
+                                }
+                            }
+                            onClicked: {
+                                //添加到关注列表
+
+                                concernBut.visible = false
+                                followedBut.visible = true
+                            }
+                        }
+                        Button {
+                            id: followedBut
+                            width: 70
+                            height: 30
                             visible: false
-                            antialiasing: true
-                            smooth: true
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            background: Rectangle {
+                                color: "#24c3f5"
+                            }
+                            Row {
+                                spacing: 2
+                                anchors.centerIn: parent
+                                Image {
+                                    source: "qrc:affirm.png"
+                                    sourceSize: Qt.size(18, 18)
+                                }
+                                Text {
+                                    text: qsTr("已关注")
+                                    color: "white"
+                                    font.pixelSize: 14
+                                }
+                            }
+                            onClicked: {
+                                //取消关注
+
+                                concernBut.visible = true
+                                followedBut.visible = false
+                            }
                         }
-                        OpacityMask {
-                            id:mask_image
-                            anchors.fill: image
-                            source: image
-                            maskSource: mask
-                            visible: true
-                            antialiasing: true
+                    }
+                    Row {
+                        id: textRow
+                        Layout.preferredWidth: parent.width-30
+                        Layout.alignment: Qt.AlignHCenter
+                        spacing: 5
+                        Text {
+                            id: originalText
+                            text: qsTr("自制")
+                            font.pixelSize: 18
+                            color: "#24c3f5"
+                        }
+                        Text {
+                            id: titleText
+                            width: parent.width-originalText.width-downBut.width-10
+                            height: 20
+                            text: qsTr("在这里放入标题")
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.pixelSize: 16
+                            wrapMode: Text.WordWrap
+                            elide: Text.ElideRight
+                        }
+                        Button {
+                            id: downBut
+                            icon.source: "qrc:down.png"
+                            icon.width: 20
+                            icon.height: 20
+                            background: Rectangle {
+                                color: "white"
+                            }
+                            onClicked: {
+                                downBut.visible = false
+                                upBut.visible = true
+                                abstractT.visible = true
+                                labelRec.visible = true
+                                titleText.height = titleText.implicitHeight
+                                titleText.elide = Text.ElideNone
+                            }
+                        }
+                        Button {
+                            id: upBut
+                            visible: false
+                            icon.source: "qrc:up.png"
+                            icon.width: 20
+                            icon.height: 20
+                            background: Rectangle {
+                                color: "white"
+                            }
+                            onClicked: {
+                                downBut.visible = true
+                                upBut.visible = false
+                                abstractT.visible = false
+                                labelRec.visible = false
+                                titleText.height = 20
+                                titleText.elide = Text.ElideRight
+                            }
                         }
                     }
                     Text {
-                        text: "nickname"
-                        font.pixelSize: 16
-                        anchors.left: headPortrait.right
-                        anchors.leftMargin: 10
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    Button {
-                        id: concernBut
-                        width: 70
-                        height: 30
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        background: Rectangle {
-                            color: "#24c3f5"
-                        }
-                        Row {
-                            spacing: 2
-                            anchors.centerIn: parent
-                            Image {
-                                source: "qrc:add_white.png"
-                                sourceSize: Qt.size(18, 18)
-                            }
-                            Text {
-                                text: qsTr("关注")
-                                color: "white"
-                                font.pixelSize: 14
-                            }
-                        }
-                        onClicked: {
-                            //添加到关注列表
-
-                            concernBut.visible = false
-                            followedBut.visible = true
-                        }
-                    }
-                    Button {
-                        id: followedBut
-                        width: 70
-                        height: 30
+                        id: abstractT
                         visible: false
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        background: Rectangle {
-                            color: "#24c3f5"
-                        }
-                        Row {
-                            spacing: 2
-                            anchors.centerIn: parent
-                            Image {
-                                source: "qrc:affirm.png"
-                                sourceSize: Qt.size(18, 18)
-                            }
-                            Text {
-                                text: qsTr("已关注")
-                                color: "white"
-                                font.pixelSize: 14
-                            }
-                        }
-                        onClicked: {
-                            //取消关注
-
-                            concernBut.visible = true
-                            followedBut.visible = false
-                        }
-                    }
-                }
-                Row {
-                    id: textRow
-                    Layout.preferredWidth: parent.width-30
-                    Layout.alignment: Qt.AlignHCenter
-                    spacing: 5
-                    Text {
-                        id: originalText
-                        text: qsTr("自制")
-                        font.pixelSize: 18
-                        color: "#24c3f5"
-                    }
-                    Text {
-                        id: titleText
-                        width: parent.width-originalText.width-downBut.width-10
-                        height: 20
-                        text: qsTr("在这里放入标题")
-                        anchors.verticalCenter: parent.verticalCenter
-                        font.pixelSize: 16
+                        Layout.preferredWidth: parent.width-30
+                        Layout.alignment: Qt.AlignHCenter
+                        text: qsTr("《在这里放入简介》textytkti天涯假父羽花介v 如飞与法规i月速度加父母v和统一刊意 鬼当然也天赋与个体u以后iu红包")
                         wrapMode: Text.WordWrap
-                        elide: Text.ElideRight
-                    }
-                    Button {
-                        id: downBut
-                        icon.source: "qrc:down.png"
-                        icon.width: 20
-                        icon.height: 20
-                        background: Rectangle {
-                            color: "white"
-                        }
-                        onClicked: {
-                            downBut.visible = false
-                            upBut.visible = true
-                            abstractT.visible = true
-                            labelRec.visible = true
-                            titleText.height = titleText.implicitHeight
-                            titleText.elide = Text.ElideNone
-                        }
-                    }
-                    Button {
-                        id: upBut
-                        visible: false
-                        icon.source: "qrc:up.png"
-                        icon.width: 20
-                        icon.height: 20
-                        background: Rectangle {
-                            color: "white"
-                        }
-                        onClicked: {
-                            downBut.visible = true
-                            upBut.visible = false
-                            abstractT.visible = false
-                            labelRec.visible = false
-                            titleText.height = 20
-                            titleText.elide = Text.ElideRight
-                        }
-                    }
-                }
-                Text {
-                    id: abstractT
-                    visible: false
-                    Layout.preferredWidth: parent.width-30
-                    Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("《在这里放入简介》textytkti天涯假父羽花介v 如飞与法规i月速度加父母v和统一刊意 鬼当然也天赋与个体u以后iu红包")
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: 14
-                    color: "#cccccc"
-                }
-                Rectangle {
-                    id: labelRec
-                    visible: false
-                    Layout.preferredWidth: labelText.width+20
-                    Layout.preferredHeight: labelText.height+10
-                    Layout.leftMargin: 15
-                    radius: height/2
-                    color: "#e6e6e6"
-                    Text {
-                        id: labelText
-                        text: qsTr("视频标签")
-                        anchors.centerIn: parent
-                    }
-                }
-                ToolSeparator {
-                    Layout.preferredHeight: 1
-                    Layout.preferredWidth: parent.width
-                    contentItem: Rectangle{
-                        anchors.fill: parent
+                        font.pixelSize: 14
                         color: "#cccccc"
                     }
+                    Rectangle {
+                        id: labelRec
+                        visible: false
+                        Layout.preferredWidth: labelText.width+20
+                        Layout.preferredHeight: labelText.height+10
+                        Layout.leftMargin: 15
+                        radius: height/2
+                        color: "#e6e6e6"
+                        Text {
+                            id: labelText
+                            text: qsTr("视频标签")
+                            anchors.centerIn: parent
+                        }
+                    }
+                    ToolSeparator {
+                        Layout.preferredHeight: 1
+                        Layout.preferredWidth: parent.width
+                        contentItem: Rectangle{
+                            anchors.fill: parent
+                            color: "#cccccc"
+                        }
+                    }
+                    ListView {
+                        id: videoListView
+                        width: parent.width
+                        height: contentHeight
+                        spacing: 10
+                        interactive: true
+                        model: videoModel
+                        delegate: videoDelegate
+                        boundsBehavior: Flickable.StopAtBounds
+                    }
                 }
             }
-            ScrollView {
-                width: parent.width
-                height: abstractItem.height-personalInfoCol.height
-                anchors.top: personalInfoCol.bottom
-                clip: true
-                ListView {
-                    id: videoListView
-                    width: abstractItem.width
-                    height: abstractItem.height-personalInfoCol.height
-                    spacing: 10
-                    interactive: true
-                    model: videoModel
-                    delegate: videoDelegate
-                    boundsBehavior: Flickable.StopAtBounds
-                }
-            }
+
+
         }
         Item {
             id: commentItem

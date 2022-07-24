@@ -18,7 +18,8 @@ resources.files = qml/main.qml\
     qml/LoginPage.qml\
     qml/RegisterPage.qml\
     qml/WatchVideo.qml\
-    qml/FullScreen.qml
+    qml/FullScreen.qml\
+    qml/QmlBusyIndicator.qml
 
 resources.prefix = /$${TARGET}
 RESOURCES += resources \
@@ -48,6 +49,7 @@ DISTFILES += \
     qml/MyFriend.qml \
     qml/PersonalPage.qml \
     qml/PublishPage.qml \
+    qml/QmlBusyIndicator.qml \
     qml/RegisterPage.qml \
     qml/SettingPage.qml \
     qml/TimeDialog.qml \
