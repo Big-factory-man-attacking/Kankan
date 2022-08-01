@@ -83,6 +83,7 @@ void VideoSocialControl::loadVideo(std::string id)
 
 std::pair<std::string, std::string> VideoSocialControl::mergeVideoFiles(std::vector<std::string> videoFiles)
 {
+/*
     //合并视频，保存一个本地的合并后的视频文件地址
     qDebug() << "正在进行合并";
     //处理导入文件的路径
@@ -171,7 +172,7 @@ std::pair<std::string, std::string> VideoSocialControl::mergeVideoFiles(std::vec
 
     return 0;
 
-
+*/
     //生成一个新的VideoFile的id
 
     //返回视频id

@@ -80,7 +80,7 @@ int main(int argc, char **argv){
 
             // Configure Connection
             sql::SQLString url("jdbc:mariadb://127.0.0.1:3306/todo");
-            sql::Properties properties({{"user", "db_user"}, {"password", "db_user_password"}});
+            sql::Properties properties({{"zc", "localhost"}, {"password", "20010202"}});
 
             // Establish Connection
             std::unique_ptr<sql::Connection> conn(driver->connect(url, properties));
