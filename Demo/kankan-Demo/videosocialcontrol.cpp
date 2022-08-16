@@ -13,13 +13,15 @@ extern "C" {
 #include <libavformat/avformat.h>
 }
 
+using json = nlohmann::json;
+
 VideoSocialControl::VideoSocialControl()
 {
 
 }
 
 //注册
-void VideoSocialControl::login(std::string password)
+void VideoSocialControl::registerAccount(std::string password, std::string nickname)
 {
     //利用boost/uuid库生成uuid
     boost::uuids::random_generator gen;
@@ -31,48 +33,52 @@ void VideoSocialControl::login(std::string password)
 
     //注册成功后直接登录
     //初始用户数据库无数据,无需进行用户数据的init
-    std::shared_ptr<Netizen> netizen = std::make_shared<Netizen>(id, password);
+    std::shared_ptr<Netizen> netizen = std::make_shared<Netizen>(id, password, nickname);
 
     //添加新的用户记录
     NetizenBroker::getInstance()->insertNewNetizen(netizen);
 }
 
 //登录
-void VideoSocialControl::login(std::string id, std::string key)
+nlohmann::json VideoSocialControl::login(std::string id, std::string key)
 {
+    json info;
     if (NetizenBroker::getInstance()->qualifyNetizenId(id)) {
         std::cout << "用户id存在" << std::endl;
-        if (NetizenBroker::getInstance()->qualifyNetizenKey(id, key)) {
+        if (NetizenBroker::getInstance()->qualifyNetizenPassword(id, key)) {
             std::cout << "密码正确" << std::endl;
 
             auto netizen = NetizenBroker::getInstance()->findNetizenById(id);
 
-            netizen->init();//初始化稿件（含视频）、粉丝列表、关注列表初始化
-
+            info = netizen->init();//初始化稿件（含视频）、粉丝列表、关注列表初始化
+            std::cout << info.dump(4) << std::endl;
+            return info;
         } else {
             std::cout << "密码错误" << std::endl;
+            return info;
         }
     } else {
         std::cout << "用户id不存在" << std::endl;
+        return info;
     }
 
 
 }
 
-void VideoSocialControl::getSomeVideos(std::vector<std::string> ids)
-{
-    std::unordered_map<std::string, VideoProxy> _videos;
+nlohmann::json VideoSocialControl::getSomeVideos()
+{/*
+    std::unordered_map<std::string, ManuscriptProxy> _videos;
     for (auto id : ids)
-        _videos.insert(std::make_pair(id, VideoProxy(id)));
+        _videos.insert(std::make_pair(id, ManuscriptProxy(id)));
 
     //通过数据库检索找到对应稿件的netizen
 
 
     //获取稿件的摘要信息
     for (auto video : _videos)
-        video.second.getVideoInfo(video.first);
+        video.second.getManuscriptInfo(video.first);
 
-    //整合网民信息与稿件的摘要信息
+    //整合网民信息与稿件的摘要信息*/
 
 }
 
@@ -208,6 +214,30 @@ void VideoSocialControl::focusOn()
 void VideoSocialControl::takeOff()
 {
 
+}
+
+void VideoSocialControl::modifyHeadportrait(const std::string &netizenId, const std::string &newHeadportrait)
+{
+    auto netizen = NetizenBroker::getInstance()->findNetizenById(netizenId);
+    netizen->modifyHeadportrait(newHeadportrait);
+}
+
+void VideoSocialControl::modifyNickname(const std::string &netizenId, const std::string &newNickname)
+{
+    auto netizen = NetizenBroker::getInstance()->findNetizenById(netizenId);
+    netizen->modifyNickname(newNickname);
+}
+
+bool VideoSocialControl::modifyPassword(const std::string &netizenId, const std::string &oldPassword, const std::string &newPassword)
+{
+    auto netizen = NetizenBroker::getInstance()->findNetizenById(netizenId);
+    return netizen->modifyPassword(oldPassword, newPassword);
+}
+
+void VideoSocialControl::modifyManuscriptInfo(const std::string &netizenId, nlohmann::json newManuscriptInfo)
+{
+    auto netizen =  NetizenBroker::getInstance()->findNetizenById(netizenId);
+    netizen->modifyManuscriptInfo(newManuscriptInfo);
 }
 
 

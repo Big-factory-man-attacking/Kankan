@@ -20,7 +20,7 @@ std::shared_ptr<Comment> CommentBroker::getComment(std::string &id)
     //判断是否存在缓存中
 
     //检索数据库，创建对象
-    std::string sql = "select id, text from comment where id = '" + id + "'";
+    std::string sql = "select comment_id, text from comment where comment_id = '" + id + "'";
     std::shared_ptr<sql::ResultSet> res = query(sql);
     std::vector<std::string> parameters;
     while (res->next()) {

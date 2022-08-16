@@ -4,25 +4,29 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include "json.hpp"
+//#include <QObject>
 
 class Netizen;
 
-class VideoSocialControl
+class VideoSocialControl /*:  public QObject*/
 {
+//    Q_OBJECT
+//    QML_ELEMENT
 public:
     VideoSocialControl();
 
     //注册
-    //key:用户设置的密码
-    void login(std::string password);
+    //password:用户设置的密码
+    void registerAccount(std::string password, std::string nickname);
 
     //登录
     //id:用户输入的帐号
     //key:用户输入的密码
-    void login(std::string id, std::string password);
+    nlohmann::json login(std::string id, std::string password);
 
     //假设服务器记录每次上传视频的id，保存为一个列表，首页总是显示最新的一批视频
-    void getSomeVideos(std::vector<std::string> ids);
+    nlohmann::json getSomeVideos();
 
     //加载稿件的完整信息
     void loadVideo(std::string id);
@@ -43,6 +47,18 @@ public:
 
     //取关
     void takeOff();
+
+    //修改用户头像
+    void modifyHeadportrait(const std::string& netizenId, const std::string& newHeadportrait);
+
+    //修改用户昵称
+    void modifyNickname(const std::string& netizenId, const std::string& newNickname);
+
+    //修改用户密码
+    bool modifyPassword(const std::string& netizenId, const std::string& oldPassword, const std::string& newPassword);
+
+    //修改稿件信息
+    void modifyManuscriptInfo(const std::string& netizenId, nlohmann::json newManuscriptInfo);
 };
 
 #endif // VIDEOSOCIALCONTROL_H

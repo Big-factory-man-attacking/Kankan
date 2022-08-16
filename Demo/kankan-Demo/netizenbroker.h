@@ -20,7 +20,7 @@ public:
     //检验用户的id与key是否匹配
     //id:用户输入id
     //key:用户输入密码key
-    bool qualifyNetizenKey(std::string id, std::string key);
+    bool qualifyNetizenPassword(std::string id, std::string key);
 
     //添加新的用户记录
     //netizen:新用户实体
@@ -41,6 +41,18 @@ public:
 
     //判断当前用户是否在缓存中
     std::shared_ptr<Netizen> inCache(std::string id);
+
+    //修改用户的头像
+    void modifyHeadportrait(const std::string& id, const std::string& headportrait);
+
+    //修改用户的昵称
+    void modifyNickname(const std::string& id, const std::string& nickname);
+
+    //验证用户密码
+    bool qualifyPassword(const std::string& id, const std::string& password);
+
+    //修改用户的密码
+    void modifyPassword(const std::string& id, const std::string password);
 private:
     NetizenBroker();
     static NetizenBroker* m_netizenBroker;

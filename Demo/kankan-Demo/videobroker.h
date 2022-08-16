@@ -7,15 +7,13 @@
 class VideoBroker : public RelationalBroker
 {
 public:
-    ~VideoBroker();
+    virtual ~VideoBroker();
     static VideoBroker* getInstance();
 
-    std::shared_ptr<Video> getVideo(const std::string& id);
-    //检索缓存以及数据库，返回video对象
-    //id：稿件id
-
+    std::shared_ptr<Video> getVideo(std::string& id);
 private:
     VideoBroker();
+
     static VideoBroker* m_videoBroker;
 };
 

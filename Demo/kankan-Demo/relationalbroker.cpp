@@ -47,3 +47,13 @@ void RelationalBroker::insert(std::string sql)
         std::cerr << "Error insert：" << e.what() << std::endl;
     }
 }
+
+void RelationalBroker::update(std::string sql)
+{
+    try {
+        std::unique_ptr<sql::PreparedStatement> stmnt(conn->prepareStatement(sql));
+        stmnt->executeQuery();
+    } catch (sql::SQLException& e) {
+        std::cerr << "Error insert：" << e.what() << std::endl;
+    }
+}

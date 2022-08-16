@@ -24,7 +24,7 @@ NetizenBroker *NetizenBroker::getInstance()
 bool NetizenBroker::qualifyNetizenId(std::string id)
 {
     //根据id查找,如果找到返回true,否则返回false
-    std::string sql = "select id from user";
+    std::string sql = "select user_id from user";
     std::shared_ptr<sql::ResultSet> res = query(sql);
     while (res->next()) {
         if (id == res->getString(1))
@@ -34,10 +34,10 @@ bool NetizenBroker::qualifyNetizenId(std::string id)
     return false;
 }
 
-bool NetizenBroker::qualifyNetizenKey(std::string id, std::string password)
+bool NetizenBroker::qualifyNetizenPassword(std::string id, std::string password)
 {
     //验证对应id的密码，正确返回true,错误返回false
-    std::string sql = "select id, password from user";
+    std::string sql = "select user_id, password from user";
     std::shared_ptr<sql::ResultSet> res = query(sql);
     while (res->next()) {
         if (id == res->getString(1) && password == res->getString(2))
@@ -61,7 +61,7 @@ std::shared_ptr<Netizen> NetizenBroker::findNetizenById(const std::string& id)
     //查找数据库，找出用户的nickname
     std::string nickname;
 
-    std::string sql = "select nickname from user where id = '" + id + "'";
+    std::string sql = "select nickname from user where user_id = '" + id + "'";
     std::shared_ptr<sql::ResultSet> res = query(sql);
     while (res->next())
         nickname = res->getString(1).c_str();
@@ -78,7 +78,7 @@ std::shared_ptr<Netizen> NetizenBroker::findNetizenById(const std::string& id)
 
 std::vector<std::string> NetizenBroker::findNetizenVideos(const std::string& id)
 {
-    std::string sql = "select id from video where user_id = '" + id + "'";
+    std::string sql = "select manuscript_id from manuscript where user_id = '" + id + "'";
     std::shared_ptr<sql::ResultSet> res = query(sql);
     std::vector<std::string> videoIds;
     while (res->next()) {
@@ -110,6 +110,32 @@ std::vector<std::string> NetizenBroker::findNetizenFollowers(const std::string& 
     }
 
     return followerIds;
+}
+
+void NetizenBroker::modifyHeadportrait(const std::string &id, const std::string &headportrait)
+{
+    std::string sql = "update user set headportrait = '" + headportrait + "' where user_id = '" + id + "'";
+
+    std::cout << "修改头像" << sql << std::endl;
+
+    update(sql);
+
+}
+
+void NetizenBroker::modifyNickname(const std::string &id, const std::string &nickname)
+{
+    std::string sql = "update user set nickname = '" + nickname + "' where user_id = '" + id + "'";
+
+    std::cout << "修改昵称：" << sql << std::endl;
+
+    update(sql);
+}
+
+void NetizenBroker::modifyPassword(const std::string &id, const std::string password)
+{
+    std::string sql = "update user set password = '" + password + "' where user_id = '" + id + "'";
+
+    std::cout << "修改密码：" << sql << std::endl;
 }
 
 
