@@ -79,45 +79,45 @@ Rectangle {
                         source: "qrc:cover.png"
                         fillMode: Image.PreserveAspectFit
                     }
-                    Button {
-                        id: changeCover
-                        width: 60
-                        height: 30
-                        anchors.right: coverImg.right
-                        anchors.bottom: coverImg.bottom
-                        anchors.rightMargin: 10
-                        anchors.bottomMargin: 5
-                        Text {
-                            text: qsTr("修改视频")
-                            color: "white"
-                            anchors.centerIn: parent
-                            font.pixelSize: 12
-                        }
-                        background: Rectangle {
-                            color: "black"
-                            opacity: 0.5
-                            radius: 3
-                        }
-                    }
-                    Button {
-                        width: 60
-                        height: 30
-                        anchors.right: changeCover.left
-                        anchors.bottom: coverImg.bottom
-                        anchors.rightMargin: 10
-                        anchors.bottomMargin: 5
-                        Text {
-                            text: qsTr("更换视频")
-                            color: "white"
-                            anchors.centerIn: parent
-                            font.pixelSize: 12
-                        }
-                        background: Rectangle {
-                            color: "black"
-                            opacity: 0.5
-                            radius: 3
-                        }
-                    }
+//                    Button {
+//                        id: changeCover
+//                        width: 60
+//                        height: 30
+//                        anchors.right: coverImg.right
+//                        anchors.bottom: coverImg.bottom
+//                        anchors.rightMargin: 10
+//                        anchors.bottomMargin: 5
+//                        Text {
+//                            text: qsTr("修改封面")
+//                            color: "white"
+//                            anchors.centerIn: parent
+//                            font.pixelSize: 12
+//                        }
+//                        background: Rectangle {
+//                            color: "black"
+//                            opacity: 0.5
+//                            radius: 3
+//                        }
+//                    }
+//                    Button {
+//                        width: 60
+//                        height: 30
+//                        anchors.right: changeCover.left
+//                        anchors.bottom: coverImg.bottom
+//                        anchors.rightMargin: 10
+//                        anchors.bottomMargin: 5
+//                        Text {
+//                            text: qsTr("更换视频")
+//                            color: "white"
+//                            anchors.centerIn: parent
+//                            font.pixelSize: 12
+//                        }
+//                        background: Rectangle {
+//                            color: "black"
+//                            opacity: 0.5
+//                            radius: 3
+//                        }
+//                    }
                 }
                 Rectangle {
                     Layout.preferredWidth: parent.width

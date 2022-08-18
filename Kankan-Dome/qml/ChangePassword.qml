@@ -231,6 +231,8 @@ Rectangle {
             onClicked: {
                 //先判断旧密码是否正确
 
+                //如果不匹配，显示提示信息
+
                 if (passwordEditText.text === confirmPasswordEditText.text) {
                     //两次输入相同
                     mainPage.visible = true

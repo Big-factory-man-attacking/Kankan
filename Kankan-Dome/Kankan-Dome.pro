@@ -1,7 +1,27 @@
 QT += quick
+CONFIG += qmltypes
+QML_IMPORT_NAME = mycompany.module
+QML_IMPORT_MAJOR_VERSION = 1
+
+LIBS += -lmariadbcpp
 
 SOURCES += \
-        main.cpp
+        cache.cpp \
+        comment.cpp \
+        commentbroker.cpp \
+        commentproxy.cpp \
+        main.cpp \
+        manuscript.cpp \
+        manuscriptbroker.cpp \
+        manuscriptproxy.cpp \
+        netizen.cpp \
+        netizenbroker.cpp \
+        netizenproxy.cpp \
+        relationalbroker.cpp \
+        video.cpp \
+        videobroker.cpp \
+        videoproxy.cpp \
+        videosocialcontrol.cpp
 
 resources.files = qml/main.qml\
     qml/MainPage.qml\
@@ -59,3 +79,24 @@ DISTFILES += \
     qml/SettingPage.qml \
     qml/TimeDialog.qml \
     qml/WatchVideo.qml
+
+HEADERS += \
+    cache.h \
+    comment.h \
+    commentbroker.h \
+    commentinterface.h \
+    commentproxy.h \
+    manuscript.h \
+    manuscriptbroker.h \
+    manuscriptinterface.h \
+    manuscriptproxy.h \
+    netizen.h \
+    netizenbroker.h \
+    netizeninterface.h \
+    netizenproxy.h \
+    relationalbroker.h \
+    video.h \
+    videobroker.h \
+    videointerface.h \
+    videoproxy.h \
+    videosocialcontrol.h

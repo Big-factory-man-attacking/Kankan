@@ -8,6 +8,8 @@ import Qt5Compat.GraphicalEffects
 Item {
     id: publishPage
     anchors.fill: parent
+    property alias video: video
+
     ColumnLayout {
         id: publishColumn
         anchors.fill: parent
@@ -52,8 +54,14 @@ Item {
                     Layout.preferredHeight: parent.width/16*9
                     Layout.alignment: Qt.AlignHCenter
                     Button {
+                        id:chooseVideoBut
                         anchors.fill: parent
                         text: qsTr("点击选择视频")
+                        onClicked: {
+                            dialogs.fileVideoDialog.open()
+                            video.visible = true
+                            chooseVideoBut.visible = false
+                        }
                     }
 
                     Image {
@@ -66,17 +74,70 @@ Item {
                         id: video
                         visible: false
                         anchors.fill: parent
-                        source: "file:///root/mv.mkv"
-                        fillMode: VideoOutput.PreserveAspectFit
+                        source: ""
+                        fillMode: VideoOutput.PreserveAspectCrop
                         focus: true
+                        onSourceChanged: {
+                            video.play()
+                        }
                         Keys.onSpacePressed: video.playbackState === MediaPlayer.PlayingState ?
                                                  video.pause() : video.play()
-                        Keys.onLeftPressed: video.seek(video.position - 5000)
-                        Keys.onRightPressed: video.seek(video.position + 5000)
+//                        Keys.onLeftPressed: video.seek(video.position - 5000)
+//                        Keys.onRightPressed: video.seek(video.position + 5000)
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                video.play()
+                                if (video.playbackState == MediaPlayer.PlayingState) {
+                                    video.pause()
+                                } else {
+                                    video.play()
+                                }
+                            }
+                        }
+
+                        Button {
+                            id: changeCover
+                            width: 60
+                            height: 30
+                            anchors.right: video.right
+                            anchors.bottom: video.bottom
+                            anchors.rightMargin: 10
+                            anchors.bottomMargin: 5
+                            Text {
+                                text: qsTr("修改封面")
+                                color: "white"
+                                anchors.centerIn: parent
+                                font.pixelSize: 12
+                            }
+                            background: Rectangle {
+                                color: "black"
+                                opacity: 0.5
+                                radius: 3
+                            }
+                            onClicked: {
+                                dialogs.coverImageDialog.open()
+                            }
+                        }
+                        Button {
+                            width: 60
+                            height: 30
+                            anchors.right: changeCover.left
+                            anchors.bottom: video.bottom
+                            anchors.rightMargin: 10
+                            anchors.bottomMargin: 5
+                            Text {
+                                text: qsTr("更换视频")
+                                color: "white"
+                                anchors.centerIn: parent
+                                font.pixelSize: 12
+                            }
+                            background: Rectangle {
+                                color: "black"
+                                opacity: 0.5
+                                radius: 3
+                            }
+                            onClicked: {
+                                dialogs.fileVideoDialog.open()
                             }
                         }
                     }
@@ -164,6 +225,7 @@ Item {
                                 text: qsTr("标签：")
                             }
                             TextField {
+                                id: labelText
                                 Layout.preferredWidth: 120
                             }
                         }
@@ -408,6 +470,15 @@ Item {
                 background: Rectangle {
                     color: "#24c3f5"
                     radius: 10
+                }
+                onClicked: {
+                    //判断必须填写的信息是否填写完整
+                    if (video.source == "" || titleText.text == "" || labelText.text == "" || (self_restraintButton.checked == false && reprintButton.checked == false)) {
+
+                    }
+
+                    //传输数据给稿件构造函数
+
                 }
             }
         }

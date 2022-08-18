@@ -65,10 +65,6 @@ Rectangle {
                     barTimer.running = true
                 }
             }
-//            Keys.onSpacePressed: video.playbackState === MediaPlayer.PlayingState ?
-//                                     video.pause() : video.play()
-//            Keys.onLeftPressed: video.seek(video.position - 5000)
-//            Keys.onRightPressed: video.seek(video.position + 5000)
             Timer {
                 id: vieoTimer
                 interval: 500

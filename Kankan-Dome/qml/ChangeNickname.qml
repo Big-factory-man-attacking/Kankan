@@ -48,8 +48,13 @@ Rectangle {
                     color: "white"
                 }
                 onClicked: {
-                    accountInfor.nickname = nicknameEdit.text
-                    changeNickname.visible = false
+                    if (nicknameEdit.text === "") {
+                        spaceNickname.visible = true
+                        tipTimer.running = true
+                    } else {
+                        accountInfor.nickname = nicknameEdit.text
+                        changeNickname.visible = false
+                    }
                 }
             }
         }
@@ -84,6 +89,25 @@ Rectangle {
                     color: "#24c3f5"
                 }
             }
+        }
+    }
+    Text {
+        id: spaceNickname
+        text: qsTr("昵称不能为空")
+        visible: false
+        color: "#24c3f5"
+        font.pixelSize: 14
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: parent.height/6
+    }
+    Timer {
+        id: tipTimer
+        running: false
+        repeat: false
+        interval: 2000
+        onTriggered: {
+            spaceNickname.visible = false
         }
     }
 }

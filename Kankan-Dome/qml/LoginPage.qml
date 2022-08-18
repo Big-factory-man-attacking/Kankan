@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import mycompany.module
 
 Rectangle {
     anchors.fill: parent
@@ -146,7 +147,16 @@ Rectangle {
             }
             onClicked: {
                 //调用login()登陆函数
-                //验证成功
+//                var a = videoSocialControl.login(accountEditText.text, passwordEditText.text)
+
+//                console.log(a["home"])
+//                if (a === "{}") {
+//                    errorText.visible = true
+//                    passwordTimer.running = true
+//                } else {
+//                    mainPage.visible = true
+//                    loginPage.visible = false
+//                }
                 mainPage.visible = true
                 loginPage.visible = false
             }
@@ -197,5 +207,27 @@ Rectangle {
             count++
             roundBut.background.rotation = count%360
         }
+    }
+    Text {
+        id: errorText
+        visible: false
+        text: qsTr("帐号与密码不匹配！")
+        color: "red"
+        font.pixelSize: 16
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: parent.height/2+30
+    }
+    Timer {
+        id: passwordTimer
+        interval: 2000
+        running: false
+        repeat: false
+        onTriggered: {
+            errorText.visible = false
+        }
+    }
+    VideoSocialControl{
+        id: videoSocialControl
     }
 }
