@@ -59,16 +59,17 @@ std::shared_ptr<Netizen> NetizenBroker::findNetizenById(const std::string& id)
     //检查用户是否在缓存中
 
     //查找数据库，找出用户的nickname
-    std::string nickname;
+    std::string nickname, headportrait;
 
-    std::string sql = "select nickname from user where user_id = '" + id + "'";
+    std::string sql = "select nickname, headportrait from user where user_id = '" + id + "'";
     std::shared_ptr<sql::ResultSet> res = query(sql);
-    while (res->next())
+    while (res->next()) {
         nickname = res->getString(1).c_str();
-    std::cout << "用户名：" << nickname << std::endl;
+        headportrait = res->getString(2).c_str();
+    }
 
-    //调用Netizen(id, nickname, videosId, fansId, followersId);
-    std::shared_ptr<Netizen> netizen = std::make_shared<Netizen>(id, nickname, "www.cv",findNetizenVideos(id),
+    //构造netizen对象
+    std::shared_ptr<Netizen> netizen = std::make_shared<Netizen>(id, nickname, headportrait, findNetizenVideos(id),
                                                         findNetizenFans(id), findNetizenFollowers(id));
 
     std::cout << "Netizen对象实例化成功" << std::endl;
@@ -116,7 +117,7 @@ void NetizenBroker::modifyHeadportrait(const std::string &id, const std::string 
 {
     std::string sql = "update user set headportrait = '" + headportrait + "' where user_id = '" + id + "'";
 
-    std::cout << "修改头像" << sql << std::endl;
+    std::cout << "修改头像sql:" << sql << std::endl;
 
     update(sql);
 
@@ -126,7 +127,7 @@ void NetizenBroker::modifyNickname(const std::string &id, const std::string &nic
 {
     std::string sql = "update user set nickname = '" + nickname + "' where user_id = '" + id + "'";
 
-    std::cout << "修改昵称：" << sql << std::endl;
+    std::cout << "修改昵称sql：" << sql << std::endl;
 
     update(sql);
 }
@@ -135,7 +136,9 @@ void NetizenBroker::modifyPassword(const std::string &id, const std::string pass
 {
     std::string sql = "update user set password = '" + password + "' where user_id = '" + id + "'";
 
-    std::cout << "修改密码：" << sql << std::endl;
+    std::cout << "修改密码sql：" << sql << std::endl;
+
+    update(sql);
 }
 
 

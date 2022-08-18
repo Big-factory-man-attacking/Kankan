@@ -57,7 +57,7 @@ insert into user values("b1bd76dd-bbd3-4687-80bc-2a828d7b62b4", "huchengxing", "
 insert into user values("459e143b-773e-44b2-83b7-147d6ab99273", "quhu", "quhu", "www.");
 insert into user values("b46bf5fd-6209-49e8-a9cb-279897085926", "zhangqingjun", "zhangqingjun", "www.");
 
-insert into manuscript values("5659653c-45fa-4185-86ae-28ba3c46e5d0", "food_ismn", "rnmCQNU", "food","food",true,"www.baidu.com", "2022-07-06", "ce20e992-2530-4d7f-abc0-801879c5d3cb");
+insert into manuscript values("5659653c-45fa-4185-86ae-28ba3c46e5d0", "food_ismn", "CQNU", "food","food",true,"www.baidu.com", "2022-07-06", "ce20e992-2530-4d7f-abc0-801879c5d3cb");
 insert into manuscript values("959e8839-4301-45ed-8e9d-2f334077dc25", "bbbbbbbbb", "bb","school","school",false, "www.xinlang.com", "2022-07-20", "ce20e992-2530-4d7f-abc0-801879c5d3cb");
 insert into manuscript values("ec797764-974b-4a81-b89b-49816ddee1df", "lovelove", "loveDiaraay", "love", "love", true, "www.aliyun.com", "2021-04-26","b46bf5fd-6209-49e8-a9cb-279897085926" );
 

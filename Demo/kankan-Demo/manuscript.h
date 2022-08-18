@@ -27,6 +27,9 @@ public:
 
     void init(std::string id);
     //通过代理实例化video对象
+
+    void modifyManuscriptInfo(std::string description, std::string title, std::string label, std::string subarea,
+                         bool isOriginal, std::string cover, std::string date);
 private:
     std::string m_id;           //稿件id
     std::string m_description;  //简介

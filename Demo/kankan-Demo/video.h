@@ -8,14 +8,14 @@
 class Video : public VideoInterface
 {
 public:
-    Video(std::string id, std::string duration, std::string address);
+    Video(std::string id, std::string address);
     ~Video();
-    std::string getDuration(){ return m_duration; };
-    //返回视频的时长
+
+    // 获取视频的地址
+    std::string getVideoInfo() {return m_address;};
 
 private:
     std::string m_id;           //
-    std::string m_duration = "20ms";     //视频时长
     std::string m_address;      //
 };
 

@@ -13,6 +13,7 @@ public:
     VideoProxy(std::string& id);
     ~VideoProxy();
 
+    // 获取视频的地址
     std::string getVideoInfo(std::string id);
 private:
     std::string m_id;

@@ -40,11 +40,11 @@ public:
     //修改网民的昵称
     void modifyNickname(const std::string& newNickname);
 
-    //修改密码
-    bool modifyPassword(const std::string& oldPassword, const std::string& newPassword);
-
     //修改稿件信息
     void modifyManuscriptInfo(nlohmann::json newManuscriptInfo);
+
+    //删除稿件
+    void deleteManuscript(const std::string& manuscriptId);
 
 private:
     std::string m_id;                                               //用户id

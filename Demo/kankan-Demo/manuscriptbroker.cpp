@@ -39,6 +39,7 @@ std::shared_ptr<Manuscript> ManuscriptBroker::getManuscript(const std::string& i
     }
 
 
+    // 找到对应的评论id
     std::vector<std::string> commentIds;
     sql = "select comment_id from comment where manuscript_id = '" + id + "'";
 
@@ -46,25 +47,60 @@ std::shared_ptr<Manuscript> ManuscriptBroker::getManuscript(const std::string& i
     while (res->next())
         commentIds.push_back(res->getString(1).c_str());
 
-    std::shared_ptr<Manuscript> manuscript = std::make_shared<Manuscript>(parameters[0], parameters[1], parameters[2],parameters[3],
-                                                           parameters[4], isOriginal, parameters[5], parameters[6],
-                                                            commentIds, parameters[7]);
-    std::cout << "Manuscript对象实例化成功" << std::endl;
-
-    //返回对象之前实例化video对象，实例化评论对象
+    //找到对应的视频id
     sql = "select video_id from video where manuscript_id = '" + id + "'";
 
     res = query(sql);
     std::string result;
     while (res->next()) {
         result = res->getString(1).c_str();
-        std::cout << result << std::endl;
     }
 
-    manuscript->init(result);
+    std::shared_ptr<Manuscript> manuscript = std::make_shared<Manuscript>(parameters[0], parameters[1], parameters[2],parameters[3],
+                                                           parameters[4], isOriginal, parameters[5], parameters[6],
+                                                            commentIds, result);
+    std::cout << "Manuscript对象实例化成功" << std::endl;
 
     //返回manuscript对象
     return manuscript;
+}
+
+std::map<std::string, std::string> ManuscriptBroker::getManuscripts()
+{
+    std::string sql = "select manuscript_id, user_id from manuscript";
+
+    std::cout << "获取稿件的id：" << sql << std::endl;
+
+    std::shared_ptr<sql::ResultSet> res = query(sql);
+
+    std::map<std::string, std::string> manuscriptIds;
+
+    while (res->next())
+        manuscriptIds.insert({res->getString(1).c_str(), res->getString(2).c_str()});
+
+    return manuscriptIds;
+}
+
+void ManuscriptBroker::modifyManuscriptInfo(const std::string &description, const std::string &title, const std::string &label,
+                                            const std::string &subarea, const std::string &isOriginal, const std::string &cover, const std::string &date)
+{
+    std::string sql = "update manuscript set description = '" + description + "', title =  '" + title + "', label = '" +
+            label + "', subarea = '" + subarea + "', isOriginal = " + isOriginal + ", cover = '" + cover + "', date = '" +
+            date + "'";
+
+    std::cout << "修改稿件信息sql:" << sql << std::endl;
+
+
+    update(sql);
+}
+
+void ManuscriptBroker::deleteManuscript(const std::string &manuscriptId)
+{
+    std::string sql = "delete from manuscript where manuscript_id = '" + manuscriptId + "'";
+
+    std::cout << "删除稿件sql：" << sql << std::endl;
+
+    Delete(sql);
 }
 
 

@@ -48,11 +48,9 @@ public:
     //修改用户的昵称
     void modifyNickname(const std::string& id, const std::string& nickname);
 
-    //验证用户密码
-    bool qualifyPassword(const std::string& id, const std::string& password);
-
     //修改用户的密码
     void modifyPassword(const std::string& id, const std::string password);
+
 private:
     NetizenBroker();
     static NetizenBroker* m_netizenBroker;

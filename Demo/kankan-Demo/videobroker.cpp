@@ -29,10 +29,10 @@ std::shared_ptr<Video> VideoBroker::getVideo(std::string &id)
         parameters.push_back(res->getString(3).c_str());
     }
 
-    std::shared_ptr<Video> video = std::make_shared<Video>(parameters[0], parameters[1], parameters[2]);
+    std::shared_ptr<Video> video = std::make_shared<Video>(parameters[0], parameters[1]);
 
     //返回video对象
-    std::cout << "Video对象实例化成功" ;
+    std::cout << "Video对象实例化成功" << std::endl;
     return video;
 }
 

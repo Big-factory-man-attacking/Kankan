@@ -5,14 +5,11 @@
 #include <memory>
 #include <vector>
 #include "json.hpp"
-//#include <QObject>
 
 class Netizen;
 
-class VideoSocialControl /*:  public QObject*/
+class VideoSocialControl
 {
-//    Q_OBJECT
-//    QML_ELEMENT
 public:
     VideoSocialControl();
 
@@ -28,8 +25,8 @@ public:
     //假设服务器记录每次上传视频的id，保存为一个列表，首页总是显示最新的一批视频
     nlohmann::json getSomeVideos();
 
-    //加载稿件的完整信息
-    void loadVideo(std::string id);
+    //用户选择了某个稿件进行观看，加载稿件的完整信息
+    nlohmann::json loadVideo(std::string id);
 
     //合并视频,返回id、合并后的视频路径
     std::pair<std::string, std::string> mergeVideoFiles(std::vector<std::string> videoFiles);
@@ -59,6 +56,9 @@ public:
 
     //修改稿件信息
     void modifyManuscriptInfo(const std::string& netizenId, nlohmann::json newManuscriptInfo);
+
+    //删除稿件
+    void deleteManuscript(const std::string& netizenId, const std::string& manuscriptId);
 };
 
 #endif // VIDEOSOCIALCONTROL_H

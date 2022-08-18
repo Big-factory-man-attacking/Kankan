@@ -16,6 +16,12 @@ public:
     //获取稿件的相关信息(发布时间、封面、视频时长、标题)
     //id：稿件id
 
+    //修改稿件的信息
+    void modifyManuscriptInfo(const nlohmann::json& newManuscriptInfo);
+
+    //删除稿件
+    void deleteManuscript(const std::string& manuscriptId);
+
     ~ManuscriptProxy();
 private:
     std::string m_id;

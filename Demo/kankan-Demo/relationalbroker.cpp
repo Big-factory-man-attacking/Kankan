@@ -54,6 +54,16 @@ void RelationalBroker::update(std::string sql)
         std::unique_ptr<sql::PreparedStatement> stmnt(conn->prepareStatement(sql));
         stmnt->executeQuery();
     } catch (sql::SQLException& e) {
-        std::cerr << "Error insert：" << e.what() << std::endl;
+        std::cerr << "Error update：" << e.what() << std::endl;
+    }
+}
+
+void RelationalBroker::Delete(const std::string &sql)
+{
+    try {
+        std::unique_ptr<sql::PreparedStatement> stmnt(conn->prepareStatement(sql));
+        stmnt->executeQuery();
+    } catch (sql::SQLException& e) {
+        std::cerr << "Error delete：" << e.what() << std::endl;
     }
 }

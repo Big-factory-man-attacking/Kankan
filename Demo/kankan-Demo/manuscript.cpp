@@ -7,8 +7,8 @@
 using json = nlohmann::json;
 
 Manuscript::Manuscript(std::string id, std::string description, std::string title, std::string label,
-             std::string subarea, bool isOriginal, std::string cover, std::string date,
-             std::vector<std::string> commentIds, std::string videoId) :
+                       std::string subarea, bool isOriginal, std::string cover, std::string date,
+                       std::vector<std::string> commentIds, std::string videoId) :
     m_id{id}, m_description{description}, m_title{title},
     m_label{label}, m_subarea{subarea}, m_isOriginal{isOriginal},
     m_cover{cover}, m_date{date}, m_video(std::make_pair(videoId, VideoProxy(videoId)))
@@ -24,25 +24,37 @@ Manuscript::~Manuscript()
 
 nlohmann::json Manuscript::getManuscriptInfo()
 {
-    std::cout << "--------------------------------------------" << std::endl;
+    json manuscriptInfo;
 
-    json info;
+    manuscriptInfo["id"] = m_id;
+    manuscriptInfo["description"] = m_description;
+    manuscriptInfo["title"] = m_title;
+    manuscriptInfo["label"] = m_label;
+    manuscriptInfo["subarea"] = m_subarea;
+    manuscriptInfo["isOriginal"] = std::to_string(m_isOriginal);
+    manuscriptInfo["cover"] = m_cover;
+    manuscriptInfo["date"] = m_date;
+    manuscriptInfo["videoAddress"] = m_video.second.getVideoInfo(m_video.first);
 
-    info["title"] = m_title;
-    info["cover"] = m_cover;
-    info["date"] = m_date;
-    info["duration"] = m_video.second.getVideoInfo(m_video.first);
+    for (auto& comment: _comments) {
+        json com;
+        com[m_id] = comment.second.getCommentInfo(comment.first);
+        manuscriptInfo["comments"].push_back(com);
+    }
+    if (_comments.size() == 0) manuscriptInfo["comments"] = "";
 
-    //测试
-//    std::cout << info.dump(4) << std::endl;
 
-    return info;
+    return manuscriptInfo;
 }
 
-void Manuscript::init(std::string id)
+void Manuscript::modifyManuscriptInfo(std::string description, std::string title, std::string label,
+                                      std::string subarea, bool isOriginal, std::string cover, std::string date)
 {
-    std::cout << "视频时长" << m_video.second.getVideoInfo(id) << std::endl;
-
-    for (auto &comment : _comments)
-        std::cout << "评论正文： " << comment.second.getCommentInfo(comment.first) << std::endl;
+    m_description = description;
+    m_title = title;
+    m_label = label;
+    m_subarea = subarea;
+    m_isOriginal = isOriginal;
+    m_cover = cover;
+    m_date = date;
 }
