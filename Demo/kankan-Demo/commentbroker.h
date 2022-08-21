@@ -9,6 +9,9 @@ class CommentBroker : public RelationalBroker
 public:
     ~CommentBroker();
     static CommentBroker* getInstance();
+
+    // 获取评论对象
+    // id：评论的id
     std::shared_ptr<Comment> getComment(std::string& id);
 private:
     CommentBroker();

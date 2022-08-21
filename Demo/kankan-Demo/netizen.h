@@ -9,42 +9,44 @@
 #include "netizeninterface.h"
 #include <vector>
 #include "json.hpp"
+#include <QJsonObject>
 
 class Netizen : public NetizenInterface
 {
 public:
+    Netizen() = delete;
     Netizen(std::string id, std::string password, std::string nickname);
     ~Netizen();
 
-    //创造insert的sql语句
-    std::string insertSql();
-
-    //获取用户id,昵称，所有的稿件id，粉丝的id，关注者的id
-    //id:用户id
-    //nickname:用户昵称
-    //manuscriptsId:稿件的id
-    //fansId:粉丝的id
-    //followersId:关注者的id
     Netizen(std::string id, std::string nickname, std::string headPortrait, std::vector<std::string> manuscriptsId,
             std::vector<std::string> fansId, std::vector<std::string> followersId);
 
-    //登录后进行信息初始化
+    // 登录后进行信息初始化
     nlohmann::json init();
 
-    //返回网民的昵称和头像
+    // 返回网民的id,昵称和头像
     nlohmann::json getInfo();
 
-    //修改网民的头像
+    // 修改网民的头像
     void modifyHeadportrait(const std::string& newHeadportrait);
 
-    //修改网民的昵称
+    // 修改网民的昵称
     void modifyNickname(const std::string& newNickname);
 
-    //修改稿件信息
+    // 修改稿件信息
     void modifyManuscriptInfo(nlohmann::json newManuscriptInfo);
 
-    //删除稿件
+    // 删除稿件
     void deleteManuscript(const std::string& manuscriptId);
+
+    // 关注
+    void focusOn(const std::string& followerId);
+
+    // 取关
+    void takeOff(const std::string& followerId);
+
+    // 返回头像
+    std::string nickname() {return m_nickname;};
 
 private:
     std::string m_id;                                               //用户id

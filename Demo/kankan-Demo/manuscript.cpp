@@ -38,7 +38,7 @@ nlohmann::json Manuscript::getManuscriptInfo()
 
     for (auto& comment: _comments) {
         json com;
-        com[m_id] = comment.second.getCommentInfo(comment.first);
+        com["text"] = comment.second.getCommentInfo(comment.first);
         manuscriptInfo["comments"].push_back(com);
     }
     if (_comments.size() == 0) manuscriptInfo["comments"] = "";

@@ -15,8 +15,8 @@ public:
     std::string getVideoInfo() {return m_address;};
 
 private:
-    std::string m_id;           //
-    std::string m_address;      //
+    std::string m_id;           //视频id
+    std::string m_address;      //视频地址
 };
 
 #endif // VIDEO_H

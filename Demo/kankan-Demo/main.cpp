@@ -1,13 +1,21 @@
-#include <iostream>
-#include "videosocialcontrol.h"
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <videosocialcontrol.h>
+#include <QDebug>
 
-using namespace std;
-
-int main()
+int main(int argc, char *argv[])
 {
-    VideoSocialControl control;
-    control.login("ce20e992-2530-4d7f-abc0-801879c5d3cb", "zhuyoucheng");
+    QGuiApplication app(argc, argv);
+    QQmlApplicationEngine engine;
+    const QUrl url(u"qrc:/Kankan-Dome/qml/main.qml"_qs);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl)
+            QCoreApplication::exit(-1);
+    }, Qt::QueuedConnection);
+    engine.load(url);
 
-
-    return 0;
+    //    VideoSocialControl control;
+    //    control.login("ce20e992-2530-4d7f-abc0-801879c5d3cb","zhuyoucheng");
+    return app.exec();
 }

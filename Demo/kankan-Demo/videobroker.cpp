@@ -17,8 +17,6 @@ VideoBroker *VideoBroker::getInstance()
 
 std::shared_ptr<Video> VideoBroker::getVideo(std::string &id)
 {
-    //检查是否存在缓存中
-
     //检索数据库，创建video对象
     std::vector<std::string> parameters;
     std::string sql = "select * from video where video_id = '" + id + "'";

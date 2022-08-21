@@ -21,13 +21,10 @@ public:
           std::vector<std::string> commentIds, std::string videoId);
     ~Manuscript();
 
+    //获取稿件的数据
     nlohmann::json getManuscriptInfo();
-    //获取稿件的数据（标题、发布时间、稿件时长[通过m_video对象去获取时长]、封面）
-    //后续可考虑替换为json传输
 
-    void init(std::string id);
-    //通过代理实例化video对象
-
+    // 修改稿件信息
     void modifyManuscriptInfo(std::string description, std::string title, std::string label, std::string subarea,
                          bool isOriginal, std::string cover, std::string date);
 private:
@@ -37,11 +34,11 @@ private:
     std::string m_label;        //标签
     std::string m_subarea;      //分区
     bool m_isOriginal;          //是否是转载
-    std::string m_cover;        //封面（存文件路径）
-    std::string m_date;         //发布时间(后期需考虑是否使用date)
+    std::string m_cover;        //封面
+    std::string m_date;         //发布时间(需考虑是否使用date)
 
-    std::unordered_map<std::string, CommentProxy> _comments;
-    std::pair<std::string, VideoProxy> m_video;
+    std::unordered_map<std::string, CommentProxy> _comments;    // 评论
+    std::pair<std::string, VideoProxy> m_video;                 // 视频
 };
 
 #endif // MANUSCRIPT_H

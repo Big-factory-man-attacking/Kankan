@@ -8,7 +8,6 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include "manuscriptbroker.h"
-//#include <QJsonObject>
 
 extern "C" {
 #include <libavutil/timestamp.h>
@@ -23,7 +22,7 @@ VideoSocialControl::VideoSocialControl()
 }
 
 //注册
-void VideoSocialControl::registerAccount(std::string password, std::string nickname)
+void VideoSocialControl::registerAccount(QString password, QString nickname)
 {
     //利用boost/uuid库生成uuid
     boost::uuids::random_generator gen;
@@ -35,39 +34,56 @@ void VideoSocialControl::registerAccount(std::string password, std::string nickn
 
     //注册成功后直接登录
     //初始用户数据库无数据,无需进行用户数据的init
-    std::shared_ptr<Netizen> netizen = std::make_shared<Netizen>(id, password, nickname);
+    std::shared_ptr<NetizenProxy> netizenProxy = std::make_shared<NetizenProxy>(id);
 
-    //添加新的用户记录
-    NetizenBroker::getInstance()->insertNewNetizen(netizen);
+    netizenProxy->addNetizen(id, password.toStdString(), nickname.toStdString());
+}
+
+QJsonObject VideoSocialControl::transition(nlohmann::json json)
+{
+    std::string info = json.dump();
+    const char *ch=info.data();
+
+    QByteArray byte_array;
+    QJsonParseError json_error;
+    QJsonObject rootObj;   //最后转换出来的json 对象
+    QJsonDocument parse_doucment = QJsonDocument::fromJson(byte_array.append(ch), &json_error);
+    if(json_error.error == QJsonParseError::NoError) {
+           if(parse_doucment.isObject())
+           {
+               rootObj = parse_doucment.object();
+           }
+    } else {
+        qDebug()<<json_error.errorString();
+    }
+    return rootObj;
 }
 
 //登录
-nlohmann::json VideoSocialControl::login(std::string id, std::string key)
+QJsonObject VideoSocialControl::login(QString id, QString key)
 {
-    json info;
-    if (NetizenBroker::getInstance()->qualifyNetizenId(id)) {
+    nlohmann::json info;
+    if (NetizenBroker::getInstance()->qualifyNetizenId(id.toStdString())) {
         std::cout << "用户id存在" << std::endl;
-        if (NetizenBroker::getInstance()->qualifyNetizenPassword(id, key)) {
+        if (NetizenBroker::getInstance()->qualifyNetizenPassword(id.toStdString(), key.toStdString())) {
             std::cout << "密码正确" << std::endl;
 
-            auto netizen = NetizenBroker::getInstance()->findNetizenById(id);
+            auto netizen = NetizenBroker::getInstance()->findNetizenById(id.toStdString());
 
             info = netizen->init();//初始化稿件（含视频）、粉丝列表、关注列表初始化
-            std::cout << info.dump(4) << std::endl;
-            return info;
+            std::cout << info.dump(4);
+            return transition(info);
         } else {
             std::cout << "密码错误" << std::endl;
-            return info;
+            return transition(info);
         }
     } else {
         std::cout << "用户id不存在" << std::endl;
-        return info;
+        return transition(info);
     }
-
-
 }
 
-nlohmann::json VideoSocialControl::getSomeVideos()
+QJsonObject VideoSocialControl::getSomeVideos()
 {
     //获取一些稿件的id
     std::map<std::string, std::string> manuscriptIds;
@@ -79,7 +95,7 @@ nlohmann::json VideoSocialControl::getSomeVideos()
         _manuscripts.insert(std::make_pair(id.first, ManuscriptProxy(id.first)));
 
     //创建网民的proxy
-    std::unordered_map<std::string, NetizenProxy> _netizens;
+    std::unordered_multimap<std::string, NetizenProxy> _netizens;
     for (auto& id : manuscriptIds)
         _netizens.insert(std::make_pair(id.second, NetizenProxy(id.second)));
 
@@ -96,8 +112,8 @@ nlohmann::json VideoSocialControl::getSomeVideos()
         json netizenInfo = netizen.second.getInfo(netizen.first);
         manuscirptInfos["netizenInfo"].push_back(netizenInfo);
     }
-
-    return manuscirptInfos;
+    std::cout << manuscirptInfos.dump(4) << std::endl;
+    return transition(manuscirptInfos);
 }
 
 nlohmann::json VideoSocialControl::loadVideo(std::string id)
@@ -230,45 +246,60 @@ void VideoSocialControl::createVideo(std::string description, std::string title,
     //相关写数据库操作
 }
 
-void VideoSocialControl::focusOn()
+void VideoSocialControl::focusOn(QString fanId, QString followerId, QString followerNickname)
 {
+    auto fanProxy = std::make_shared<NetizenProxy>(fanId.toStdString());
+
+    fanProxy->focusOn(followerId.toStdString(), followerNickname.toStdString());
 
 }
 
-void VideoSocialControl::takeOff()
+void VideoSocialControl::takeOff(QString fanId, QString followerId)
 {
+    auto fanProxy = std::make_shared<NetizenProxy>(fanId.toStdString());
+
+    fanProxy->takeOff(followerId.toStdString());
+}
+
+
+void VideoSocialControl::modifyHeadportrait(const QString &netizenId, const QString &newHeadportrait)
+{
+    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId.toStdString());
+    netizenProxy->modifyHeadportrait(newHeadportrait.toStdString());
+}
+
+void VideoSocialControl::modifyNickname(const QString &netizenId, const QString &newNickname)
+{
+    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId.toStdString());
+    netizenProxy->modifyNickname(newNickname.toStdString());
+}
+
+bool VideoSocialControl::modifyPassword(const QString &netizenId, const QString &oldPassword, const QString &newPassword)
+{
+    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId.toStdString());
+    return netizenProxy->modifyPassword(oldPassword.toStdString(), newPassword.toStdString());
+}
+
+nlohmann::json VideoSocialControl::getJsonFromJsonObject(QJsonObject qjson)
+{
+    QString str = QString(QJsonDocument(qjson).toJson());
+    std::string strjson = str.toStdString();
+    nlohmann::json json = nlohmann::json::parse(strjson);
+    return json;
+}
+
+void VideoSocialControl::modifyManuscriptInfo(const QString &netizenId, QJsonObject newManuscriptInfo)
+{
+    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId.toStdString());
+    std::cout << getJsonFromJsonObject(newManuscriptInfo) << std::endl;
+    netizenProxy->modifyManuscriptInfo(getJsonFromJsonObject(newManuscriptInfo));
 
 }
 
-void VideoSocialControl::modifyHeadportrait(const std::string &netizenId, const std::string &newHeadportrait)
+void VideoSocialControl::deleteManuscript(const QString &netizenId, const QString &manuscriptId)
 {
-    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId);
-    netizenProxy->modifyHeadportrait(newHeadportrait);
-}
-
-void VideoSocialControl::modifyNickname(const std::string &netizenId, const std::string &newNickname)
-{
-    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId);
-    netizenProxy->modifyNickname(newNickname);
-}
-
-bool VideoSocialControl::modifyPassword(const std::string &netizenId, const std::string &oldPassword, const std::string &newPassword)
-{
-    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId);
-    return netizenProxy->modifyPassword(oldPassword, newPassword);
-}
-
-void VideoSocialControl::modifyManuscriptInfo(const std::string &netizenId, nlohmann::json newManuscriptInfo)
-{
-    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId);
-    netizenProxy->modifyManuscriptInfo(newManuscriptInfo);
-
-}
-
-void VideoSocialControl::deleteManuscript(const std::string &netizenId, const std::string &manuscriptId)
-{
-    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId);
-    netizenProxy->deleteManuscript(manuscriptId);
+    auto netizenProxy = std::make_shared<NetizenProxy>(netizenId.toStdString());
+    netizenProxy->deleteManuscript(manuscriptId.toStdString());
 }
 
 

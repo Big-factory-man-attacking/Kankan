@@ -17,7 +17,7 @@ create table manuscript(
 	label VARCHAR(20), 
 	subarea VARCHAR(20), 
 	isOriginal boolean NOT NULL, 
-	cover VARCHAR(50) NOT NULL,
+	cover VARCHAR(250) NOT NULL,
 	date VARCHAR(30) NOT NULL,
 	user_id VARCHAR(132),
 	FOREIGN KEY(user_id) REFERENCES user(user_id)
@@ -27,7 +27,7 @@ create table video(
 	video_id VARCHAR(132) UNIQUE NOT NULL PRIMARY KEY,
 	address VARCHAR(50) NOT NULL,
 	manuscript_id VARCHAR(132),
-	FOREIGN KEY(manuscript_id) REFERENCES manuscript(manuscript_id)
+	FOREIGN KEY(manuscript_id) REFERENCES manuscript(manuscript_id) on delete cascade
 ) DEFAULT CHARSET=utf8mb4 COMMENT="视频文件数据表";
 
 create table comment(
@@ -46,23 +46,22 @@ create table fan(
 
 create table follower( 
 	user_id VARCHAR(132),
-        	user_nickname VARCHAR(20),	
+	user_nickname VARCHAR(20),	
 	follower_id VARCHAR(132),
 	follower_nickname VARCHAR(20)
 ) DEFAULT CHARSET=utf8mb4 COMMENT="关注者表";
 
 
-insert into user values("ce20e992-2530-4d7f-abc0-801879c5d3cb", "zhuyoucheng", "zhuyoucheng", "www.");
-insert into user values("b1bd76dd-bbd3-4687-80bc-2a828d7b62b4", "huchengxing", "huchenxing", "www.");
-insert into user values("459e143b-773e-44b2-83b7-147d6ab99273", "quhu", "quhu", "www.");
-insert into user values("b46bf5fd-6209-49e8-a9cb-279897085926", "zhangqingjun", "zhangqingjun", "www.");
+insert into user values("ce20e992-2530-4d7f-abc0-801879c5d3cb", "zhuyoucheng", "zhuyoucheng", "https://img1.baidu.com/it/u=873106765,2587410047&fm=253&fmt=auto&app=138&f=JPEG?w=530&h=500");
+insert into user values("b1bd76dd-bbd3-4687-80bc-2a828d7b62b4", "huchengxing", "huchenxing", "https://img1.baidu.com/it/u=873106765,2587410047&fm=253&fmt=auto&app=138&f=JPEG?w=530&h=500");
+insert into user values("459e143b-773e-44b2-83b7-147d6ab99273", "quhu", "quhu", "https://img1.baidu.com/it/u=873106765,2587410047&fm=253&fmt=auto&app=138&f=JPEG?w=530&h=500");
+insert into user values("b46bf5fd-6209-49e8-a9cb-279897085926", "zhangqingjun", "zhangqingjun", "https://img1.baidu.com/it/u=873106765,2587410047&fm=253&fmt=auto&app=138&f=JPEG?w=530&h=500");
 
-insert into manuscript values("5659653c-45fa-4185-86ae-28ba3c46e5d0", "food_ismn", "CQNU", "food","food",true,"www.baidu.com", "2022-07-06", "ce20e992-2530-4d7f-abc0-801879c5d3cb");
-insert into manuscript values("959e8839-4301-45ed-8e9d-2f334077dc25", "bbbbbbbbb", "bb","school","school",false, "www.xinlang.com", "2022-07-20", "ce20e992-2530-4d7f-abc0-801879c5d3cb");
-insert into manuscript values("ec797764-974b-4a81-b89b-49816ddee1df", "lovelove", "loveDiaraay", "love", "love", true, "www.aliyun.com", "2021-04-26","b46bf5fd-6209-49e8-a9cb-279897085926" );
+insert into manuscript values("5659653c-45fa-4185-86ae-28ba3c46e5d0", "food_ismn", "CQNU", "food","food",true,"https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F14123277880%2F641&refer=http%3A%2F%2Finews.gtimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1663464770&t=23c419643ab88a2662aa60d404366e2f", "2022-07-06", "b1bd76dd-bbd3-4687-80bc-2a828d7b62b4");
+insert into manuscript values("959e8839-4301-45ed-8e9d-2f334077dc25", "bbbbbbbbb", "bb","school","school",false, "https://img1.baidu.com/it/u=848097428,2094753496&fm=253&fmt=auto&app=138&f=PNG?w=838&h=500", "2022-07-20", "ce20e992-2530-4d7f-abc0-801879c5d3cb");
 
-insert into video values("2430cdc5-207f-4b46-88af-d6d8068a839f", "www.Youchengzhu.com", "5659653c-45fa-4185-86ae-28ba3c46e5d0");
-insert into video values("5c8194b5-c6fc-4371-a9d7-058194cc40fc", "www.YouchengZhu.com", "959e8839-4301-45ed-8e9d-2f334077dc25");
+insert into video values("2430cdc5-207f-4b46-88af-d6d8068a839f", "rtsp://10.252.173.31:8554/1.mkv", "5659653c-45fa-4185-86ae-28ba3c46e5d0");
+insert into video values("5c8194b5-c6fc-4371-a9d7-058194cc40fc", "rtsp://10.252.173.31:8554/2.mpg", "959e8839-4301-45ed-8e9d-2f334077dc25");
 
 insert into fan values("ce20e992-2530-4d7f-abc0-801879c5d3cb", "zhuyoucheng", "b1bd76dd-bbd3-4687-80bc-2a828d7b62b4", "huchenxing");
 insert into fan values("ce20e992-2530-4d7f-abc0-801879c5d3cb", "zhuyoucheng", "459e143b-773e-44b2-83b7-147d6ab99273", "quhu");

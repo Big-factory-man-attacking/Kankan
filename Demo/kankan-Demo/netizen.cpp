@@ -1,7 +1,9 @@
 #include "netizen.h"
 #include <string>
 #include <iostream>
-
+#include <QJsonObject>
+#include <QJsonParseError>
+#include <QDebug>
 using json = nlohmann::json;
 
 Netizen::Netizen(std::string id, std::string password, std::string nickname) :
@@ -14,10 +16,6 @@ Netizen::~Netizen()
 
 }
 
-std::string Netizen::insertSql()
-{
-    return "insert into user values( '" + m_id + "', '" + m_password + "', '" + m_nickname + "');";
-}
 
 Netizen::Netizen(std::string id, std::string nickname, std::string headPortrait, std::vector<std::string> manuscriptsId,
                  std::vector<std::string> fansId, std::vector<std::string> followersId) :
@@ -41,8 +39,6 @@ Netizen::Netizen(std::string id, std::string nickname, std::string headPortrait,
 
 nlohmann::json Netizen::init()
 {
-    //粉丝及关注者数据读取简化处理
-    //getManuscriptInfo如何存储返回的数据
     nlohmann::json netizenInfo;
     netizenInfo["id"] = m_id;
     netizenInfo["nickname"] = m_nickname;
@@ -72,6 +68,7 @@ nlohmann::json Netizen::init()
 nlohmann::json Netizen::getInfo()
 {
     json results;
+    results["id"] = m_id;
     results["headPortrait"] = m_headPortrait;
     results["nickname"] = m_nickname;
 
@@ -95,7 +92,7 @@ void Netizen::modifyNickname(const std::string &newNickname)
 void Netizen::modifyManuscriptInfo(nlohmann::json newManuscriptInfo)
 {
     // 解析出稿件id
-    std::string manuscriptId = newManuscriptInfo["manuscriptId"].get<std::string>();
+    std::string manuscriptId = newManuscriptInfo["id"].get<std::string>();
 
     //修改_manuscripts中对应的那个manucriptproxy对象中的manscript实体的信息,通过proxy找broker修改数据库信息；
     auto manscript = _manuscripts.find(manuscriptId);
@@ -108,6 +105,23 @@ void Netizen::deleteManuscript(const std::string &manuscriptId)
         if (it->first == manuscriptId) {
             it->second.deleteManuscript(manuscriptId);
             _manuscripts.erase(it);
+            break;
         }
     }
 }
+
+void Netizen::focusOn(const std::string &followerId)
+{
+    _followers.insert({followerId,NetizenProxy(followerId)});
+}
+
+void Netizen::takeOff(const std::string &followerId)
+{
+    for (auto it = _followers.begin(); it != _followers.end(); it++) {
+        if (it->first == followerId){
+            _followers.erase(it);
+            break;
+        }
+    }
+}
+

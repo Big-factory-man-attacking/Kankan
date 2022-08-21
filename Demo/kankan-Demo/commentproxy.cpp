@@ -13,6 +13,7 @@ CommentProxy::~CommentProxy()
 
 std::string CommentProxy::getCommentInfo(std::string id)
 {
+    // 实例化评论对象
     if (m_comment == nullptr)
         m_comment = CommentBroker::getInstance()->getComment(id);
 

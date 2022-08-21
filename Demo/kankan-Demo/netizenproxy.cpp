@@ -16,6 +16,11 @@ NetizenProxy::~NetizenProxy()
 
 }
 
+void NetizenProxy::addNetizen(std::string id, std::string password, std::string nickname)
+{
+    NetizenBroker::getInstance()->addNetizen(id, password, nickname);
+}
+
 nlohmann::json NetizenProxy::getInfo(const std::string& id)
 {
     if (m_netizen == nullptr)
@@ -68,4 +73,21 @@ void NetizenProxy::modifyManuscriptInfo(const nlohmann::json &newManuscriptInfo)
         m_netizen = NetizenBroker::getInstance()->findNetizenById(m_id);
 
     m_netizen->modifyManuscriptInfo(newManuscriptInfo);
+}
+
+void NetizenProxy::focusOn(const std::string &followerId, const std::string &followerNickname)
+{
+    if (m_netizen == nullptr)
+        m_netizen = NetizenBroker::getInstance()->findNetizenById(m_id);
+    m_netizen->focusOn(followerId);
+
+    NetizenBroker::getInstance()->focusOn(m_id, m_netizen->nickname(), followerId, followerNickname);
+}
+
+void NetizenProxy::takeOff(const std::string &followerId)
+{
+    if (m_netizen == nullptr)
+        m_netizen = NetizenBroker::getInstance()->findNetizenById(m_id);
+    m_netizen->takeOff(followerId);
+    NetizenBroker::getInstance()->takeOff(m_id, followerId);
 }

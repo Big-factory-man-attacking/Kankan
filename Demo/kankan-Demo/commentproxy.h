@@ -2,6 +2,7 @@
 #define COMMENTPROXY_H
 
 #include <memory>
+#include <string>
 #include "commentinterface.h"
 
 class Comment;
@@ -12,7 +13,8 @@ public:
     CommentProxy(std::string& id);
     ~CommentProxy();
 
-    //返回评论的内容
+    // 返回评论的内容
+    // id：对应评论的id
     std::string getCommentInfo(std::string id);
 private:
     std::string m_id;

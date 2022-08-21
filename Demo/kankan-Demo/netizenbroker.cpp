@@ -47,17 +47,15 @@ bool NetizenBroker::qualifyNetizenPassword(std::string id, std::string password)
     return false;
 }
 
-void NetizenBroker::insertNewNetizen(std::shared_ptr<Netizen> netizen)
+void NetizenBroker::addNetizen(const std::string &id, const std::string &password, const std::string &nickname)
 {
-    std::string sql = netizen->insertSql();
-    std::cout << sql << std::endl;
+    std::string sql = "insert into user values( '" + id + "', '" + password + "', '" + nickname + "', null);";
+
     insert(sql);
 }
 
 std::shared_ptr<Netizen> NetizenBroker::findNetizenById(const std::string& id)
 {
-    //检查用户是否在缓存中
-
     //查找数据库，找出用户的nickname
     std::string nickname, headportrait;
 
@@ -139,6 +137,28 @@ void NetizenBroker::modifyPassword(const std::string &id, const std::string pass
     std::cout << "修改密码sql：" << sql << std::endl;
 
     update(sql);
+}
+
+void NetizenBroker::focusOn(const std::string &fanId, const std::string &fanNickname, const std::string &followerId, const std::string &followerNickname)
+{
+    std::string sql = "insert into follower values('" + fanId + "','" + fanNickname + "','" + followerId + "','" + followerNickname + "');";
+
+    insert(sql);
+
+    sql = "insert into fan values('" + followerId + "','" + followerNickname + "','" + fanId + "','" + fanNickname + "');";
+
+    insert(sql);
+}
+
+void NetizenBroker::takeOff(const std::string &fanId, const std::string &followerId)
+{
+    std::string sql = "delete from  follower where user_id = '" + fanId + "' and follower_id = '" + followerId + "';";
+
+    Delete(sql);
+
+    sql = "delete from fan where user_id = '" + followerId + "' and fan_id = '" + fanId + "';";
+
+    Delete(sql);
 }
 
 

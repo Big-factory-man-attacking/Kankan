@@ -12,14 +12,18 @@ class ManuscriptProxy : public ManuscriptInterface
 {
 public:
     ManuscriptProxy(std::string id);
-    nlohmann::json getManuscriptInfo(const std::string& id);
+
     //获取稿件的相关信息(发布时间、封面、视频时长、标题)
     //id：稿件id
+    nlohmann::json getManuscriptInfo(const std::string& id);
 
-    //修改稿件的信息
+
+    // 修改稿件的信息
+    // newManuscriptInfo：新的稿件信息
     void modifyManuscriptInfo(const nlohmann::json& newManuscriptInfo);
 
-    //删除稿件
+    // 删除稿件
+    // manuscriptId：稿件id
     void deleteManuscript(const std::string& manuscriptId);
 
     ~ManuscriptProxy();

@@ -81,12 +81,12 @@ std::map<std::string, std::string> ManuscriptBroker::getManuscripts()
     return manuscriptIds;
 }
 
-void ManuscriptBroker::modifyManuscriptInfo(const std::string &description, const std::string &title, const std::string &label,
+void ManuscriptBroker::modifyManuscriptInfo(const std::string& id, const std::string &description, const std::string &title, const std::string &label,
                                             const std::string &subarea, const std::string &isOriginal, const std::string &cover, const std::string &date)
 {
     std::string sql = "update manuscript set description = '" + description + "', title =  '" + title + "', label = '" +
             label + "', subarea = '" + subarea + "', isOriginal = " + isOriginal + ", cover = '" + cover + "', date = '" +
-            date + "'";
+            date + "' where manuscript_id = '" + id + "'";
 
     std::cout << "修改稿件信息sql:" << sql << std::endl;
 

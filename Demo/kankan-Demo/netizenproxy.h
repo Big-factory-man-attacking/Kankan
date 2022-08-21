@@ -14,6 +14,9 @@ public:
     NetizenProxy(std::string id);
     ~NetizenProxy();
 
+    // 注册
+    void addNetizen(std::string id, std::string password, std::string nickname);
+
     nlohmann::json getInfo(const std::string& id);
 
     // 删除稿件
@@ -30,6 +33,12 @@ public:
 
     // 修改稿件信息
     void modifyManuscriptInfo(const nlohmann::json& newManuscriptInfo);
+
+    // 添加关注
+    void focusOn(const std::string& followerId, const std::string& followerNickname);
+
+    // 取关
+    void takeOff(const std::string& followerId);
 private:
     std::string m_id;
     std::shared_ptr<Netizen> m_netizen;
