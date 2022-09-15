@@ -6,7 +6,7 @@ use Kankan;
 create table user( 
 	user_id VARCHAR(132) UNIQUE NOT NULL PRIMARY KEY, 
 	password VARCHAR(20) NOT NULL, 
-	nickname VARCHAR(140),
+	nickname VARCHAR(100),
 	headPortrait VARCHAR(100)
 ) DEFAULT CHARSET=utf8mb4 COMMENT="用户信息表";
 
@@ -18,14 +18,14 @@ create table manuscript(
 	subarea VARCHAR(20), 
 	isOriginal boolean NOT NULL, 
 	cover VARCHAR(250) NOT NULL,
-	date VARCHAR(30) NOT NULL,
+	date VARCHAR(130) NOT NULL,
 	user_id VARCHAR(132),
 	FOREIGN KEY(user_id) REFERENCES user(user_id)
 ) DEFAULT CHARSET=utf8mb4 COMMENT="稿件信息表";
 
 create table video(
 	video_id VARCHAR(132) UNIQUE NOT NULL PRIMARY KEY,
-	address VARCHAR(50) NOT NULL,
+	address VARCHAR(100) NOT NULL,
 	manuscript_id VARCHAR(132),
 	FOREIGN KEY(manuscript_id) REFERENCES manuscript(manuscript_id) on delete cascade
 ) DEFAULT CHARSET=utf8mb4 COMMENT="视频文件数据表";
@@ -39,16 +39,16 @@ create table comment(
 
 create table fan( 
 	user_id VARCHAR(132),
-	user_nickname VARCHAR(20),
+	user_nickname VARCHAR(100),
 	fan_id VARCHAR(132),
-	fan_nickname VARCHAR(20)
+	fan_nickname VARCHAR(100)
 ) DEFAULT CHARSET=utf8mb4 COMMENT="粉丝表";
 
 create table follower( 
 	user_id VARCHAR(132),
-	user_nickname VARCHAR(20),	
+	user_nickname VARCHAR(100),	
 	follower_id VARCHAR(132),
-	follower_nickname VARCHAR(20)
+	follower_nickname VARCHAR(100)
 ) DEFAULT CHARSET=utf8mb4 COMMENT="关注者表";
 
 
@@ -76,6 +76,4 @@ insert into follower values("459e143b-773e-44b2-83b7-147d6ab99273", "quhu", "ce2
 insert into follower values("ce20e992-2530-4d7f-abc0-801879c5d3cb", "zhangqingjun", "459e143b-773e-44b2-83b7-147d6ab99273", "quhu");
 
 
-insert into comment values("b9d84ff4-95e0-43ab-8d0c-c88b9edbfb7f", "aaaa,up", "5659653c-45fa-4185-86ae-28ba3c46e5d0", "ce20e992-2530-4d7f-abc0-801879c5d3cb");
-
-
+insert into comment values("b9d84ff4-95e0-43ab-8d0c-c88b9edbfb7f", "aaaa,up", "5659653c-45fa-4185-86ae-28ba3c46e5d0", "ce20e992-2530-4d7f-abc0-801879c5d3cb"); 
